@@ -8,3 +8,4 @@ https://sprtkd.github.io/resource-dashboard/index.html
 | Name        | Email          |
 | ------------- | --------------------|
 | Suprotik Dey | supdey1@gmail.com |
+| Rini Ednani | riniednani20@gmail.com |
