@@ -1,11 +1,13 @@
 .error-container {
     all: revert;
     text-align: center;
-    padding: 100px;
     display: block;
 }
 
 @media only screen and (min-width: 600px) {
+    .error-container {
+        padding: 100px;
+    }
     .fourofour {
         font-size: 200px;
         color: rgb(248, 192, 123);
@@ -13,7 +15,7 @@
     }
     .error-font {
         font-size: 25px;
-        font-weight: 600;
+        font-weight: 500;
         color: rgb(107, 107, 107);
         display: contents;
     }
@@ -25,8 +27,12 @@
         color: rgb(248, 192, 123);
         height: 130px;
     }
+
+    .error-container {
+        padding: 50px;
+    }
     .error-font {
-        font-size: 20px;
+        font-size: 15px;
         font-weight: normal;
         color: rgb(107, 107, 107);
         display: contents;
