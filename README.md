@@ -10,3 +10,4 @@ https://sprtkd.github.io/resource-dashboard/index.html
 | Suprotik Dey | supdey1@gmail.com |
 | Rini Ednani | riniednani20@gmail.com |
 | Roshni | 9265rosh@gmail.com |
+| Gayatri | guts241993@gmail.com |
