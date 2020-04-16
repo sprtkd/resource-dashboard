@@ -11,3 +11,4 @@ https://sprtkd.github.io/resource-dashboard/index.html
 | Rini Ednani | riniednani20@gmail.com |
 | Roshni | 9265rosh@gmail.com |
 | Gayatri | guts241993@gmail.com |
+| Sonam Patil | sonampatil187@gmail.com |
