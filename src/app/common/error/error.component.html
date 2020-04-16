@@ -1,1 +1,22 @@
-<p>error works!</p>
+<div class="error-container">
+    <br>
+    <div class="fourofour">404</div>
+    <div class="error-font">
+        There is nothing here.
+        <br>
+        You can keep looking.
+        <br>
+        <br>
+        Or go somewhere else:
+    </div>
+    <div class="button-flex-container">
+        <a mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="goBack()">
+            <mat-icon>keyboard_backspace</mat-icon>
+        </a>
+
+        <a mat-fab color="primary" aria-label="Example icon button with a delete icon" routerLink="/home">
+            <mat-icon>home</mat-icon>
+        </a>
+    </div>
+
+</div>

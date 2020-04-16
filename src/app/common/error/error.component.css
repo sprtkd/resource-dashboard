@@ -1,0 +1,25 @@
+.error-container{
+    
+    all: revert;
+    text-align: center;
+    padding: 100px;
+    display: block;
+}
+
+.fourofour{
+    font-size: 200px;
+    color: rgb(248, 192, 123);
+    height: 150px;
+}
+
+.error-font{
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(107, 107, 107);
+    display: contents;
+
+}
+
+  .button-flex-container a {
+   margin: 10px;
+  }

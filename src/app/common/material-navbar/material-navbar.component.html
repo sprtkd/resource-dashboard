@@ -13,9 +13,10 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <mat-icon aria-hidden="false">donut_small</mat-icon>
+     
 
-      <span>Dormant Account Manager</span>
+      <a mat-stroked-button routerLink="/home"> <mat-icon aria-hidden="false">donut_small</mat-icon>
+        &nbsp; Dormant Account Manager</a>
       <span class="filler"></span>
       <span [ngClass]="{hidden: (isHandset$ | async)}">
         <a class="navbar-buttons" mat-raised-button *ngFor="let link of navbarLinks" href="#">{{link}}</a>
