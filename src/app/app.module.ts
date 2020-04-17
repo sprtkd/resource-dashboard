@@ -21,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ProfileComponent } from './landing/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { environment } from '../environments/environment';
     RegisterComponent,
     DashboardComponent,
     ViewLogsComponent,
-    MaterialNavbarComponent
+    MaterialNavbarComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

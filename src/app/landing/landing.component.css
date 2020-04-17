@@ -1,0 +1,37 @@
+.landing-container {
+    all: revert;
+    text-align: center;
+    display: block;
+    padding: 80px;
+    line-height: normal;
+}
+
+@media only screen and (max-width: 600px) {
+    .landing-title{
+        font-size: 14vw;
+        
+    }
+
+    .landing-text{
+        font-size: 5vw;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .landing-title{
+        font-size: 6vw;
+       
+    }
+
+    .landing-text{
+        font-size: 1.75vw;
+    }
+}
+
+.landing-title{
+    color: coral;
+}
+
+.landing-text{
+    color: rgb(197, 197, 197);
+}
