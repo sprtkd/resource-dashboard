@@ -22,6 +22,7 @@ import { MatListModule } from '@angular/material/list';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ProfileComponent } from './landing/profile/profile.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { ProfileComponent } from './landing/profile/profile.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatTabsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
