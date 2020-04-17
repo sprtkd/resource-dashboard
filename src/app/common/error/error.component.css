@@ -16,7 +16,7 @@
     .error-font {
         font-size: 25px;
         font-weight: 500;
-        color: rgb(107, 107, 107);
+        color: rgb(179, 179, 179);
         display: contents;
     }
 }
@@ -34,7 +34,7 @@
     .error-font {
         font-size: 15px;
         font-weight: normal;
-        color: rgb(107, 107, 107);
+        color: rgb(179, 179, 179);
         display: contents;
     }
 }
