@@ -29,6 +29,13 @@ export class MaterialNavbarComponent {
     this._snackBar.open(message, action, {
       duration: 2000,
     });
+
+   
+  }
+
+  readNotifictions(){
+    this.notificationList = [];
+    this.notificationCount = 0;
   }
 
 }

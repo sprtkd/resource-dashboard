@@ -12,7 +12,6 @@ export class NavbarComponent implements OnInit {
 
   constructor() {
     this.listOfLinks.push(
-      { 'linkName': "Home", 'linkUri': "/home" },
       { 'linkName': "Dashboard", 'linkUri': "/app/dashboard" },
       { 'linkName': "Logs", 'linkUri': "/app/logs" },
       { 'linkName': "Logout", 'linkUri': "abc" },
