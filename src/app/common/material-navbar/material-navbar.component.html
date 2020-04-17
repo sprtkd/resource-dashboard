@@ -4,8 +4,8 @@
     [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item *ngFor="let link of navbarLinks" [routerLink]='link.linkUri'
-        [href]='link.linkUrl'>{{link.linkName}}</a>
+      <a mat-list-item *ngFor="let link of navbarLinks" [routerLink]='link.linkUri' routerLinkActive="active-list-item"
+        [routerLinkActiveOptions]="{exact: true}">{{link.linkName}}</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -20,11 +20,22 @@
         <mat-icon aria-hidden="false">donut_small</mat-icon>
         &nbsp; Dormant Account Manager
       </a>
+      &nbsp;
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon [matBadge]="notificationCount" matBadgeColor="warn" aria-hidden="false">notifications</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button *ngFor="let notify of notificationList" mat-menu-item>{{notify}}</button>
+      </mat-menu>
+      <button mat-icon-button>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+
       <span class="filler"></span>
       <span [ngClass]="{hidden: (isHandset$ | async)}">
         <a class="navbar-buttons" mat-raised-button *ngFor="let link of navbarLinks" [routerLink]='link.linkUri'
-          [href]='link.linkUrl' routerLinkActive='mat-accent'
-          [routerLinkActiveOptions]="{exact: true}">{{link.linkName}}</a>
+          routerLinkActive='mat-accent' [routerLinkActiveOptions]="{exact: true}">{{link.linkName}}</a>
       </span>
 
 

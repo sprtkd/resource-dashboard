@@ -10,6 +10,8 @@ import { LinkUiModel } from 'src/app/models/link.ui.model';
   styleUrls: ['./material-navbar.component.css']
 })
 export class MaterialNavbarComponent {
+  notificationCount: number;
+  notificationList: String[] = [];
   @Input() navbarLinks: LinkUiModel[];
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -17,6 +19,9 @@ export class MaterialNavbarComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  constructor(private breakpointObserver: BreakpointObserver, ) {
+    this.notificationList = ["Hi", "Hello", "Forgot to implement"]
+    this.notificationCount = this.notificationList.length;
+  }
 
 }
