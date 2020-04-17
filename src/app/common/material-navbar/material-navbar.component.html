@@ -18,7 +18,7 @@
 
       <a mat-stroked-button routerLink="/home">
         <mat-icon aria-hidden="false">donut_small</mat-icon>
-        &nbsp; Dormant Account Manager
+        &nbsp; Dormant A/C Manager
       </a>
       &nbsp;
       <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -27,7 +27,7 @@
       <mat-menu #menu="matMenu">
         <button *ngFor="let notify of notificationList" mat-menu-item>{{notify}}</button>
       </mat-menu>
-      <button mat-icon-button>
+      <button mat-icon-button (click)="openSnackBar('Settings not implemented', 'Implement')">
         <mat-icon>more_vert</mat-icon>
       </button>
 

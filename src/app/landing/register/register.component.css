@@ -1,0 +1,9 @@
+.register-container {
+    all: revert;
+    text-align: center;
+    display: block;
+    padding: 80px;
+    line-height: normal;
+    font-size: x-large;
+    height: 100%;
+}
