@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { LinkUiModel } from 'src/app/models/link.ui.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-material-navbar',
@@ -19,9 +20,22 @@ export class MaterialNavbarComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, ) {
+  constructor(private breakpointObserver: BreakpointObserver, private _snackBar: MatSnackBar) {
     this.notificationList = ["Hi", "Hello", "Forgot to implement"]
     this.notificationCount = this.notificationList.length;
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+
+   
+  }
+
+  readNotifictions(){
+    this.notificationList = [];
+    this.notificationCount = 0;
   }
 
 }
