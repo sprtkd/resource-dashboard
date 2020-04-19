@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1587121859798,
+  "timestamp": 1587294895289,
   "index": "https://sprtkd.github.io/resource-dashboard/index.html",
   "assetGroups": [
     {
@@ -10,14 +10,14 @@
       "urls": [
         "https://sprtkd.github.io/resource-dashboard/favicon.ico",
         "https://sprtkd.github.io/resource-dashboard/index.html",
-        "https://sprtkd.github.io/resource-dashboard/main-es2015.189d3ff54f1f979d418a.js",
-        "https://sprtkd.github.io/resource-dashboard/main-es5.189d3ff54f1f979d418a.js",
+        "https://sprtkd.github.io/resource-dashboard/main-es2015.a7734b5c3d2d3fb4cf92.js",
+        "https://sprtkd.github.io/resource-dashboard/main-es5.a7734b5c3d2d3fb4cf92.js",
         "https://sprtkd.github.io/resource-dashboard/manifest.webmanifest",
         "https://sprtkd.github.io/resource-dashboard/polyfills-es2015.690002c25ea8557bb4b0.js",
         "https://sprtkd.github.io/resource-dashboard/polyfills-es5.9e286f6d9247438cbb02.js",
         "https://sprtkd.github.io/resource-dashboard/runtime-es2015.1eba213af0b233498d9d.js",
         "https://sprtkd.github.io/resource-dashboard/runtime-es5.1eba213af0b233498d9d.js",
-        "https://sprtkd.github.io/resource-dashboard/styles.05b0838ff638ca28163f.css"
+        "https://sprtkd.github.io/resource-dashboard/styles.78a5c859314bb4e36eb6.css"
       ],
       "patterns": []
     },
@@ -42,7 +42,7 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "https://sprtkd.github.io/resource-dashboard/assets/grey-cyan-theme.css": "be2baa25756e7e94e22ed2c843e25f3f73439e9f",
+    "https://sprtkd.github.io/resource-dashboard/assets/grey-cyan-theme.css": "e72356407a435f0334b8bfe1b079e8440d06e098",
     "https://sprtkd.github.io/resource-dashboard/assets/grey-cyan-theme.scss": "1026b06dc0c3da478924b5d7eeca90f5b608a321",
     "https://sprtkd.github.io/resource-dashboard/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
     "https://sprtkd.github.io/resource-dashboard/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
@@ -53,15 +53,15 @@
     "https://sprtkd.github.io/resource-dashboard/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "https://sprtkd.github.io/resource-dashboard/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "https://sprtkd.github.io/resource-dashboard/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://sprtkd.github.io/resource-dashboard/index.html": "3b8dae34ffa5a93f1f33d5d92233a8f5a6eeb214",
-    "https://sprtkd.github.io/resource-dashboard/main-es2015.189d3ff54f1f979d418a.js": "9d77c8bafae1277e7df2d8de2e18d14664a91685",
-    "https://sprtkd.github.io/resource-dashboard/main-es5.189d3ff54f1f979d418a.js": "c857a27951cbc595c68f809ca524885b8942855e",
-    "https://sprtkd.github.io/resource-dashboard/manifest.webmanifest": "d41ab942f436308fc7b19262ddae3ea847f5e448",
+    "https://sprtkd.github.io/resource-dashboard/index.html": "7328c9679f891f594b89ce022a2568bff3f4cab5",
+    "https://sprtkd.github.io/resource-dashboard/main-es2015.a7734b5c3d2d3fb4cf92.js": "1c35ff52a6c0e0c6de11459ffb029187a564cd95",
+    "https://sprtkd.github.io/resource-dashboard/main-es5.a7734b5c3d2d3fb4cf92.js": "66416e5acf9745621d42e53a61a9ff59593a186a",
+    "https://sprtkd.github.io/resource-dashboard/manifest.webmanifest": "50d38c37fe4115afc7127034ff516b2fdc808914",
     "https://sprtkd.github.io/resource-dashboard/polyfills-es2015.690002c25ea8557bb4b0.js": "72ad4ccc0a3916ae4598199447cdeadd6d380570",
     "https://sprtkd.github.io/resource-dashboard/polyfills-es5.9e286f6d9247438cbb02.js": "e51a1de4f016cd689dbdbef51043dec9518c4111",
     "https://sprtkd.github.io/resource-dashboard/runtime-es2015.1eba213af0b233498d9d.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
     "https://sprtkd.github.io/resource-dashboard/runtime-es5.1eba213af0b233498d9d.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
-    "https://sprtkd.github.io/resource-dashboard/styles.05b0838ff638ca28163f.css": "14e1db0da941e23ef7ac981191a5634c83321e1e"
+    "https://sprtkd.github.io/resource-dashboard/styles.78a5c859314bb4e36eb6.css": "78c03410e32d1be6ebfb1c4a4f8bdb1c095a80d0"
   },
   "navigationUrls": [
     {
