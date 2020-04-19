@@ -24,7 +24,11 @@ import { environment } from '../environments/environment';
 import { ProfileComponent } from './landing/profile/profile.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatBadgeModule } from '@angular/material/badge';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from "@angular/material/menu";
+import {FormsModule} from '@angular/forms';
+import { MatInputModule } from "@angular/material/input";
+import { MatCardModule } from "@angular/material/card";
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -53,6 +57,10 @@ import {MatMenuModule} from '@angular/material/menu';
     MatTabsModule,
     MatBadgeModule,
     MatMenuModule,
+    FormsModule,
+    MatInputModule,
+    MatCardModule,
+    FlexLayoutModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
