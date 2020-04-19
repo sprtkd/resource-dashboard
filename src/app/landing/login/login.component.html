@@ -1,30 +1,39 @@
-<div id="login-div" fxLayout="row wrap" fxLayoutAlign="center center" >
-<mat-card class="example-card">
+<div id="login-div" fxLayout="row wrap" fxLayoutAlign="center center">
+  <mat-card class="example-card">
     <mat-card-header>
-        <mat-card-title>Sign IN</mat-card-title>
-      </mat-card-header>
+      <mat-card-title>Sign In</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
       <form class="example-form">
         <table class="example-full-width" cellspacing="0">
           <tr>
             <td>
               <mat-form-field class="example-full-width">
-              <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
+                <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
               </mat-form-field>
             </td>
           </tr>
           <tr>
-          <td><mat-form-field class="example-full-width">
-            <input matInput placeholder="Password" [(ngModel)]="password"type="password" name="password" required>
-          </mat-form-field></td>
-        </tr></table>
+            <td>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
+              </mat-form-field>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <mat-slide-toggle>Remember me</mat-slide-toggle>
+            </td>
+          </tr>
+        </table>
       </form>
-      
+
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button (click)="login()" color="primary">Login</button>
     </mat-card-actions>
-   
+
   </mat-card>
-  
+
 </div>
