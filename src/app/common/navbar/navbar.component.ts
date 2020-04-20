@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LinkUiModel } from 'src/app/models/link.ui.model';
+import { LinkUiModel } from 'src/app/models/ui/link.ui.model';
 
 @Component({
   selector: 'app-navbar',

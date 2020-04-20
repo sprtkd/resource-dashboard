@@ -1,0 +1,59 @@
+<mat-card class="support-rep-card">
+    <mat-card-header>
+        <mat-icon mat-card-avatar>cloud_upload</mat-icon>
+        <mat-card-title>
+            Import to Add Dormant Account Details
+        </mat-card-title>
+        <mat-card-subtitle>Excel Sheets supported</mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <br>
+    <mat-card-content>
+        <mat-card *ngIf="fileImportObject.fileName" class="uploadCard">
+            <mat-card-header>
+                <mat-icon mat-card-avatar>insert_drive_file</mat-icon>
+                <mat-card-title>
+                    {{fileImportObject.fileName}}
+                </mat-card-title>
+                <mat-card-subtitle>{{fileImportObject.fileSize}} B</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+
+                <div *ngIf="getFileStatus()!='SELECTED' && getFileStatus()!='SAVED_TO_DB'">
+                    <div>
+                        <h3>{{fileImportObject.message}}</h3>
+                        <mat-progress-bar [mode]="fileImportObject.progressBarType"
+                            [value]="fileImportObject.uploadPercentage" color="accent"></mat-progress-bar>
+                        <br>
+                        <button mat-stroked-button disabled>
+                            Status: {{getFileStatus()}}
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="getFileStatus()=='SAVED_TO_DB'">
+                    <button mat-stroked-button color="accent">
+                        Successfully saved in Database.
+                    </button>
+                    <button mat-raised-button color="warn" (click)="resetFileImport()">
+                        Upload New
+                    </button>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <div *ngIf="getFileStatus()=='SELECTED'">
+                    <button mat-raised-button color="accent" (click)="validateUpload()">Validate & Upload</button>
+                    <button mat-raised-button color="warn" (click)="resetFileImport()">Cancel</button>
+                </div>
+            </mat-card-actions>
+        </mat-card>
+
+    </mat-card-content>
+    <mat-card-actions>
+        <div *ngIf="!fileImportObject.fileName">
+            <button type="button" mat-raised-button (click)="fileInput.click()" color="accent">Choose File</button>
+            <input hidden (change)="true" #fileInput type="file" onclick="this.value=null"
+                (change)="onFileSelected($event)" accept=".xls, .xlsx">
+            <div class="limit-warn">*Files under 5MB are supported</div>
+        </div>
+    </mat-card-actions>
+</mat-card>

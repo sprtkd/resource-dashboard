@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { LinkUiModel } from 'src/app/models/link.ui.model';
+import { LinkUiModel } from 'src/app/models/ui/link.ui.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

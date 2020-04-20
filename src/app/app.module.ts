@@ -33,6 +33,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LogoutComponent } from './common/logout/logout.component';
+import { AdminComponent } from './dashboard/admin/admin.component';
+import { SupportRepresentativeComponent } from './dashboard/support-representative/support-representative.component';
+import { FileImportComponent } from './dashboard/common/file-import/file-import.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatChipsModule } from '@angular/material/chips';
 
 
 @NgModule({
@@ -48,7 +53,10 @@ import { LogoutComponent } from './common/logout/logout.component';
     ViewLogsComponent,
     MaterialNavbarComponent,
     ProfileComponent,
-    LogoutComponent
+    LogoutComponent,
+    AdminComponent,
+    SupportRepresentativeComponent,
+    FileImportComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +78,8 @@ import { LogoutComponent } from './common/logout/logout.component';
     MatSnackBarModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
+    MatProgressBarModule,
+    MatChipsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
