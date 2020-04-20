@@ -38,7 +38,9 @@ import { SupportRepresentativeComponent } from './dashboard/support-representati
 import { FileImportComponent } from './dashboard/common/file-import/file-import.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatChipsModule } from '@angular/material/chips';
-
+import { CustomerTableComponent } from './dashboard/common/customer-table/customer-table.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import { MatChipsModule } from '@angular/material/chips';
     LogoutComponent,
     AdminComponent,
     SupportRepresentativeComponent,
-    FileImportComponent
+    FileImportComponent,
+    CustomerTableComponent
   ],
   imports: [
     BrowserModule,
@@ -80,6 +83,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatSlideToggleModule,
     MatProgressBarModule,
     MatChipsModule,
+    MatExpansionModule,
+    MatTableModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
