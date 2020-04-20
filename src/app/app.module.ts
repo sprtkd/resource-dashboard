@@ -31,6 +31,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LogoutComponent } from './common/logout/logout.component';
 
 
 @NgModule({
@@ -45,7 +47,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     DashboardComponent,
     ViewLogsComponent,
     MaterialNavbarComponent,
-    ProfileComponent
+    ProfileComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -65,6 +68,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatCardModule,
     FlexLayoutModule,
     MatSnackBarModule,
+    ReactiveFormsModule,
     MatSlideToggleModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],

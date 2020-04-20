@@ -6,6 +6,7 @@ import { LoginComponent } from './landing/login/login.component';
 import { RegisterComponent } from './landing/register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ViewLogsComponent } from './view-logs/view-logs.component';
+import { LogoutComponent } from './common/logout/logout.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
       { path: 'logs', component: ViewLogsComponent }
     ]
   },
+  { path: 'logout', component: LogoutComponent },
   { path: '**', component: ErrorComponent }
 ];
 

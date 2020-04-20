@@ -2,3 +2,11 @@
     text-align: center;
     height: 90%;
 }
+
+.login-input{
+    width: 100%;
+}
+
+.login-card{
+    min-width: 300px;
+}
