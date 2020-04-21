@@ -1,8 +1,8 @@
 .uploadCard {
-    background-color: rgba(46, 67, 255, 0.247);
+    background-color: rgba(0, 0, 0, 0.247);
 }
 
 .limit-warn {
     font-size: smaller;
-    color: rgb(255, 201, 157);
+    color: rgb(255, 155, 155);
 }

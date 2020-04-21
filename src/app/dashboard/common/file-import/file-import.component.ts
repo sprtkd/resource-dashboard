@@ -18,28 +18,12 @@ export class FileImportComponent implements OnInit {
 
   resetFileImport() {
     this.fileImportObject = new FileUiImportModel();
-    this.fileImportObject.fileName = null;
-    this.fileImportObject.fileToUpload = null;
-    this.fileImportObject.progressBarType = "determinate";
-    this.fileImportObject.status = FileStatus.NONE;
-    this.fileImportObject.uploadPercentage = 0;
-    this.fileImportObject.fileSize = 0;
-    this.fileImportObject.message = null;
-  }
-
-  getFileStatus() {
-    return FileStatus[this.fileImportObject.status];
+    this.fileImportObject.resetFileImport();
   }
 
   onFileSelected(fileInputEvent: any) {
     this.fileImportObject.fileToUpload = fileInputEvent.target.files[0];
-    this.fileImportObject.fileName = this.fileImportObject.fileToUpload.name;
-    this.fileImportObject.fileSize = this.fileImportObject.fileToUpload.size;
-    this.fileImportObject.status = FileStatus.SELECTED;
-  }
-
-  validateUpload() {
-    this.fileImportObject.validateAndUploadExcel();
+    this.fileImportObject.fileSelected();
   }
 
 }

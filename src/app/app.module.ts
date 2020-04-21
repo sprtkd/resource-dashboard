@@ -41,6 +41,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { CustomerTableComponent } from './dashboard/common/customer-table/customer-table.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTableModule } from '@angular/material/table';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { MatTableModule } from '@angular/material/table';
     MatChipsModule,
     MatExpansionModule,
     MatTableModule,
+    MatGridListModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],

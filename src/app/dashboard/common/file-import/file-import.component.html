@@ -15,35 +15,68 @@
                 <mat-card-title>
                     {{fileImportObject.fileName}}
                 </mat-card-title>
-                <mat-card-subtitle>{{fileImportObject.fileSize}} B</mat-card-subtitle>
+                <mat-card-subtitle>{{fileImportObject.formatBytes(fileImportObject.fileSize, 2)}}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
 
-                <div *ngIf="getFileStatus()!='SELECTED' && getFileStatus()!='SAVED_TO_DB'">
+                <div
+                    *ngIf="fileImportObject.getFileStatus()!='SELECTED' && fileImportObject.getFileStatus()!='SAVED_TO_DB'">
                     <div>
                         <h3>{{fileImportObject.message}}</h3>
                         <mat-progress-bar [mode]="fileImportObject.progressBarType"
                             [value]="fileImportObject.uploadPercentage" color="accent"></mat-progress-bar>
                         <br>
                         <button mat-stroked-button disabled>
-                            Status: {{getFileStatus()}}
+                            Status: {{fileImportObject.getFileStatus()}}
                         </button>
                     </div>
                 </div>
-                <div *ngIf="getFileStatus()=='SAVED_TO_DB'">
-                    <button mat-stroked-button color="accent">
-                        Successfully saved in Database.
-                    </button>
+                <mat-list>
+                    <mat-list-item *ngFor="let msg of fileImportObject.successMessageList"
+                        style="color: rgb(133, 252, 129); font-size: smaller;">
+                        {{msg}}
+                    </mat-list-item>
+                    <mat-list-item *ngIf="fileImportObject.getIfFailed()">
+                        <div class="limit-warn">
+                            Failed: {{fileImportObject.message}}
+                        </div>
+                    </mat-list-item>
+                </mat-list>
+
+                <div *ngIf="fileImportObject.getFileStatus()=='SAVED_TO_DB'">
+                    <mat-list>
+                        <mat-list-item style="color: orange;">
+
+                            Successfully saved in DB.
+
+                        </mat-list-item>
+                        <mat-list-item>
+                            <button mat-raised-button color="warn" (click)="resetFileImport()">
+                                Upload New
+                            </button>
+                        </mat-list-item>
+
+                    </mat-list>
+
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <mat-list *ngIf="fileImportObject.getFileStatus()=='SELECTED'">
+
+                    <mat-list-item>
+                        <button mat-raised-button color="accent"
+                            (click)="fileImportObject.validateAndUploadExcel()">Validate & Upload</button>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <button mat-raised-button color="warn" (click)="resetFileImport()">Cancel</button>
+                    </mat-list-item>
+                </mat-list>
+                <div *ngIf="fileImportObject.getIfFailed()">
                     <button mat-raised-button color="warn" (click)="resetFileImport()">
                         Upload New
                     </button>
                 </div>
-            </mat-card-content>
-            <mat-card-actions>
-                <div *ngIf="getFileStatus()=='SELECTED'">
-                    <button mat-raised-button color="accent" (click)="validateUpload()">Validate & Upload</button>
-                    <button mat-raised-button color="warn" (click)="resetFileImport()">Cancel</button>
-                </div>
+
             </mat-card-actions>
         </mat-card>
 
@@ -52,8 +85,9 @@
         <div *ngIf="!fileImportObject.fileName">
             <button type="button" mat-raised-button (click)="fileInput.click()" color="accent">Choose File</button>
             <input hidden (change)="true" #fileInput type="file" onclick="this.value=null"
-                (change)="onFileSelected($event)" accept=".xls, .xlsx">
+                (change)="onFileSelected($event)" accept=".xls, .xlsx, .csv">
             <div class="limit-warn">*Files under 5MB are supported</div>
+            <div class="limit-warn">*Supported Formats: .xls, .xlsx, .csv</div>
         </div>
     </mat-card-actions>
 </mat-card>
