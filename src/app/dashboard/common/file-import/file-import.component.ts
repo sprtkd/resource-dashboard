@@ -10,10 +10,12 @@ import { interval } from 'rxjs';
 export class FileImportComponent implements OnInit {
 
   fileImportObject: FileUiImportModel;
+  viewDetails: Boolean;
   constructor() { }
 
   ngOnInit(): void {
     this.resetFileImport()
+    this.viewDetails = false;
   }
 
   resetFileImport() {

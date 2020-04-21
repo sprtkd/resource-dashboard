@@ -46,6 +46,8 @@ import { CustomerDetailedViewComponent } from './dashboard/common/customer-detai
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatRippleModule } from '@angular/material/core';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -95,6 +97,8 @@ import { MatRippleModule } from '@angular/material/core';
     MatPaginatorModule,
     MatSortModule,
     MatRippleModule,
+    MatButtonToggleModule,
+    MatStepperModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],

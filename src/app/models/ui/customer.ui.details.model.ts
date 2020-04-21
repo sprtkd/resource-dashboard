@@ -1,7 +1,7 @@
 export enum CustomerStatus {
-    INACTIVE = 'I',
-    ACTIVE = 'A',
-    CLOSED = 'C'
+    INACTIVE = <any>'I',
+    ACTIVE = <any>'A',
+    CLOSED = <any>'C',
 }
 
 export interface CustomerUiBasicModel {

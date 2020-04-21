@@ -20,7 +20,7 @@ import { MatSort } from '@angular/material/sort';
 export class CustomerTableComponent implements OnInit {
 
   dataSource = new MatTableDataSource(ELEMENT_DATA);
-
+  filterForAccount: String;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -34,6 +34,7 @@ export class CustomerTableComponent implements OnInit {
     this.expandedElement = null;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.filterForAccount = "All";
   }
 
   applyFilter(event: Event) {

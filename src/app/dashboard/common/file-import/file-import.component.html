@@ -31,7 +31,8 @@
                         </button>
                     </div>
                 </div>
-                <mat-list>
+                <mat-slide-toggle [(ngModel)]="viewDetails">View Details</mat-slide-toggle>
+                <mat-list *ngIf="viewDetails">
                     <mat-list-item *ngFor="let msg of fileImportObject.successMessageList"
                         style="color: rgb(133, 252, 129); font-size: smaller;">
                         {{msg}}

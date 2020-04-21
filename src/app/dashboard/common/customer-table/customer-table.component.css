@@ -1,5 +1,7 @@
 .customer-table-div {
-  min-width: 600px;
+  min-height: 100px;
+  min-width: 500px;
+  padding: 20px;
 }
 
 table {
