@@ -42,6 +42,10 @@ import { CustomerTableComponent } from './dashboard/common/customer-table/custom
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTableModule } from '@angular/material/table';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { CustomerDetailedViewComponent } from './dashboard/common/customer-detailed-view/customer-detailed-view.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -60,7 +64,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     AdminComponent,
     SupportRepresentativeComponent,
     FileImportComponent,
-    CustomerTableComponent
+    CustomerTableComponent,
+    CustomerDetailedViewComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +92,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatExpansionModule,
     MatTableModule,
     MatGridListModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatRippleModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],

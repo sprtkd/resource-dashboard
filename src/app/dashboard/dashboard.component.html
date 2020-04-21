@@ -1,5 +1,5 @@
 <div class="dashboard-div">
-    <app-admin></app-admin>
-    <br>
-    <app-support-representative></app-support-representative>
+    <app-admin *ngIf="profileType=='admin'"></app-admin>
+
+    <app-support-representative *ngIf="profileType=='supportRep'"></app-support-representative>
 </div>
