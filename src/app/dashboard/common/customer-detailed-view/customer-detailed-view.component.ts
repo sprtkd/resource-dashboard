@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CustomerUiBasicModel, CustomerStatus } from 'src/app/models/ui/customer.ui.details.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-customer-detailed-view',
@@ -18,7 +21,12 @@ export class CustomerDetailedViewComponent implements OnInit {
     { stepName: "Pending for Approval", stepFormName: null },
     { stepName: "Closed", stepFormName: null }];
   @Input() selectedCustomer: CustomerUiBasicModel;
-  constructor(private _formBuilder: FormBuilder) { }
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+  constructor(private breakpointObserver: BreakpointObserver, private _formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
