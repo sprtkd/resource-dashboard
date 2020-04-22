@@ -6,12 +6,14 @@ var logger = require('morgan');
 
 //Models
 require('./server/model/user');
+require('./server/model/customer');
 //Configs
 require('./server/config/connection');
 
 
 var indexRouter = require('./server/routes/index');
 var usersRouter = require('./server/routes/users');
+var customerRouter = require('./server/routes/customers');
 
 const http = require('http');
 
@@ -30,6 +32,7 @@ app.use(cookieParser());
 
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/customers', customerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
