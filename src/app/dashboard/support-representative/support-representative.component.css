@@ -10,3 +10,7 @@ mat-icon.mat-card-avatar {
     height: 36px;
     font-size: 36px;
 }
+
+.customer-list-card {
+    min-width: 650px;
+}
