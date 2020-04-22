@@ -1,4 +1,4 @@
-<mat-card class="support-rep-card">
+<mat-card class="upload-main-card frosted-glass">
     <mat-card-header>
         <mat-icon mat-card-avatar>cloud_upload</mat-icon>
         <mat-card-title>
@@ -34,7 +34,7 @@
                 <mat-slide-toggle [(ngModel)]="viewDetails">View Details</mat-slide-toggle>
                 <mat-list *ngIf="viewDetails">
                     <mat-list-item *ngFor="let msg of fileImportObject.successMessageList"
-                        style="color: rgb(133, 252, 129); font-size: smaller;">
+                        style="color: rgb(4, 109, 0); font-size: smaller;">
                         {{msg}}
                     </mat-list-item>
                     <mat-list-item *ngIf="fileImportObject.getIfFailed()">
@@ -46,7 +46,7 @@
 
                 <div *ngIf="fileImportObject.getFileStatus()=='SAVED_TO_DB'">
                     <mat-list>
-                        <mat-list-item style="color: orange;">
+                        <mat-list-item style="color: rgb(255, 123, 0);">
 
                             Successfully saved in DB.
 

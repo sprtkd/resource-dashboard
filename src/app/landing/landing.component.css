@@ -2,37 +2,36 @@
     all: revert;
     text-align: center;
     display: block;
-    padding: 80px;
     line-height: normal;
+    padding: 10px;
+    background: linear-gradient(to right, rgb(132, 172, 248), rgb(30, 201, 178), rgb(125, 252, 138));
 }
 
 @media only screen and (max-width: 600px) {
-    .landing-title{
+    .landing-title {
         font-size: 14vw;
-        
     }
-
-    .landing-text{
+    .landing-text {
         font-size: 5vw;
     }
 }
 
 @media only screen and (min-width: 600px) {
-    .landing-title{
+    .landing-title {
         font-size: 6vw;
-       
     }
-
-    .landing-text{
+    .landing-text {
         font-size: 1.75vw;
     }
 }
 
-.landing-title{
-    color: coral;
+.landing-title {
+    color: rgb(255, 247, 238);
+    font-weight: 400;
+    padding-top: 50px;
 }
 
-.landing-text{
-    color: rgb(197, 197, 197);
+.landing-text {
+    color: rgb(5, 65, 0);
     text-align: center;
 }

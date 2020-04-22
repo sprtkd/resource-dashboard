@@ -1,49 +1,37 @@
-<div class="customer-details-card">
+<mat-card class="customer-details-card">
+  <mat-card-header>
+    <mat-icon mat-card-avatar>person</mat-icon>
+    <mat-card-title>{{selectedCustomer.name}}
+      <span class="rounded-label active" *ngIf="getCurrentStatus()=='ACTIVE'">Active</span>
+      <span class="rounded-label inactive" *ngIf="getCurrentStatus()=='INACTIVE'">Inactive</span>
+      <span class="rounded-label closed" *ngIf="getCurrentStatus()=='CLOSED'">Closed</span>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <div>
+        A/C No: {{selectedCustomer.accountNumber}}
+      </div>
+      <div>
+        Contact No: {{selectedCustomer.contactNumber}}
+      </div>
+      <div>
+        Last Transaction: {{selectedCustomer.lastTransactionDate | date:'medium'}}
+      </div>
+      <div>
+        Last Transaction Amount: {{selectedCustomer.contactNumber}}
+      </div>
+    </mat-card-subtitle>
+  </mat-card-header>
 
-    <div>
+  <mat-card-content>
+    <mat-horizontal-stepper [linear]="true" #stepper>
+      <mat-step [stepControl]="stepperStage.stepFormName" *ngFor = "let stepperStage of listOfStages">
+        <ng-template matStepLabel>{{stepperStage.stepName}}</ng-template>
+        {{stepperStage.stepName}}
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="accent">Assign To Me</button>
+  </mat-card-actions>
 
-        <h2>{{selectedCustomer.name}}
-            <h5>Current Status: {{getCurrentStatus()}}</h5>
-        </h2>
-    </div>
-
-    <div>
-        <mat-horizontal-stepper [linear]="true" #stepper>
-            <mat-step [stepControl]="firstFormGroup">
-              <form [formGroup]="firstFormGroup">
-                <ng-template matStepLabel>Fill out your name</ng-template>
-                <mat-form-field>
-                  <mat-label>Name</mat-label>
-                  <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-                </mat-form-field>
-                <div>
-                  <button mat-button matStepperNext>Next</button>
-                </div>
-              </form>
-            </mat-step>
-            <mat-step [stepControl]="secondFormGroup">
-              <form [formGroup]="secondFormGroup">
-                <ng-template matStepLabel>Fill out your address</ng-template>
-                <mat-form-field>
-                  <mat-label>Address</mat-label>
-                  <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                         required>
-                </mat-form-field>
-                <div>
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext>Next</button>
-                </div>
-              </form>
-            </mat-step>
-            <mat-step>
-              <ng-template matStepLabel>Done</ng-template>
-              <p>You are now done.</p>
-              <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button (click)="stepper.reset()">Reset</button>
-              </div>
-            </mat-step>
-          </mat-horizontal-stepper>
-    </div>
-
-</div>
+</mat-card>

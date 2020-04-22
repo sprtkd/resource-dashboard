@@ -1,6 +1,6 @@
 <br>
 
-<div class="customer-table-div mat-elevation-z8">
+<div class="customer-table-div">
   <mat-form-field>
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John">
@@ -8,9 +8,10 @@
 
   <div>
     <mat-button-toggle-group [(ngModel)]="filterForAccount">
-      <mat-button-toggle value="All" color="accent">All Dormant Accounts</mat-button-toggle>
-      <mat-button-toggle value="Pending" color="accent">Pending Items</mat-button-toggle>
-      <mat-button-toggle value="Closed" color="accent">Closed</mat-button-toggle>
+      <mat-button-toggle value="All">All Dormant Accounts</mat-button-toggle>
+      <mat-button-toggle value="Unassigned">Unassigned</mat-button-toggle>
+      <mat-button-toggle value="Pending">Pending Items</mat-button-toggle>
+      <mat-button-toggle value="Closed">Closed</mat-button-toggle>
     </mat-button-toggle-group>
   </div>
   <br>

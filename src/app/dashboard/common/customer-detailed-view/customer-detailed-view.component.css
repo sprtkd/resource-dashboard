@@ -1,4 +1,41 @@
-.customer-details-card{
+.customer-details-card {
     min-height: 200px;
-    
+    border: 2px solid rgba(138, 138, 138, 0.336);
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+mat-icon.mat-card-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 32px;
+}
+
+.rounded-label {
+    all: unset;
+    border: 0px;
+    border-radius: 15px;
+    font-size: 0.7em;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
+
+.rounded-label.active {
+    background-color: rgb(14, 167, 0);
+}
+
+.rounded-label.closed {
+    background-color: rgb(202, 0, 0);
+}
+
+.rounded-label.inactive {
+    background-color: rgb(196, 105, 21);
 }

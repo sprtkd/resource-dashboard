@@ -1,6 +1,7 @@
 #login-div{
     text-align: center;
     height: 90%;
+    background: linear-gradient(to right, rgb(132, 172, 248), rgb(30, 201, 178), rgb(125, 252, 138));
 }
 
 .login-input{
@@ -9,4 +10,6 @@
 
 .login-card{
     min-width: 300px;
+    background: inherit;
+    box-shadow: inset 0 0 7000px rgba(253, 253, 253, 0.842);
 }

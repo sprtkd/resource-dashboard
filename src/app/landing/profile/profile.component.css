@@ -3,6 +3,7 @@
     padding: 30px;
     margin: 50px;
     text-align: center;
+    background: inherit;
   }
   
   .example-header-image {

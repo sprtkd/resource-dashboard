@@ -12,12 +12,12 @@ tr.customer-detail-row {
 }
 
 tr.customer-element-row:not(.customer-expanded-row):hover {
-  background: rgb(80, 77, 77);
+  background: rgb(255, 220, 199);
   cursor: pointer;
 }
 
 tr.customer-element-row:not(.customer-expanded-row):active {
-  background: #302e2e;
+  background: rgb(250, 182, 139);
 }
 
 .customer-element-row td {
@@ -26,5 +26,4 @@ tr.customer-element-row:not(.customer-expanded-row):active {
 
 .customer-element-detail {
   overflow: hidden;
-  display: flex;
 }

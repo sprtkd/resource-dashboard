@@ -62,7 +62,7 @@ const ELEMENT_DATA: CustomerUiBasicModel[] = [
   },
   {
     accountNumber: 15626464,
-    name: "Dr doom", contactNumber: "1585517555", lastTransactionDate: new Date(), status: CustomerStatus.ACTIVE
+    name: "Dr doom", contactNumber: "1585517555", lastTransactionDate: new Date(), status: CustomerStatus.INACTIVE
   },
   {
     accountNumber: 15626464,

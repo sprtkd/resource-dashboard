@@ -12,12 +12,17 @@ export class CustomerDetailedViewComponent implements OnInit {
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-
+  listOfStages: { stepName: String, stepFormName: FormGroup }[] =
+    [{ stepName: "Initiated", stepFormName: this.firstFormGroup },
+    { stepName: "Customer Response", stepFormName: this.secondFormGroup },
+    { stepName: "Pending for Approval", stepFormName: null },
+    { stepName: "Closed", stepFormName: null }];
   @Input() selectedCustomer: CustomerUiBasicModel;
   constructor(private _formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
+
       firstCtrl: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({

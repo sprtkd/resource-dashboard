@@ -1,8 +1,14 @@
 .uploadCard {
-    background-color: rgba(0, 0, 0, 0.247);
+    background-color: rgba(250, 209, 209, 0.644);
 }
 
 .limit-warn {
     font-size: smaller;
-    color: rgb(255, 155, 155);
+    color: rgb(255, 102, 0);
+}
+
+.upload-main-card {
+    background: inherit;
+    box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.767);
+    padding: 20px;
 }
