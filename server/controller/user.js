@@ -114,6 +114,7 @@ exports.validate = function (req, res) {
 
         if (!response) {
             res.status(404).send('false');
+            return;
         }
         
         return res.status(200).send('true');

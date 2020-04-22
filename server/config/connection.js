@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
 // We need to difine the URL
-var URL = process.env.URL || 'mongodb://localhost/resourseDashboard';
-
+var URL = process.env.URL || 'mongodb+srv://user:pwd12345@resourcedashboard-zutwo.mongodb.net/test';
+var dbName = 'resourcedashboard';
 mongoose.set('useCreateIndex', true);
 
 // Make Mongoose use `findOneAndUpdate()`. Note that this option is `true`
@@ -13,7 +13,8 @@ mongoose.set('useFindAndModify', false);
 mongoose.connect(URL, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    dbName: dbName
 });
 //Models
 // require('../model/user');
