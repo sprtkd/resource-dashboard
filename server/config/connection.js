@@ -12,17 +12,18 @@ mongoose.set('useFindAndModify', false);
 //Connection establishment
 mongoose.connect(URL, {
     useNewUrlParser: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useUnifiedTopology: true
 });
 //Models
 // require('../model/user');
 var db = mongoose.connection;
 
-//We enebled the Listener
+//We enabled the Listener
 db.on('error', () => {
     console.error('Error occured in db connection');
 });
 
 db.on('open', () => {
-    console.log('DB Connection established successfully');
+    console.log('DB Connection established successfully' + " at URL: " + URL);
 });
