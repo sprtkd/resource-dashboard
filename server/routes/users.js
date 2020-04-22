@@ -25,4 +25,6 @@ router.get('/user/:username', user.find);
  */
 router.delete('/delete/:username', user.delete);
 
+//To validate the login user
+router.post('/validate', user.validate);
 module.exports = router;

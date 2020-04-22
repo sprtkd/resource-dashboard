@@ -54,9 +54,6 @@ exports.find = function (req, res) {
     });
 }
 
-
-
-
 /**
  * Function to delete the user from collection.
  */
@@ -86,6 +83,41 @@ exports.delete = function (req, res) {
                 });
             }
         }
+    });
+}
+
+exports.validate = function (req, res) {
+    var loginUsername = req.body.username;
+    var loginPassword = req.body.password;
+
+    if (!loginUsername) {
+        res.status(400).send('User name missing');
+        return;
+    }
+    if (!loginPassword) {
+        res.status(400).send('Password missing');
+        return;
+    }
+    var query = {
+        username: loginUsername,
+        password: loginPassword
+    };
+    if (!query) {
+        res.status(400).send('Bad Request');
+        return;
+    }
+    userService.findUser(query, function (error, response) {
+        if (error) {
+            console.log(error);
+            return res.status(500).send(error);
+        }
+
+        if (!response) {
+            res.status(404).send('false');
+        }
+        
+        return res.status(200).send('true');
+            
     });
 }
 
