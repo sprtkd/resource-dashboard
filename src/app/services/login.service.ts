@@ -9,8 +9,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-  loginUrl: string = "http://localhost:4000/api/users/validate";
-  //"https://resource-dashboard-a.herokuapp.com/api/users/validate";
+  loginUrl: string = "https://resource-dashboard-a.herokuapp.com/api/users/validate";
   httpOptions = {};
   constructor(private http: HttpClient, private errorHandlerService: ErrorHandlerService) { }
 
