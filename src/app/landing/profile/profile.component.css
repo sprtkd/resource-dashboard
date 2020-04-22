@@ -1,13 +1,26 @@
 .profile-card {
-    max-width: 100%;
+  max-width: 100%;
+  padding: 30px;
+  margin: 50px;
+  text-align: center;
+  background: inherit;
+}
+
+@media only screen and (min-width: 600px) {
+  .profile-card {
     padding: 30px;
     margin: 50px;
-    text-align: center;
-    background: inherit;
   }
-  
-  .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
+}
+
+@media only screen and (max-width: 600px) {
+  .profile-card {
+    padding: 10px;
+    margin: 0px;
   }
-  
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
