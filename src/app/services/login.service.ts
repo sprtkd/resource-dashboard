@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-  loginUrl: string = "https://jsonplaceholder.typicode.com/posts";
+  loginUrl: string = "http://localhost:4000/api/users/validate";
+  //"https://resource-dashboard-a.herokuapp.com/api/users/validate";
   httpOptions = {};
   constructor(private http: HttpClient, private errorHandlerService: ErrorHandlerService) { }
 
