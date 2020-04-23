@@ -49,6 +49,8 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
 import { HttpClientModule } from '@angular/common/http'
+import { CommonsService } from './services/commons.service';
+
 
 @NgModule({
   declarations: [
@@ -103,7 +105,7 @@ import { HttpClientModule } from '@angular/common/http'
     HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [],
+  providers: [CommonsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

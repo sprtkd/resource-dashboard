@@ -4,10 +4,18 @@ export enum CustomerStatus {
     CLOSED = <any>'C',
 }
 
-export interface CustomerUiBasicModel {
-    accountNumber: number;
-    name: string;
-    contactNumber: String;
+export class CustomerUiBasicModel {
+    accountNumber: String;
+    name: String;
+    contactNumber: number;
     status: CustomerStatus;
     lastTransactionDate: Date;
+    moreDetails: CustomerExtraDetails;
 }
+
+export class CustomerExtraDetails {
+    emailId: String;
+    ticketRaised: any;
+    address: String;
+}
+

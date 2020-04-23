@@ -1,11 +1,11 @@
 <br>
 
 <div class="customer-table-div">
+
   <mat-form-field>
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John">
   </mat-form-field>
-
   <div>
     <mat-button-toggle-group [(ngModel)]="filterForAccount">
       <mat-button-toggle value="All">All Dormant Accounts</mat-button-toggle>
@@ -13,6 +13,9 @@
       <mat-button-toggle value="Pending">Pending Items</mat-button-toggle>
       <mat-button-toggle value="Closed">Closed</mat-button-toggle>
     </mat-button-toggle-group>
+    &nbsp; &nbsp;
+    <button mat-raised-button (click)="ngOnInit()">Refresh</button>
+
   </div>
   <br>
   <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort>

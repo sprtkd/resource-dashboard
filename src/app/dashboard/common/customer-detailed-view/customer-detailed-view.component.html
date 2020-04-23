@@ -14,10 +14,16 @@
         Contact No: {{selectedCustomer.contactNumber}}
       </div>
       <div>
-        Last Transaction: {{selectedCustomer.lastTransactionDate | date:'medium'}}
+        Address: {{selectedCustomer.moreDetails.address}}
       </div>
       <div>
-        Last Transaction Amount: {{selectedCustomer.contactNumber}}
+        Email ID: {{selectedCustomer.moreDetails.emailId}}
+      </div>
+      <div>
+        Last Transaction: {{selectedCustomer.lastTransactionDate | date:'medium'}}
+      </div>
+      <div *ngIf="selectedCustomer.moreDetails.ticketRaised">
+        Ticket Raised
       </div>
     </mat-card-subtitle>
   </mat-card-header>

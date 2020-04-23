@@ -24,10 +24,11 @@
   flex: 1 1 auto;
 }
 
-.navbar-buttons{
+.navbar-buttons {
   margin-left: 18px;
 }
 
 .active-list-item {
-  background-color: rgb(133, 133, 133) !important;
+  background-color: orangered !important;
+  color: white !important;
 }
