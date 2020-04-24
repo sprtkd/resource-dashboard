@@ -1,5 +1,7 @@
 table {
     width: 100%;
+    background: rgba(255, 255, 255, 0.281);
+    table-layout: fixed;
 }
 
 .mat-form-field {
@@ -8,5 +10,23 @@ table {
 }
 
 td, th {
-    width: 25%;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.logs-card-div {
+    background: rgba(255, 255, 255, 0.459);
+    padding: 20px;
+    border-radius: 15px;
+    min-width: 350px;
+}
+
+.logs-div {
+    min-height: 100%;
+    background: linear-gradient(to right, #b4daffbe, #fab6b2ad);
+    padding: 10px;
+    padding-top: 30px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
 }
