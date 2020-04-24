@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "resource-dashboard"
+  "defaultProject": "resource-dashboard",
+  "cli": {
+    "analytics": "03619413-3143-4981-a7b6-0eec54261dc6"
+  }
 }
