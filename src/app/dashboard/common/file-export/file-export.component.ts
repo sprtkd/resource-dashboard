@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FileUiExportModel } from 'src/app/models/ui/file.ui.export.model';
-
+import * as XLSX from 'xlsx';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-file-export',
@@ -22,6 +23,7 @@ export class FileExportComponent implements OnInit {
       { value: '.pdf', viewValue: 'PDF' },
       { value: '.csv', viewValue: 'CSV File' }
     ];
+    this.fileUiExportModel.exportedDatasource = new MatTableDataSource();
     this.fileUiExportModel.exportedFile = null;
     this.fileUiExportModel.fromDateValid = false;
     this.fileUiExportModel.toDateValid = false;
@@ -66,6 +68,14 @@ export class FileExportComponent implements OnInit {
       return this.fileUiExportModel.errMessage;
     }
     return null;
+  }
+
+  exportExcel() {
+    const workSheet = XLSX.utils.json_to_sheet(this.fileUiExportModel.exportedDatasource.data, 
+      { header: ['dataprop1', 'dataprop2'] });
+    const workBook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
+    XLSX.writeFile(workBook, 'filename.xlsx');
   }
 
 }

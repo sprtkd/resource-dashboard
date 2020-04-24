@@ -1,4 +1,5 @@
 import { CustomerUiBasicModel } from './customer.ui.details.model';
+import { MatTableDataSource } from '@angular/material/table';
 
 export interface SelectModel {
     value: string;
@@ -12,7 +13,8 @@ export class FileUiExportModel {
     toDateValid: Boolean;
     typeAllowed: SelectModel[];
     typeSelected: String;
-    exportedFile;
+    exportedFile: any;
+    exportedDatasource: MatTableDataSource<CustomerUiBasicModel>;
     customerFilter: String;
     errMessage: String;
     listOfCustomers: CustomerUiBasicModel[];
