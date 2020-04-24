@@ -34,3 +34,11 @@ exports.getCustomerList = function (callback) {
     customer.find(callback);
    // console.log("Service:Deleted customer!");
 }
+
+exports.importDormantAccounts = function (data, callback) {
+    customer.insertMany(data).then((response) => {
+        callback(null, response);
+    }, (error) => {
+        callback(error, null);
+    });
+};

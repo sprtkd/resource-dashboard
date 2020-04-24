@@ -5,6 +5,7 @@ var customerService = require('../service/customer');
  */
 exports.create = function (req, res, next) {
     var body = new Customer(req.body);
+    
     console.log("Controller:Creating customer");
     customerService.createCustomer(body, function (error, response) {
         if (response) {
@@ -53,12 +54,12 @@ exports.find = function (req, res) {
  * Function to delete the user from collection.
  */
 exports.delete = function (req, res) {
-    var body = req.body;
+    
     var params = req.params || {};
     var query = {
         username: params.username
     };
-    //var query = body.query;
+  
     if (!query) {
         res.status(400).send('Bad Request');
         return;
@@ -82,8 +83,7 @@ exports.delete = function (req, res) {
 }
 
 exports.getCustomerList= function (req, res) {
-    console.log("Controller:request customer"+req);
-    console.log("Controller:response customer"+res);
+    
     customerService.getCustomerList(function (error, response) {
         console.log("Controller:Fetching customer"+error);
         
@@ -100,6 +100,21 @@ exports.getCustomerList= function (req, res) {
         }
     });
 }
+
+exports.importDormantAccounts =function (req, res) {
+    var data = req.body.accountList;
+     
+    console.log("Controller:Importing customers "+ data);
+    customerService.importDormantAccounts(data, function (error, response) {
+        if (response) {
+            res.status(201).send(response);
+        } else if (error) {
+            res.status(400).send(error);
+        }
+    });
+}
+
+
 
 class Customer {
     constructor(customerData) {

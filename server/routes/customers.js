@@ -23,4 +23,9 @@ router.get('/customer/:customerName', customer.find);
  */
 router.delete('/delete/:customerName', customer.delete);
 
+/**
+* To import customer's dormanet accounts into mongodb
+*/
+router.post('/importdata', customer.importDormantAccounts);
+
 module.exports = router;
