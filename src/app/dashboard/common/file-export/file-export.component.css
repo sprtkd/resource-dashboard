@@ -1,0 +1,13 @@
+.download-main-card {
+    background: inherit;
+    padding: 20px;
+}
+
+.margin-field {
+    margin: 10px;
+}
+
+.margin-right {
+    margin-left: 55px;
+    min-width: 200px;
+}

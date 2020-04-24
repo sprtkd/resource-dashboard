@@ -45,13 +45,17 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { CustomerDetailedViewComponent } from './dashboard/common/customer-detailed-view/customer-detailed-view.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatRippleModule } from '@angular/material/core';
+import { MatRippleModule, MatNativeDateModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
 import { HttpClientModule } from '@angular/common/http'
 import { CommonsService } from './services/commons.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpinnerComponent } from './common/spinner/spinner.component';
+import { FileExportComponent } from './dashboard/common/file-export/file-export.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ExportTableComponent } from './dashboard/common/file-export/export-table/export-table.component';
 
 
 @NgModule({
@@ -73,7 +77,9 @@ import { SpinnerComponent } from './common/spinner/spinner.component';
     FileImportComponent,
     CustomerTableComponent,
     CustomerDetailedViewComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    FileExportComponent,
+    ExportTableComponent
   ],
   imports: [
     BrowserModule,
@@ -107,6 +113,9 @@ import { SpinnerComponent } from './common/spinner/spinner.component';
     MatStepperModule,
     MatProgressSpinnerModule,
     HttpClientModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [CommonsService],

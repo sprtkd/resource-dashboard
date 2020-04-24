@@ -1,7 +1,6 @@
 table {
     width: 100%;
     background: rgba(255, 255, 255, 0.281);
-    table-layout: fixed;
 }
 
 .mat-form-field {
@@ -10,6 +9,7 @@ table {
 }
 
 td, th {
+    width: 25%;
     word-wrap: break-word;
     white-space: pre-wrap;
 }

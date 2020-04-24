@@ -1,0 +1,90 @@
+<mat-card class="download-main-card frosted-glass">
+    <mat-card-header>
+        <mat-icon mat-card-avatar>cloud_download</mat-icon>
+        <mat-card-title>
+            Export Customer Data
+        </mat-card-title>
+        <mat-card-subtitle>Export in PDF and Excel</mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <br>
+    <mat-card-content>
+        <div>
+            <mat-form-field class="margin-field margin-right">
+                <mat-label>Filter for Customers </mat-label>
+                <mat-select [(ngModel)]="fileUiExportModel.customerFilter">
+                    <mat-option value="all">
+                        All
+                    </mat-option>
+                    <mat-option value="closed">
+                        Closed
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-slide-toggle [(ngModel)]="fileUiExportModel.fromDateValid" class="margin-field">
+                <mat-form-field>
+                    <mat-label>Choose a From Date</mat-label>
+                    <input matInput [matDatepicker]="fromPicker" [(ngModel)]="fileUiExportModel.fromDateValue"
+                        [disabled]="!fileUiExportModel.fromDateValid">
+                    <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #fromPicker></mat-datepicker>
+                </mat-form-field>
+            </mat-slide-toggle>
+            <mat-slide-toggle [(ngModel)]="fileUiExportModel.toDateValid" class="margin-field">
+                <mat-form-field>
+                    <mat-label>Choose a To Date</mat-label>
+                    <input matInput [matDatepicker]="ToPicker" [(ngModel)]="fileUiExportModel.toDateValue"
+                        [disabled]="!fileUiExportModel.toDateValid">
+                    <mat-datepicker-toggle matSuffix [for]="ToPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #ToPicker></mat-datepicker>
+                </mat-form-field>
+            </mat-slide-toggle>
+        </div>
+        <div>
+            <mat-form-field class="margin-field margin-right">
+                <mat-label>File Type</mat-label>
+                <mat-select [(ngModel)]="fileUiExportModel.typeSelected">
+                    <mat-option *ngFor="let fileType of fileUiExportModel.typeAllowed" [value]="fileType.value">
+                        {{fileType.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            All Selected Data to Export
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Click to view selected data
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div>
+
+                        <div *ngIf="getErrMsg()">
+                            No Selected Data.
+                            <hr>
+                            <div style="color: red;">
+                                {{getErrMsg()}}
+                            </div>
+                        </div>
+                        <div *ngIf="fileUiExportModel.listOfCustomers">
+                            Selected
+                        </div>
+                    </div>
+
+                </mat-expansion-panel>
+
+            </mat-accordion>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <div>
+            <button mat-raised-button color="accent" [disabled]="!checkInputsValid()">Export</button>
+            <button mat-raised-button color="warn" [disabled]="!checkInputsValid()"
+                (click)="fileExportModelReset()">Cancel</button>
+        </div>
+    </mat-card-actions>
+</mat-card>
