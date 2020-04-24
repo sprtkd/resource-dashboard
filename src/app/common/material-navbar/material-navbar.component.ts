@@ -2,8 +2,7 @@ import { Component, Input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { LinkUiModel } from 'src/app/models/ui/link.ui.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { NavbarUiModel } from 'src/app/models/ui/link.ui.model';
 
 @Component({
   selector: 'app-material-navbar',
@@ -11,31 +10,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./material-navbar.component.css']
 })
 export class MaterialNavbarComponent {
-  notificationCount: number;
-  notificationList: String[] = [];
-  @Input() navbarLinks: LinkUiModel[];
+  @Input() navbarUiModel: NavbarUiModel;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private _snackBar: MatSnackBar) {
-    this.notificationList = ["Hi", "Hello", "Forgot to implement"]
-    this.notificationCount = this.notificationList.length;
+  constructor(private breakpointObserver: BreakpointObserver) {
   }
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 2000,
-    });
-
-   
-  }
-
-  readNotifictions(){
-    this.notificationList = [];
-    this.notificationCount = 0;
+  readNotifictions() {
   }
 
 }

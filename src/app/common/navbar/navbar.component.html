@@ -1,3 +1,6 @@
-<app-material-navbar [navbarLinks]='listOfLinks'>
+<app-material-navbar [navbarUiModel]='navbarUiModel'>
+
+
     <ng-content></ng-content>
+    <app-spinner *ngIf="ifShowSpinner"></app-spinner>
 </app-material-navbar>

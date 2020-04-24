@@ -3,7 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 import { NavbarComponent } from 'src/app/common/navbar/navbar.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from 'src/app/services/login.service';
 import { UserUiLogin } from 'src/app/models/ui/user.ui.login';
 import { CommonsService } from 'src/app/services/commons.service';
@@ -16,8 +15,9 @@ import { CommonsService } from 'src/app/services/commons.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private navbar: NavbarComponent,
-    private commonsService: CommonsService, private loginService: LoginService) { }
+  constructor(private router: Router, private navbar: NavbarComponent, 
+    private commonsService: CommonsService, private loginService: LoginService,
+  ) { }
   hidePassword: Boolean = true;
   toBeRemebered = new FormControl('');
   username = new FormControl('', [Validators.required, Validators.minLength(1)]);
@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
     userUiLogin.username = this.username.value;
     userUiLogin.password = this.password.value;
     let loginFlag: Boolean = false;
+    this.navbar.spinnerStart();
     this.loginService.tryLogin(userUiLogin)
       .subscribe((data: Boolean) => {
         loginFlag = data;
@@ -52,6 +53,8 @@ export class LoginComponent implements OnInit {
       },
         error => {
           this.commonsService.openSnackBar(error, "Go to Home", "home");
+        }).add(()=>{
+          this.navbar.spinnerStop();
         });
 
 

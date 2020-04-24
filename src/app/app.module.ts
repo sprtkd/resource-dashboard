@@ -50,6 +50,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
 import { HttpClientModule } from '@angular/common/http'
 import { CommonsService } from './services/commons.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SpinnerComponent } from './common/spinner/spinner.component';
 
 
 @NgModule({
@@ -70,7 +72,8 @@ import { CommonsService } from './services/commons.service';
     SupportRepresentativeComponent,
     FileImportComponent,
     CustomerTableComponent,
-    CustomerDetailedViewComponent
+    CustomerDetailedViewComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -102,6 +105,7 @@ import { CommonsService } from './services/commons.service';
     MatRippleModule,
     MatButtonToggleModule,
     MatStepperModule,
+    MatProgressSpinnerModule,
     HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],

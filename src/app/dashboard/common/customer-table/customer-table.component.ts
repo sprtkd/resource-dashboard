@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { CustomerService } from 'src/app/services/customer.service';
 import { CustomerBackendModel } from 'src/app/models/backend/customer.backend.model';
 import { CommonsService } from 'src/app/services/commons.service';
+import { NavbarComponent } from 'src/app/common/navbar/navbar.component';
 
 @Component({
   selector: 'app-customer-table',
@@ -32,7 +33,7 @@ export class CustomerTableComponent implements OnInit {
   columnsToDisplay = ['accountNumber', 'name', 'contactNumber', 'status', 'lastTransactionDate'];
   fieldsToDisplay = ['A/C Number', 'Name', 'Contact', 'Status', 'Last Transacted'];
   expandedElement: CustomerUiBasicModel | null;
-  constructor(private customerService: CustomerService, private commonsService: CommonsService) { }
+  constructor(private customerService: CustomerService, private commonsService: CommonsService, private navbar: NavbarComponent) { }
 
 
   ngOnInit(): void {
@@ -48,6 +49,7 @@ export class CustomerTableComponent implements OnInit {
   }
 
   getAllCustomers() {
+    this.navbar.spinnerStart();
     this.customerService.fetchAllCustomers()
       .subscribe((data: CustomerBackendModel[]) => {
         for (let currCustomer of data) {
@@ -61,6 +63,8 @@ export class CustomerTableComponent implements OnInit {
       },
         error => {
           this.commonsService.openSnackBar(error, "Failed to fetch Customers", null);
+        }).add(() => {
+          this.navbar.spinnerStop();
         });
   }
 
