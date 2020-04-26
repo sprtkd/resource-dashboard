@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-
+const uniqueValidator = require('mongoose-unique-validator')
 
 var schema = new mongoose.Schema({
     customerName:{
@@ -10,6 +10,7 @@ var schema = new mongoose.Schema({
     accountNum: {
         type: String,
         required: true,
+        unique:true
     },
     emailId: {
         type: String,
@@ -22,8 +23,9 @@ var schema = new mongoose.Schema({
     lastTranDate: Date,
     address: String,
     accountStatus: String,
-    ticketRaised: Number,
+    ticketRaised: String,
 });
+schema.plugin(uniqueValidator);
 
 var customer = new mongoose.model('Customer', schema);
 

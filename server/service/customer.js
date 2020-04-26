@@ -32,7 +32,14 @@ exports.deleteCustomer = function (query, callback) {
 
 exports.getCustomerList = function (callback) {
     customer.find(callback);
-   // console.log("Service:Deleted customer!");
+}
+
+/*
+* Update customer with ticket id
+*/
+exports.updateCustomer = function (query,ticketId, callback) {
+    console.log("service query" + query);
+    customer.update(query,{ticketRaised:ticketId},callback);
 }
 
 exports.importDormantAccounts = function (data, callback) {

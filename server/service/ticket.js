@@ -1,0 +1,50 @@
+var mongoose = require('mongoose');
+var ticket = mongoose.model('Ticket');
+//var ticketHistory = mongoose.model('TicketHistory');
+/**
+ * Function to execute the create query to create the tickets.
+ * @param {*} data user data
+ * @param {*} callback callback function.
+ */
+exports.createTicket = function (data, callback) {
+    console.log("in service to create ticket");
+   ticket.create(data).then((response) => {
+       console.log("Service:Created ticket entry to mongodb");
+       
+       ticket.findOne(response._id).exec().then((ticketResponse)=>{
+            var generatedticketId = generateTicketID();
+            ticketResponse.ticketId = generatedticketId;
+            ticketResponse.save().then((response) => {
+                console.log("Service:Updated ticketId");
+                callback(null, response);
+            }, (error) => {
+                callback(error, null);
+            }); 
+       });
+    });
+};
+
+function generateTicketID(){
+    var generatedticketId = "TKT"+(Math.floor(Math.random() * 100000) + 1);
+    console.log("ticketId "+ generatedticketId);
+    ticket.findOne({ticketId:generatedticketId}).exec().then((ticketiDResponse)=>{
+      
+       if(ticketiDResponse){
+           console.log("Found duplicate ticket id, hence creating new id");
+          return generateTicketID();
+       }
+    });
+    return generatedticketId;
+}
+
+
+exports.saveCustResponse = function(query,data,status,callback){
+   
+    ticket.update({ticketId : query}, {$set: {ticketStatus:status}, $push: {ticketHistory:data}}).then((result) => {
+        callback(null, result);
+      },(error) => {
+        console.log(error);
+        callback(error, null);
+      }
+    )
+}

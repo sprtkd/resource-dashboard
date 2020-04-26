@@ -7,6 +7,8 @@ var logger = require('morgan');
 //Models
 require('./server/model/user');
 require('./server/model/customer');
+require('./server/model/ticket');
+
 //Configs
 require('./server/config/connection');
 
@@ -14,6 +16,7 @@ require('./server/config/connection');
 var indexRouter = require('./server/routes/index');
 var usersRouter = require('./server/routes/users');
 var customerRouter = require('./server/routes/customers');
+var ticketRouter = require('./server/routes/tickets');
 
 const http = require('http');
 
@@ -26,7 +29,8 @@ var app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+//app.use(express.urlencoded({ extended: false }));
+
 app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res, next) {
@@ -37,7 +41,7 @@ app.use(function(req, res, next) {
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/customers', customerRouter);
-
+app.use('/api/tickets', ticketRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
