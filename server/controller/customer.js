@@ -1,7 +1,7 @@
 var customerService = require('../service/customer');
 
 /**
- * Function to create the user in user collection.
+ * Function to create the customer in customer collection.
  */
 exports.create = function (req, res, next) {
     var body = new Customer(req.body);
@@ -17,7 +17,7 @@ exports.create = function (req, res, next) {
 }
 
 /**
- * Function to find user from user collection.
+ * Function to find customer from customer collection.
  */
 exports.find = function (req, res) {
     var params = req.params || {};
@@ -43,15 +43,14 @@ exports.find = function (req, res) {
         }
         if (!response) {
             res.status(204).send('No Data Found');
+            return;
         }
     });
 }
 
 
-
-
 /**
- * Function to delete the user from collection.
+ * Function to delete the customer from collection.
  */
 exports.delete = function (req, res) {
     
