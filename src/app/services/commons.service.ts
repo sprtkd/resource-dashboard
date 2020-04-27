@@ -22,4 +22,9 @@ export class CommonsService {
       })
     }
   }
+
+  getLoggedIn() {
+    let username = localStorage.getItem("user");
+    return username;
+  }
 }

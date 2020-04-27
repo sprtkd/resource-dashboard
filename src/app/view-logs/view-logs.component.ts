@@ -11,7 +11,7 @@ export interface UserData {
 }
 
 
-const Logs: string[] = ['ticket number:123 ,status:WIP,feedback:abc, dsvsdcscsvdfvdfvdf'];
+const Logs: string[] = ['Created by: Roy, Status: Initiated, Date: 27/04/2020'];
 
 const NAMES: string[] = [
   'Gayatri', 'Roshni', 'Rini', 'Sonam', 'suprotik', 'Rohini', 'Komal', 'Mahesh', 'Ankush', 'Rama',

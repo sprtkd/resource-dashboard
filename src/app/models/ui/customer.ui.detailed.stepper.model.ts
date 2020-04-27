@@ -2,7 +2,7 @@ export class CustomerUiDetailedStepperModel {
     stepName: String;
     completed: Boolean;
     stepViewName: String;
-    stepDescription: String
+    stepDescription: String;
 
     static buildBasicStepper(): CustomerUiDetailedStepperModel[] {
         let customerUiDetailedStepperModelArray: CustomerUiDetailedStepperModel[] = [];

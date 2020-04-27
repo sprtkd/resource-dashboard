@@ -1,3 +1,5 @@
+import { TicketBackendModel } from './ticket.backend.model';
+
 export class CustomerBackendModel {
     accountNum: String;
     customerName: String;
@@ -5,6 +7,6 @@ export class CustomerBackendModel {
     contact: number;
     accountStatus: string;
     lastTranDate: Date;
-    ticketRaised: any;
+    ticketRaised: String;
     address: String;
 }

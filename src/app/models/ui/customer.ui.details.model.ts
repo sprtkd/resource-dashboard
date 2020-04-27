@@ -1,4 +1,5 @@
 import { CustomerBackendModel } from '../backend/customer.backend.model';
+import { TicketHistory, TicketBackendModel } from 'src/app/models/backend/ticket.backend.model';
 
 export enum CustomerStatus {
     INACTIVE = <any>'I',
@@ -24,14 +25,20 @@ export class CustomerUiBasicModel {
         currCustomerUiBasicModel.moreDetails = new CustomerExtraDetails();
         currCustomerUiBasicModel.moreDetails.address = customerBackendModel.address;
         currCustomerUiBasicModel.moreDetails.emailId = customerBackendModel.emailId;
-        currCustomerUiBasicModel.moreDetails.ticketRaised = customerBackendModel.ticketRaised;
+        if(customerBackendModel.ticketRaised==null){
+            currCustomerUiBasicModel.moreDetails.ticketRaised = null;
+        }else{
+            currCustomerUiBasicModel.moreDetails.ticketRaised = new TicketBackendModel();
+            currCustomerUiBasicModel.moreDetails.ticketRaised.ticketStatus = "Initiated";
+        }
+       
         return currCustomerUiBasicModel;
     }
 }
 
 export class CustomerExtraDetails {
     emailId: String;
-    ticketRaised: any;
+    ticketRaised: TicketBackendModel;
     address: String;
 }
 

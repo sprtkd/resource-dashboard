@@ -52,7 +52,7 @@ export class NavbarComponent implements OnInit {
     this.navbarUiModel.notificationModel = new NotificationUiModel();
     this.navbarUiModel.notificationModel.notificationList = [];
     if (this.navbarUiModel.isLoggedIn) {
-      this.navbarUiModel.notificationModel.notificationList.push("Hi", "Hello");
+      this.navbarUiModel.notificationModel.notificationList.push("Scheduled call with Mr Smith", "Request for Mr John approved");
       this.navbarUiModel.notificationModel.notificationCount
         = this.navbarUiModel.notificationModel.notificationList.length;
     }

@@ -57,6 +57,7 @@ export class CustomerTableComponent implements OnInit {
           this.allCustomerList.push(CustomerUiBasicModel.transformBackendCustomerToUI(currCustomer));
 
         }
+        console.log(this.allCustomerList)
         this.dataSource = new MatTableDataSource(this.allCustomerList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

@@ -23,13 +23,13 @@
         Last Transaction: {{selectedCustomer.lastTransactionDate | date:'medium'}}
       </div>
       <div *ngIf="selectedCustomer.moreDetails.ticketRaised">
-        Ticket Raised: {{selectedCustomer.moreDetails.ticketRaised}}
+        Ticket Raised: {{selectedCustomer.moreDetails.ticketRaised.ticketStatus}}
       </div>
     </mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
-    <div *ngIf="!selectedCustomer.moreDetails.ticketRaised">
+    <div *ngIf="selectedCustomer.moreDetails.ticketRaised">
       <mat-horizontal-stepper [linear]="true" #stepper *ngIf="!(isHandset$ | async)" [selectedIndex]="currentStage">
         <mat-step [completed]="stepperStage.completed" *ngFor="let stepperStage of listOfStages" editable="false">
           <ng-template matStepLabel>{{stepperStage.stepName}}</ng-template>
@@ -73,19 +73,35 @@
               Please contact customer to record response:
             </h2>
             <mat-list>
-              <mat-list-item> <button mat-raised-button color="accent" style="background-color: rgb(13, 187, 13);">
+              <mat-list-item>
+                <button mat-raised-button color="accent" style="background-color: rgb(11, 139, 11);"
+                  (click)="tryingToContact()">
                   <mat-icon aria-hidden="false">phone</mat-icon>
                   Call: {{selectedCustomer.contactNumber}}
-                </button> </mat-list-item>
-              <mat-list-item> <button mat-raised-button color="accent">
+                </button>
+              </mat-list-item>
+              <mat-list-item> <button mat-raised-button color="accent" (click)="tryingToContact()">
                   <mat-icon aria-hidden="false">message</mat-icon>
                   Send Message: {{selectedCustomer.contactNumber}}
                 </button> </mat-list-item>
-              <mat-list-item> <button mat-raised-button color="accent" style="background-color: rgb(182, 0, 0);">
+              <mat-list-item> <button mat-raised-button color="accent" style="background-color: rgb(182, 0, 0);"
+                  (click)="tryingToMail()">
                   <mat-icon aria-hidden="false">mail_outline</mat-icon>
                   Mail: {{selectedCustomer.moreDetails.emailId}}
                 </button> </mat-list-item>
+              <br>
+              <mat-divider></mat-divider>
+              <br>
 
+              <mat-list-item>
+                <h2>
+                  Able to Connect? Goto Next Step &nbsp;
+                </h2>
+
+                <button mat-fab color="primary" (click)="connectedToCustomer()">
+                  <mat-icon aria-hidden="false">arrow_right_alt</mat-icon>
+                </button>
+              </mat-list-item>
             </mat-list>
 
 
@@ -97,17 +113,17 @@
               <h3>Record feedback:</h3>
               <mat-form-field>
                 <mat-label>Response</mat-label>
-                <mat-select>
-                  <mat-option>
+                <mat-select [(ngModel)]="responsetypeSelected">
+                  <mat-option value="agreeClose">
                     Customer Agreed to Close
                   </mat-option>
-                  <mat-option>
+                  <mat-option value="requestDelay">
                     Customer Requested Delay
                   </mat-option>
-                  <mat-option>
+                  <mat-option value="connectFailed">
                     Connect Failed!
                   </mat-option>
-                  <mat-option>
+                  <mat-option value="comment">
                     Other
                   </mat-option>
                 </mat-select>
@@ -118,21 +134,21 @@
               &nbsp;
               <mat-slide-toggle>Customer agreed to do a transaction</mat-slide-toggle>
               <br>
-              <mat-form-field appearance="fill">
+              <mat-form-field appearance="fill" *ngIf="responsetypeSelected=='comment'">
                 <mat-label>Other Comments</mat-label>
                 <textarea matInput></textarea>
               </mat-form-field>
             </div>
             <div class="button-row">
               <button mat-raised-button color="accent">Save</button>
-              <button mat-raised-button color="accent">Submit</button>
+              <button mat-raised-button color="accent" (click)="onResponseSubmit()">Submit</button>
             </div>
 
           </div>
         </ng-template>
         <ng-template #approve>
           <div>
-            <button mat-raised-button color="warn">Cancel Submission</button>
+            <button mat-raised-button color="warn" (click)="onSubmissionCancel()">Cancel Submission</button>
           </div>
         </ng-template>
         <ng-template #closed>
@@ -174,7 +190,8 @@
 
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="accent" *ngIf="!selectedCustomer.moreDetails.ticketRaised">Assign To Me</button>
+    <button mat-raised-button color="accent" *ngIf="!selectedCustomer.moreDetails.ticketRaised"
+      (click)="initiateTicket()">Assign To Me</button>
   </mat-card-actions>
 
 </mat-card>
