@@ -40,7 +40,19 @@ function generateTicketID(){
 
 exports.saveCustResponse = function(query,data,status,callback){
    
-    ticket.update({ticketId : query}, {$set: {ticketStatus:status}, $push: {ticketHistory:data}}).then((result) => {
+    ticket.updateOne({ticketId : query}, {$set: {ticketStatus:status}, $push: {ticketHistory:data}}).then((result) => {
+        callback(null, result);
+      },(error) => {
+        console.log(error);
+        callback(error, null);
+      }
+    )
+}
+
+
+exports.approveTicket = function(query,data,createdBy,dateCloure,status,callback){
+   
+    ticket.updateOne({ticketId : query}, {$set: {ticketStatus:status,approvedBy:createdBy,dateClosed:dateCloure}, $push: {ticketHistory:data}}).then((result) => {
         callback(null, result);
       },(error) => {
         console.log(error);

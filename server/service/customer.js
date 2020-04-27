@@ -39,7 +39,16 @@ exports.getCustomerList = function (callback) {
 */
 exports.updateCustomer = function (query,ticketId, callback) {
     console.log("service query" + query);
-    customer.update(query,{ticketRaised:ticketId},callback);
+    customer.updateOne(query,{ticketRaised:ticketId},callback);
+}
+
+
+/*
+* Update customer with ticket id
+*/
+exports.updateCustomerWithStatus = function (query,ticketStatus, callback) {
+   // console.log("service query" + JSON.stringify(query));
+    customer.updateOne(query,{accountStatus:ticketStatus},callback);
 }
 
 exports.importDormantAccounts = function (data, callback) {

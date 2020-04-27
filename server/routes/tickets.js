@@ -9,5 +9,7 @@ router.post('/:accountNum', ticket.create);
 
 router.put('/saveticket/:ticketId', ticket.saveCustResponse);
 
+router.put('/approveticket/:ticketId', ticket.approveTicket);
+
 
 module.exports = router;
