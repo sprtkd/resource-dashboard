@@ -15,6 +15,7 @@ export class CustomerDetailedViewComponent implements OnInit {
 
   listOfStages: CustomerUiDetailedStepperModel[] = [];
   currentStage = 3;
+  oldTickets =["Jay", "Robin"];
   @Input() selectedCustomer: CustomerUiBasicModel;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(

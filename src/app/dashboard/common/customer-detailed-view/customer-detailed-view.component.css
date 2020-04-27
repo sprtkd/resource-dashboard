@@ -48,3 +48,7 @@ mat-icon.mat-card-avatar {
     display: table-cell;
     margin-right: 8px;
 }
+
+.ticket-history-div{
+    max-width: 400px;
+}

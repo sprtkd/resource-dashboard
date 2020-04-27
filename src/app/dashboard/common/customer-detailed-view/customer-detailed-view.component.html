@@ -137,23 +137,36 @@
         </ng-template>
         <ng-template #closed>
           <div>
-            <button mat-flat-button color="warn" matBadge="&#10004;" matBadgeColor="primary">
+            <button mat-flat-button color="accent" matBadge="&#10004;" matBadgeColor="primary">
               Closed
             </button>
             <br>
             <br>
-            <button mat-stroked-button>Status: Marked for Closure</button>
+            <button mat-stroked-button>Status: Marked for Activation</button>
           </div>
         </ng-template>
       </span>
 
       <ng-template #ticketHistory>
         <br>
-        <div>
+        <div class="ticket-history-div">
           <h2>Ticket History</h2>
-          <div>
+          <div *ngIf="oldTickets.length==0">
             No previous Tickets
           </div>
+          <mat-expansion-panel *ngFor="let olderTicket of oldTickets">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Ticket 1
+              </mat-panel-title>
+              <mat-panel-description>
+                Opener: {{olderTicket}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <p>This is the primary content of the panel.</p>
+
+          </mat-expansion-panel>
         </div>
 
       </ng-template>
