@@ -10,7 +10,7 @@ require('./server/model/customer');
 //Configs
 require('./server/config/connection');
 
-
+  
 var indexRouter = require('./server/routes/index');
 var usersRouter = require('./server/routes/users');
 var customerRouter = require('./server/routes/customers');
@@ -31,7 +31,7 @@ app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   next();
 });
 app.use('/', indexRouter);

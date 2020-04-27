@@ -1,5 +1,5 @@
 var userService = require('../service/user');
-
+var auth = require('../auth/auth');
 /**
  * Function to create the user in user collection.
  */
@@ -86,40 +86,10 @@ exports.delete = function (req, res) {
     });
 }
 
-exports.validate = function (req, res) {
-    var loginUsername = req.body.username;
-    var loginPassword = req.body.password;
-
-    if (!loginUsername) {
-        res.status(400).send('User name missing');
-        return;
-    }
-    if (!loginPassword) {
-        res.status(400).send('Password missing');
-        return;
-    }
-    var query = {
-        username: loginUsername,
-        password: loginPassword
-    };
-    if (!query) {
-        res.status(400).send('Bad Request');
-        return;
-    }
-    userService.findUser(query, function (error, response) {
-        if (error) {
-            console.log(error);
-            return res.status(500).send(error);
-        }
-
-        if (!response) {
-            res.status(403).send('false');
-            return;
-        }
-        
-        return res.status(200).send('true');
-            
-    });
+exports.login = function (req, res) {
+    //var token = auth.signinToken(req);
+    res.json({role: req.user.role,
+    token: 'token'});
 }
 
 class User {

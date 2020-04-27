@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var user = require('../controller/user');
+var auth = require('../auth/auth');
 
 /**
  * GET users listing
@@ -26,5 +27,5 @@ router.get('/user/:username', user.find);
 router.delete('/delete/:username', user.delete);
 
 //To validate the login user
-router.post('/validate', user.validate);
+router.post('/validate', auth.verifyUser , user.login);
 module.exports = router;
