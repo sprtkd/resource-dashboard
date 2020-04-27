@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1587630679656,
+  "timestamp": 1588002288127,
   "index": "https://sprtkd.github.io/resource-dashboard/index.html",
   "assetGroups": [
     {
@@ -10,11 +10,11 @@
       "urls": [
         "https://sprtkd.github.io/resource-dashboard/favicon.ico",
         "https://sprtkd.github.io/resource-dashboard/index.html",
-        "https://sprtkd.github.io/resource-dashboard/main-es2015.5a74e7aee6523446b2ea.js",
-        "https://sprtkd.github.io/resource-dashboard/main-es5.5a74e7aee6523446b2ea.js",
+        "https://sprtkd.github.io/resource-dashboard/main-es2015.506da54bee0926e01cf1.js",
+        "https://sprtkd.github.io/resource-dashboard/main-es5.506da54bee0926e01cf1.js",
         "https://sprtkd.github.io/resource-dashboard/manifest.webmanifest",
-        "https://sprtkd.github.io/resource-dashboard/polyfills-es2015.690002c25ea8557bb4b0.js",
-        "https://sprtkd.github.io/resource-dashboard/polyfills-es5.9e286f6d9247438cbb02.js",
+        "https://sprtkd.github.io/resource-dashboard/polyfills-es2015.74dc9c573d732177f05e.js",
+        "https://sprtkd.github.io/resource-dashboard/polyfills-es5.8129f9eaeb54b89a5f73.js",
         "https://sprtkd.github.io/resource-dashboard/runtime-es2015.1eba213af0b233498d9d.js",
         "https://sprtkd.github.io/resource-dashboard/runtime-es5.1eba213af0b233498d9d.js",
         "https://sprtkd.github.io/resource-dashboard/styles.166701a594f860588da6.css"
@@ -53,12 +53,12 @@
     "https://sprtkd.github.io/resource-dashboard/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "https://sprtkd.github.io/resource-dashboard/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "https://sprtkd.github.io/resource-dashboard/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://sprtkd.github.io/resource-dashboard/index.html": "884bca6b978e1c862fa3d8a2b3a559c2bd5d6707",
-    "https://sprtkd.github.io/resource-dashboard/main-es2015.5a74e7aee6523446b2ea.js": "6b17663214c9c245152a54a2412adf40cf18e97f",
-    "https://sprtkd.github.io/resource-dashboard/main-es5.5a74e7aee6523446b2ea.js": "ab70b31f64365c883de25f3d0ec54a236c28ed30",
+    "https://sprtkd.github.io/resource-dashboard/index.html": "268d1548de75caeeef9ee4e23ecda9cbe1fae6a3",
+    "https://sprtkd.github.io/resource-dashboard/main-es2015.506da54bee0926e01cf1.js": "6f8da724c35c8e9d7907683a842c0e9f99ddbe76",
+    "https://sprtkd.github.io/resource-dashboard/main-es5.506da54bee0926e01cf1.js": "25c5e4ef3e8e3309c11609f2e34d9ff01ca3519c",
     "https://sprtkd.github.io/resource-dashboard/manifest.webmanifest": "d41ab942f436308fc7b19262ddae3ea847f5e448",
-    "https://sprtkd.github.io/resource-dashboard/polyfills-es2015.690002c25ea8557bb4b0.js": "72ad4ccc0a3916ae4598199447cdeadd6d380570",
-    "https://sprtkd.github.io/resource-dashboard/polyfills-es5.9e286f6d9247438cbb02.js": "e51a1de4f016cd689dbdbef51043dec9518c4111",
+    "https://sprtkd.github.io/resource-dashboard/polyfills-es2015.74dc9c573d732177f05e.js": "9b0821549747e05889d161d586b63e69ef8282bb",
+    "https://sprtkd.github.io/resource-dashboard/polyfills-es5.8129f9eaeb54b89a5f73.js": "47bde12bcb49555e3e19304d0f35030ee59a33fe",
     "https://sprtkd.github.io/resource-dashboard/runtime-es2015.1eba213af0b233498d9d.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
     "https://sprtkd.github.io/resource-dashboard/runtime-es5.1eba213af0b233498d9d.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
     "https://sprtkd.github.io/resource-dashboard/styles.166701a594f860588da6.css": "e90be2d8cb19b5b157d282df3425022d51b61a3a"
