@@ -41,12 +41,12 @@ exports.verifyUser = function(req, res, next){
      .then(function(user)
      {
          if(!user){
-             res.status(403).send('false');
+             res.status(403).send({isLoggedIn:false});
              return;
          }
          else{
             if(!user.authenticate(password)){
-                 res.status(403).send('false');
+                 res.status(403).send({isLoggedIn:false});
                  return;
              }
              else{

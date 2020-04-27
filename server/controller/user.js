@@ -88,8 +88,11 @@ exports.delete = function (req, res) {
 
 exports.login = function (req, res) {
     //var token = auth.signinToken(req);
-    res.json({role: req.user.role,
-    token: 'token'});
+    res.json({isLoggedIn:true,
+        role: req.user.role,
+        token: 'token',
+        expiresIn: '5mins'
+    });
 }
 
 class User {
