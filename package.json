@@ -20,6 +20,8 @@
     "mongoose-unique-validator": "^2.0.3",
     "morgan": "~1.9.1",
     "sequential-ids": "0.0.0",
-    "underscore": "^1.10.2"
+    "underscore": "^1.10.2",
+    "lodash": "^4.17.3",
+    "lodash.keys": "^4.2.0"
   }
 }
