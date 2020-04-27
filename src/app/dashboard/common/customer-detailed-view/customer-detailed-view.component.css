@@ -39,3 +39,12 @@ mat-icon.mat-card-avatar {
 .rounded-label.inactive {
     background-color: rgb(196, 105, 21);
 }
+
+.button-row {
+    display: table-cell;
+}
+
+.button-row button {
+    display: table-cell;
+    margin-right: 8px;
+}

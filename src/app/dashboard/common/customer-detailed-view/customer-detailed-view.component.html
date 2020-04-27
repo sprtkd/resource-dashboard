@@ -23,28 +23,145 @@
         Last Transaction: {{selectedCustomer.lastTransactionDate | date:'medium'}}
       </div>
       <div *ngIf="selectedCustomer.moreDetails.ticketRaised">
-        Ticket Raised
+        Ticket Raised: {{selectedCustomer.moreDetails.ticketRaised}}
       </div>
     </mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
-    <mat-horizontal-stepper [linear]="true" #stepper *ngIf="!(isHandset$ | async)">
-      <mat-step [stepControl]="stepperStage.stepFormName" *ngFor="let stepperStage of listOfStages">
-        <ng-template matStepLabel>{{stepperStage.stepName}}</ng-template>
-        {{stepperStage.stepName}}
-      </mat-step>
-    </mat-horizontal-stepper>
+    <div *ngIf="!selectedCustomer.moreDetails.ticketRaised">
+      <mat-horizontal-stepper [linear]="true" #stepper *ngIf="!(isHandset$ | async)" [selectedIndex]="currentStage">
+        <mat-step [completed]="stepperStage.completed" *ngFor="let stepperStage of listOfStages" editable="false">
+          <ng-template matStepLabel>{{stepperStage.stepName}}</ng-template>
+          <h2>
+            {{stepperStage.stepName}}
+          </h2>
+          <h3>
+            {{stepperStage.stepDescription}}
+          </h3>
+          <ng-container *ngTemplateOutlet="{'init': init, 'custResp': custResp, 
+          'approve': approve, 'closed': closed}[stepperStage.stepViewName]"></ng-container>
+          <br>
+          <mat-divider></mat-divider>
+          <ng-container *ngTemplateOutlet="ticketHistory"></ng-container>
 
-    <mat-vertical-stepper [linear]="true" #stepper *ngIf="isHandset$ | async">
-      <mat-step [stepControl]="stepperStage.stepFormName" *ngFor="let stepperStage of listOfStages">
-        <ng-template matStepLabel>{{stepperStage.stepName}}</ng-template>
-        {{stepperStage.stepName}}
-      </mat-step>
-    </mat-vertical-stepper>
+        </mat-step>
+      </mat-horizontal-stepper>
+
+      <mat-vertical-stepper [linear]="true" #stepper *ngIf="isHandset$ | async" [selectedIndex]="currentStage">
+        <mat-step [completed]="stepperStage.completed" *ngFor="let stepperStage of listOfStages" editable="false">
+          <ng-template matStepLabel>{{stepperStage.stepName}}</ng-template>
+          <h2>
+            {{stepperStage.stepName}}
+          </h2>
+          <h3>
+            {{stepperStage.stepDescription}}
+          </h3>
+          <ng-container *ngTemplateOutlet="{'init': init, 'custResp': custResp, 
+     'approve': approve, 'closed': closed}[stepperStage.stepViewName]"></ng-container>
+          <br>
+          <mat-divider></mat-divider>
+          <ng-container *ngTemplateOutlet="ticketHistory"></ng-container>
+        </mat-step>
+      </mat-vertical-stepper>
+
+
+      <span>
+        <ng-template #init>
+          <div>
+            <h2>
+              Please contact customer to record response:
+            </h2>
+            <mat-list>
+              <mat-list-item> <button mat-raised-button color="accent" style="background-color: rgb(13, 187, 13);">
+                  <mat-icon aria-hidden="false">phone</mat-icon>
+                  Call: {{selectedCustomer.contactNumber}}
+                </button> </mat-list-item>
+              <mat-list-item> <button mat-raised-button color="accent">
+                  <mat-icon aria-hidden="false">message</mat-icon>
+                  Send Message: {{selectedCustomer.contactNumber}}
+                </button> </mat-list-item>
+              <mat-list-item> <button mat-raised-button color="accent" style="background-color: rgb(182, 0, 0);">
+                  <mat-icon aria-hidden="false">mail_outline</mat-icon>
+                  Mail: {{selectedCustomer.moreDetails.emailId}}
+                </button> </mat-list-item>
+
+            </mat-list>
+
+
+          </div>
+        </ng-template>
+        <ng-template #custResp>
+          <div>
+            <div>
+              <h3>Record feedback:</h3>
+              <mat-form-field>
+                <mat-label>Response</mat-label>
+                <mat-select>
+                  <mat-option>
+                    Customer Agreed to Close
+                  </mat-option>
+                  <mat-option>
+                    Customer Requested Delay
+                  </mat-option>
+                  <mat-option>
+                    Connect Failed!
+                  </mat-option>
+                  <mat-option>
+                    Other
+                  </mat-option>
+                </mat-select>
+
+              </mat-form-field>
+              &nbsp;
+              <mat-slide-toggle>Customer knew of dormant status</mat-slide-toggle>
+              &nbsp;
+              <mat-slide-toggle>Customer agreed to do a transaction</mat-slide-toggle>
+              <br>
+              <mat-form-field appearance="fill">
+                <mat-label>Other Comments</mat-label>
+                <textarea matInput></textarea>
+              </mat-form-field>
+            </div>
+            <div class="button-row">
+              <button mat-raised-button color="accent">Save</button>
+              <button mat-raised-button color="accent">Submit</button>
+            </div>
+
+          </div>
+        </ng-template>
+        <ng-template #approve>
+          <div>
+            <button mat-raised-button color="warn">Cancel Submission</button>
+          </div>
+        </ng-template>
+        <ng-template #closed>
+          <div>
+            <button mat-flat-button color="warn" matBadge="&#10004;" matBadgeColor="primary">
+              Closed
+            </button>
+            <br>
+            <br>
+            <button mat-stroked-button>Status: Marked for Closure</button>
+          </div>
+        </ng-template>
+      </span>
+
+      <ng-template #ticketHistory>
+        <br>
+        <div>
+          <h2>Ticket History</h2>
+          <div>
+            No previous Tickets
+          </div>
+        </div>
+
+      </ng-template>
+    </div>
+
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="accent">Assign To Me</button>
+    <button mat-raised-button color="accent" *ngIf="!selectedCustomer.moreDetails.ticketRaised">Assign To Me</button>
   </mat-card-actions>
 
 </mat-card>

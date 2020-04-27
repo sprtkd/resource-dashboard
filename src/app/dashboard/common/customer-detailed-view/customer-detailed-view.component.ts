@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CustomerUiBasicModel, CustomerStatus } from 'src/app/models/ui/customer.ui.details.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
+import { CustomerUiDetailedStepperModel } from 'src/app/models/ui/customer.ui.detailed.stepper.model';
 
 @Component({
   selector: 'app-customer-detailed-view',
@@ -12,14 +13,8 @@ import { map, shareReplay } from 'rxjs/operators';
 })
 export class CustomerDetailedViewComponent implements OnInit {
 
-  isLinear = false;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  listOfStages: { stepName: String, stepFormName: FormGroup }[] =
-    [{ stepName: "Initiated", stepFormName: this.firstFormGroup },
-    { stepName: "Customer Response", stepFormName: this.secondFormGroup },
-    { stepName: "Pending for Approval", stepFormName: null },
-    { stepName: "Closed", stepFormName: null }];
+  listOfStages: CustomerUiDetailedStepperModel[] = [];
+  currentStage = 3;
   @Input() selectedCustomer: CustomerUiBasicModel;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -29,17 +24,28 @@ export class CustomerDetailedViewComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver, private _formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.firstFormGroup = this._formBuilder.group({
-
-      firstCtrl: ['', Validators.required]
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
+    this.listOfStages = CustomerUiDetailedStepperModel.buildBasicStepper();
+    this.initStepperValue();
   }
 
   getCurrentStatus(): String {
     return CustomerStatus[this.selectedCustomer.status];
+  }
+
+  initStepperValue() {
+    for (let key = 0; key < this.listOfStages.length; key++) {
+      if (key < this.currentStage) {
+        this.listOfStages[key].completed = true;
+      }
+      else {
+        this.listOfStages[key].completed = false;
+      }
+
+    }
+  }
+
+  tryingToContact(){
+    
   }
 
 }
