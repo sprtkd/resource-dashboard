@@ -58,7 +58,12 @@
                             All Selected Data to Export
                         </mat-panel-title>
                         <mat-panel-description>
-                            Click to view selected data
+                            <span *ngIf="getErrMsg(); else elsePanelDescription">
+                                No Selected Data.
+                            </span>
+                            <ng-template #elsePanelDescription>
+                                Click to view data
+                            </ng-template>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <div>
@@ -71,7 +76,39 @@
                             </div>
                         </div>
                         <div *ngIf="fileUiExportModel.listOfCustomers">
-                            Selected
+                            <h2>
+                                Selected Details:
+                            </h2>
+
+                            <div>
+
+                                Customers: {{fileUiExportModel.customerFilter}},
+                                <span *ngIf="fileUiExportModel.fromDateValid">
+                                    From: {{ fileUiExportModel.fromDateValue | date:'short'}}
+                                </span>
+                                <span *ngIf="!fileUiExportModel.fromDateValid">
+                                    From Start
+                                </span>,
+                                <span *ngIf="fileUiExportModel.toDateValid">
+                                    To: {{ fileUiExportModel.toDateValue | date:'short'}}
+                                </span>
+                                <span *ngIf="!fileUiExportModel.toDateValid">
+                                    Till End
+                                </span>,
+                                File: {{fileUiExportModel.typeSelected}}
+
+
+                            </div>
+                            <hr>
+                            <div>
+                                <h2>
+                                    Selected Data:
+                                </h2>
+                                <app-customer-table-commonview
+                                    [selectedDatasource]="fileUiExportModel.exportedDatasource"
+                                    *ngIf="fileUiExportModel.exportedDatasource">
+                                </app-customer-table-commonview>
+                            </div>
                         </div>
                     </div>
 

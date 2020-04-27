@@ -1,0 +1,12 @@
+.commonview-table-div {
+    min-width: 300px;
+}
+
+.commonview-div {
+    border-radius: 10px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+}

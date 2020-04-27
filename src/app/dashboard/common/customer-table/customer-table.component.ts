@@ -54,7 +54,7 @@ export class CustomerTableComponent implements OnInit {
       .subscribe((data: CustomerBackendModel[]) => {
         for (let currCustomer of data) {
 
-          this.allCustomerList.push(this.transformBackendCustomerToUI(currCustomer));
+          this.allCustomerList.push(CustomerUiBasicModel.transformBackendCustomerToUI(currCustomer));
 
         }
         this.dataSource = new MatTableDataSource(this.allCustomerList);
@@ -66,21 +66,6 @@ export class CustomerTableComponent implements OnInit {
         }).add(() => {
           this.navbar.spinnerStop();
         });
-  }
-
-  transformBackendCustomerToUI(customerBackendModel: CustomerBackendModel): CustomerUiBasicModel {
-
-    var currCustomerUiBasicModel: CustomerUiBasicModel = new CustomerUiBasicModel();
-    currCustomerUiBasicModel.accountNumber = customerBackendModel.accountNum;
-    currCustomerUiBasicModel.contactNumber = customerBackendModel.contact;
-    currCustomerUiBasicModel.lastTransactionDate = customerBackendModel.lastTranDate;
-    currCustomerUiBasicModel.name = customerBackendModel.customerName;
-    currCustomerUiBasicModel.status = CustomerStatus[customerBackendModel.accountStatus];
-    currCustomerUiBasicModel.moreDetails = new CustomerExtraDetails();
-    currCustomerUiBasicModel.moreDetails.address = customerBackendModel.address;
-    currCustomerUiBasicModel.moreDetails.emailId = customerBackendModel.emailId;
-    currCustomerUiBasicModel.moreDetails.ticketRaised = customerBackendModel.ticketRaised;
-    return currCustomerUiBasicModel;
   }
 
 }
