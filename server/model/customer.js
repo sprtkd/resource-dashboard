@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+const ticket = require('../model/ticket');
 const uniqueValidator = require('mongoose-unique-validator')
 
 var schema = new mongoose.Schema({
@@ -25,9 +26,18 @@ var schema = new mongoose.Schema({
     accountStatus: String,
     ticketRaised: String,
 });
+
 schema.plugin(uniqueValidator);
 
 var customer = new mongoose.model('Customer', schema);
+
+schema.virtual('ticketid',{
+    ref: ticket,
+    localField:'ticketRaised',
+    foreignField:'ticketId',
+    justOne:true
+
+});
 
 module.exports = customer;
 

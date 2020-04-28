@@ -20,7 +20,7 @@ exports.createCustomer = function (data, callback) {
  * @param {*} callback callback function
  */
 exports.findCustomer = function (query, callback) {
-    customer.findOne(query, callback);
+    customer.findOne(query, callback).populate('ticketid');
     console.log("Service:Fetched single customer");
 }
 
@@ -31,7 +31,7 @@ exports.deleteCustomer = function (query, callback) {
 
 
 exports.getCustomerList = function (callback) {
-    customer.find(callback);
+    customer.find().populate('ticketid').exec(callback);
 }
 
 /*

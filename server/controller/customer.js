@@ -24,15 +24,15 @@ exports.find = function (req, res) {
     var query = {
         customerName: params.customerName
     };
-    console.log(query);
-    console.log(req);
+    //console.log(query);
+    //console.log(req);
 
     if (!query) {
         res.status(400).send('Bad Request');
         return;
     }
     customerService.findCustomer(query, function (error, response) {
-        console.log("Controller:Fetching customer"+response);
+       // console.log("Controller:Fetching customer"+response);
         if (error) {
             res.status(404).send(error);
             return;
@@ -103,7 +103,7 @@ exports.getCustomerList= function (req, res) {
 exports.importDormantAccounts =function (req, res) {
     var data = req.body.accountList;
      
-    console.log("Controller:Importing customers "+ data);
+    //console.log("Controller:Importing customers "+ data);
     customerService.importDormantAccounts(data, function (error, response) {
         if (response) {
             res.status(201).send(response);
