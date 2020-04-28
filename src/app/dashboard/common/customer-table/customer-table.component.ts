@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CustomerUiBasicModel, CustomerStatus, CustomerExtraDetails } from 'src/app/models/ui/customer.ui.details.model';
 import { MatTableDataSource } from '@angular/material/table';
@@ -26,13 +26,15 @@ export class CustomerTableComponent implements OnInit {
 
   allCustomerList: CustomerUiBasicModel[] = [];
   dataSource: MatTableDataSource<CustomerUiBasicModel> = new MatTableDataSource([]);
+
+  @Input() externalFilter: String;
   filterForAccount: String;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   columnsToDisplay = ['accountNumber', 'name', 'contactNumber', 'status', 'lastTransactionDate'];
   fieldsToDisplay = ['A/C Number', 'Name', 'Contact', 'Status', 'Last Transacted'];
-  expandedElement: CustomerUiBasicModel | null;
+  expandedElement: CustomerUiBasicModel;
   constructor(private customerService: CustomerService, private commonsService: CommonsService, private navbar: NavbarComponent) { }
 
 

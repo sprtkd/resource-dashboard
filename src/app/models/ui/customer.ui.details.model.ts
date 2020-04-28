@@ -1,10 +1,10 @@
 import { CustomerBackendModel } from '../backend/customer.backend.model';
-import { TicketHistory, TicketBackendModel } from 'src/app/models/backend/ticket.backend.model';
+import { TicketBackendModel } from 'src/app/models/backend/ticket.backend.model';
 
 export enum CustomerStatus {
     INACTIVE = <any>'I',
-    ACTIVE = <any>'A',
-    CLOSED = <any>'C',
+    READY_FOR_ACTIVATION = <any>'A',
+    READY_TO_CLOSED = <any>'C',
 }
 
 export class CustomerUiBasicModel {
@@ -25,13 +25,13 @@ export class CustomerUiBasicModel {
         currCustomerUiBasicModel.moreDetails = new CustomerExtraDetails();
         currCustomerUiBasicModel.moreDetails.address = customerBackendModel.address;
         currCustomerUiBasicModel.moreDetails.emailId = customerBackendModel.emailId;
-        if(customerBackendModel.ticketRaised==null){
+        if (customerBackendModel.ticketRaised == null) {
             currCustomerUiBasicModel.moreDetails.ticketRaised = null;
-        }else{
+        } else {
             currCustomerUiBasicModel.moreDetails.ticketRaised = new TicketBackendModel();
             currCustomerUiBasicModel.moreDetails.ticketRaised.ticketStatus = "Initiated";
         }
-       
+
         return currCustomerUiBasicModel;
     }
 }

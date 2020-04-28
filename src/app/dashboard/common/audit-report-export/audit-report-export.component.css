@@ -1,0 +1,29 @@
+.audit-table-div {
+    min-height: 100px;
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+}
+
+tr.audit-detail-row {
+    height: 0;
+}
+
+tr.audit-element-row:not(.audit-expanded-row):hover {
+    background: rgb(255, 220, 199);
+    cursor: pointer;
+}
+
+tr.audit-element-row:not(.audit-expanded-row):active {
+    background: rgb(250, 182, 139);
+}
+
+.audit-element-row td {
+    border-bottom-width: 0;
+}
+
+.audit-element-detail {
+    overflow: hidden;
+}

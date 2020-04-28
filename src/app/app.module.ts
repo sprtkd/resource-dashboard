@@ -57,6 +57,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ExportTableComponent } from './dashboard/common/file-export/export-table/export-table.component';
 import { CustomerTableCommonviewComponent } from './dashboard/common/customer-table-commonview/customer-table-commonview.component';
+import { AuditReportExportComponent } from './dashboard/common/audit-report-export/audit-report-export.component';
 
 
 @NgModule({
@@ -81,7 +82,8 @@ import { CustomerTableCommonviewComponent } from './dashboard/common/customer-ta
     SpinnerComponent,
     FileExportComponent,
     ExportTableComponent,
-    CustomerTableCommonviewComponent
+    CustomerTableCommonviewComponent,
+    AuditReportExportComponent
   ],
   imports: [
     BrowserModule,

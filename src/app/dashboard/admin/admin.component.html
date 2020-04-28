@@ -37,7 +37,7 @@
                     </mat-card-header>
                     <mat-divider></mat-divider>
                     <mat-card-content>
-                        <app-customer-table></app-customer-table>
+                        <app-customer-table [externalFilter]="'All'"></app-customer-table>
                     </mat-card-content>
                 </mat-card>
             </mat-tab>
@@ -53,7 +53,7 @@
                     </mat-card-header>
                     <mat-divider></mat-divider>
                     <mat-card-content>
-
+                        <app-audit-report-export></app-audit-report-export>
                     </mat-card-content>
                 </mat-card>
             </mat-tab>
