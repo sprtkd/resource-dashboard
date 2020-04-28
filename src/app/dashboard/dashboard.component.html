@@ -1,4 +1,16 @@
+<mat-card class="main-dashboard-card">
+    <mat-card-header>
+        <mat-icon mat-card-avatar>dashboard</mat-icon>
+        <mat-card-title>
+            Bank Operations Dashboard
+        </mat-card-title>
+        <mat-card-subtitle>Manage All Bank Operations</mat-card-subtitle>
+    </mat-card-header>
 
-    <app-admin *ngIf="profileType=='admin'"></app-admin>
+    <mat-card-content>
 
-    <app-support-representative *ngIf="profileType=='supportRep'"></app-support-representative>
+        <app-admin *ngIf="profileType=='admin'"></app-admin>
+
+        <app-support-representative *ngIf="profileType=='supportRep'"></app-support-representative>
+    </mat-card-content>
+</mat-card>

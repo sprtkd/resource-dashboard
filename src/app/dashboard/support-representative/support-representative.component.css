@@ -2,8 +2,9 @@
     max-width: 100%;
     margin: 0px;
     text-align: left;
-    background: linear-gradient(to right, #b4daffbe, #fab6b2ad);
+    background-color: rgba(253, 253, 253, 0.342);
     min-height: 100%;
+    border-radius: 10px;
 }
 
 @media only screen and (min-width: 600px) {

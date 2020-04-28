@@ -1,5 +1,23 @@
-.dashboard-div{
-    all: unset;
-    text-align: center;
-    min-height: 100%;   
+.main-dashboard-card{
+    background: linear-gradient(to right, #b4daffbe, #fab6b2ad);
+    margin: 0px;
+}
+
+@media only screen and (min-width: 600px) {
+    .main-dashboard-card {
+        padding: 15px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .main-dashboard-card {
+        padding: 10px;
+        padding-top: 15px;
+    }
+}
+
+mat-icon.mat-card-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 36px;
 }

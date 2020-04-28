@@ -11,7 +11,7 @@ export class CustomerUiDetailedStepperModel {
         let stepDescriptions: String[] = [
             "Dormant Ticket Closure Ticket has been assigned to you for this customer. An initiation mail has been sent to customer.",
             "Please record Customer Response. If customer connect failed, you can retry now or later.",
-            "Thanks. Response has been recorded. Its pending for admin to approve.",
+            "Thanks. Response has been recorded. Its pending for Reviewer: Mr Roy to approve.",
             "This ticket has been closed."
         ];
         for (var [key, stepName] of stepNames.entries()) {
