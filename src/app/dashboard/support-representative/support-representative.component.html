@@ -4,7 +4,7 @@
     <mat-card-title>
       Dormant Account Management Dashboard
     </mat-card-title>
-    <mat-card-subtitle>Take Actions on Dormant Accounts</mat-card-subtitle>
+    <mat-card-subtitle>Actions on Dormant Accounts for Representatives</mat-card-subtitle>
   </mat-card-header>
   <mat-divider></mat-divider>
   <mat-card-content>
@@ -27,11 +27,37 @@
       </mat-tab>
       <mat-tab label="Data File Import">
         <br>
-        <app-file-import></app-file-import>
+        <mat-card class="upload-download-main-card frosted-glass">
+          <mat-card-header>
+            <mat-icon mat-card-avatar>cloud_upload</mat-icon>
+            <mat-card-title>
+              Import to Add Dormant Account Details
+            </mat-card-title>
+            <mat-card-subtitle>Excel Sheets supported</mat-card-subtitle>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <br>
+          <mat-card-content>
+            <app-file-import></app-file-import>
+          </mat-card-content>
+        </mat-card>
       </mat-tab>
       <mat-tab label="Export Customer Data">
         <br>
-        <app-file-export></app-file-export>
+        <mat-card class="upload-download-main-card frosted-glass">
+          <mat-card-header>
+            <mat-icon mat-card-avatar>cloud_download</mat-icon>
+            <mat-card-title>
+              Export Customer Data
+            </mat-card-title>
+            <mat-card-subtitle>Export in PDF and Excel</mat-card-subtitle>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <br>
+          <mat-card-content>
+            <app-file-export></app-file-export>
+          </mat-card-content>
+        </mat-card>
       </mat-tab>
     </mat-tab-group>
   </mat-card-content>

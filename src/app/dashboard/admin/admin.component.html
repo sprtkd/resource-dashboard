@@ -1,1 +1,62 @@
-<p>admin works!</p>
+<mat-card class="reviewer-rep-card">
+    <mat-card-header>
+        <mat-icon mat-card-avatar>view_compact</mat-icon>
+        <mat-card-title>
+            Dormant Account Management Dashboard
+        </mat-card-title>
+        <mat-card-subtitle>Actions on Dormant Accounts for Reviewer</mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+        <mat-tab-group>
+            <mat-tab label="View All">
+                <br>
+                <mat-card class="customer-list-card frosted-glass">
+                    <mat-card-header>
+                        <mat-icon mat-card-avatar>view_list</mat-icon>
+                        <mat-card-title>
+                            View All
+                        </mat-card-title>
+                        <mat-card-subtitle>Click on any row to reveal details</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content>
+                        <app-customer-table></app-customer-table>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+            <mat-tab label="Approval Requests">
+                <br>
+                <mat-card class="customer-list-card frosted-glass">
+                    <mat-card-header>
+                        <mat-icon mat-card-avatar>library_add_check</mat-icon>
+                        <mat-card-title>
+                            Approve Pending Requests
+                        </mat-card-title>
+                        <mat-card-subtitle>Click on any row to reveal Approval Request</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content>
+                        <app-customer-table></app-customer-table>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+            <mat-tab label="Audit Report">
+                <br>
+                <mat-card class="customer-list-card frosted-glass">
+                    <mat-card-header>
+                        <mat-icon mat-card-avatar>developer_board</mat-icon>
+                        <mat-card-title>
+                            Generate Audit Report
+                        </mat-card-title>
+                        <mat-card-subtitle>Generate Audit Reports for Respresentatives</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content>
+
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
+</mat-card>
