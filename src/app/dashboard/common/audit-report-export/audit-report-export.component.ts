@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { RepresentativeUiAuditProfile } from 'src/app/models/ui/representative.ui.audit.profile';
 import { MatSort } from '@angular/material/sort';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import * as html2pdf from 'html2pdf.js';
 
 @Component({
   selector: 'app-audit-report-export',
@@ -55,6 +56,11 @@ export class AuditReportExportComponent implements OnInit {
     //dummy
     this.dataSource = new MatTableDataSource(this.auditProfileList);
     this.dataSource.sort = this.sort;
+  }
+
+  savePDF() {
+    var element = document.getElementById('printReport');
+    html2pdf(element);
   }
 
 }

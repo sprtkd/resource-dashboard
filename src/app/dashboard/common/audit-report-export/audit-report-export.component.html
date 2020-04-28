@@ -1,4 +1,4 @@
-<div class="audit-table-div">
+<div class="audit-table-div" id="printReport">
 
     <div>
         <button mat-raised-button (click)="ngOnInit()">Refresh</button>
@@ -44,7 +44,7 @@
         <p>This is the primary content of the panel.</p>
 
         <mat-action-row>
-            <button mat-raised-button color="accent">Generate Report</button>
+            <button mat-raised-button color="accent" (click)="savePDF()">Generate Report</button>
         </mat-action-row>
     </mat-expansion-panel>
 </div>
