@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { UserUiLogin } from '../models/ui/user.ui.login';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,8 @@ export class CommonsService {
     }
   }
 
-  getLoggedIn() {
-    let username = localStorage.getItem("user");
-    return username;
+  getLoggedIn(): UserUiLogin {
+    let user = localStorage.getItem("user");
+    return user && JSON.parse(user);
   }
 }

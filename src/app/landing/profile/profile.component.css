@@ -25,3 +25,36 @@
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
 }
+
+.profile-widgets-div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.profile-widgets-div>div {
+  background-color: #ffffff62;
+  color: rgb(151, 83, 0);
+  margin: 10px;
+  padding: 20px;
+  font-size: 1.25em;
+  width: 250px;
+  border-radius: 10px;
+}
+
+.widget-count {
+  color: rgb(255, 140, 0);
+  margin: 10px;
+  padding: 20px;
+  font-size: 2.5em;
+}
+
+.notification-div {
+  min-height: 500px;
+  padding: 20px;
+}
+
+.notification-span {
+  font-size: 1.25em;
+  color: rgb(0, 81, 95);
+}

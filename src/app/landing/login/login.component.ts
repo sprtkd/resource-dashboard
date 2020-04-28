@@ -15,7 +15,7 @@ import { CommonsService } from 'src/app/services/commons.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private navbar: NavbarComponent, 
+  constructor(private router: Router, private navbar: NavbarComponent,
     private commonsService: CommonsService, private loginService: LoginService,
   ) { }
   hidePassword: Boolean = true;
@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
   password = new FormControl('', [Validators.required, Validators.minLength(5)]);
 
   ngOnInit(): void {
-    let username = localStorage.getItem("user");
-    if (username != null) {
+    let user = this.commonsService.getLoggedIn()
+    if (user != null) {
       this.router.navigate(["app/dashboard"]);
       this.commonsService.openSnackBar("You are already logged in", "Logout", "logout");
     }
@@ -39,10 +39,12 @@ export class LoginComponent implements OnInit {
     let loginFlag: Boolean = false;
     this.navbar.spinnerStart();
     this.loginService.tryLogin(userUiLogin)
-      .subscribe((data: Boolean) => {
-        loginFlag = data;
+      .subscribe((data: UserUiLogin) => {
+        loginFlag = data.isLoggedIn;
         if (loginFlag) {
-          localStorage.setItem("user", this.username.value);
+          data.password = "";
+          data.username = this.username.value;
+          localStorage.setItem("user", JSON.stringify(data));
           this.navbar.ngOnInit();
           this.router.navigate(["app/dashboard"]);
           this.commonsService.openSnackBar("Successfully Logged In", "Go to Home", "home");
@@ -53,7 +55,7 @@ export class LoginComponent implements OnInit {
       },
         error => {
           this.commonsService.openSnackBar(error, "Go to Home", "home");
-        }).add(()=>{
+        }).add(() => {
           this.navbar.spinnerStop();
         });
 

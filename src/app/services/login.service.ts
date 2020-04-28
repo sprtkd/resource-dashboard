@@ -13,8 +13,8 @@ export class LoginService {
   httpOptions = {};
   constructor(private http: HttpClient, private errorHandlerService: ErrorHandlerService) { }
 
-  tryLogin(user: UserUiLogin): Observable<Boolean> {
-    return this.http.post<Boolean>(this.loginUrl, user, this.httpOptions)
+  tryLogin(user: UserUiLogin): Observable<UserUiLogin> {
+    return this.http.post<UserUiLogin>(this.loginUrl, user, this.httpOptions)
       .pipe(
         catchError(this.errorHandlerService.handleError)
       );

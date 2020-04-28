@@ -10,6 +10,7 @@ export class ErrorHandlerService {
   constructor() { }
 
   handleError(error: HttpErrorResponse) {
+    console.error("Error handler called")
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error);
@@ -17,17 +18,15 @@ export class ErrorHandlerService {
         'Something bad happened; please try again later.');
     } else {
       let errMsg: String;
-      if (error.error != null) {
-        errMsg = error.error;
-      } else {
-        if (error.status == 403) {
-          errMsg = "Invalid Credentials."
-        }
-        else {
-          errMsg = "Bad Request";
-        }
 
+      if (error.status == 403) {
+        errMsg = "Invalid Credentials."
       }
+      else {
+        errMsg = "Bad Request";
+      }
+
+
       return throwError(errMsg);
 
     }

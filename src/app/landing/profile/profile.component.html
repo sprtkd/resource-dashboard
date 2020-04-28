@@ -1,16 +1,102 @@
+<h1>
+  Your Profile
+</h1>
+
+<div class="profile-widgets-div" *ngIf="profileModel.userDetails.role=='BANKOPS'">
+  <div>
+    <span class="widget-count">
+      {{profileModel.achievements.customersAddressed}}
+    </span>
+    <div>
+      Customers Addressed
+    </div>
+  </div>
+  <div>
+    <span class="widget-count">
+      {{profileModel.achievements.ticketsClosed}}
+    </span>
+    <div>
+      Tickets Closed
+    </div>
+  </div>
+  <div>
+    <span class="widget-count">
+      {{profileModel.achievements.contactsMade}}
+    </span>
+    <div>
+      Contacts Made
+    </div>
+  </div>
+</div>
+
+<div class="profile-widgets-div" *ngIf="profileModel.userDetails.role=='REVIEWER'">
+  <div>
+    <span class="widget-count">
+      {{profileModel.achievements.customersAddressed}}
+    </span>
+    <div>
+      Customers Addressed
+    </div>
+  </div>
+  <div>
+    <span class="widget-count">
+      {{profileModel.achievements.approvalsMade}}
+    </span>
+    <div>
+      Approvals Made
+    </div>
+  </div>
+  <div>
+    <span class="widget-count">
+      {{profileModel.achievements.representativesHandling}}
+    </span>
+    <div>
+      Representatives Handling
+    </div>
+  </div>
+</div>
+<br>
+<mat-divider></mat-divider>
+<br>
+
 <mat-card class="profile-card frosted-glass">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>
-      Your Profile
+      {{profileModel.userDetails.username}}
     </mat-card-title>
-    <mat-card-subtitle>Support Representative</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="profileModel.userDetails.role=='BANKOPS'">Support Representative</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="profileModel.userDetails.role=='REVIEWER'">Reviewer</mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
     <mat-tab-group>
-      <mat-tab label="Your Details"> Your Details </mat-tab>
-      <mat-tab label="Your Updates"> Your Updates </mat-tab>
+      <mat-tab label="Your Details">
+        <mat-list>
+          <mat-list-item> Name: {{profileModel.userDetails.username}}</mat-list-item>
+          <mat-list-item> Role: {{profileModel.userDetails.role}}</mat-list-item>
+
+        </mat-list>
+      </mat-tab>
+      <mat-tab label="Your Updates">
+        <div class="notification-div">
+          <h1>All Notifications</h1>
+          <div>
+            <mat-list>
+              <hr>
+              <span *ngFor="let notification of profileModel.notificationList">
+                <mat-list-item>
+                  <span class="notification-span">
+                    {{notification}}
+                  </span>
+                </mat-list-item>
+                <hr>
+              </span>
+            </mat-list>
+          </div>
+        </div>
+
+      </mat-tab>
     </mat-tab-group>
   </mat-card-content>
 </mat-card>

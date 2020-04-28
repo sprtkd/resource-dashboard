@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarUiModel, NotificationUiModel } from 'src/app/models/ui/link.ui.model';
+import { CommonsService } from 'src/app/services/commons.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,7 @@ export class NavbarComponent implements OnInit {
 
   navbarUiModel: NavbarUiModel = new NavbarUiModel();
   ifShowSpinner: Boolean = false;
-  constructor() {
+  constructor(private commonsService: CommonsService) {
 
   }
 
@@ -22,8 +23,8 @@ export class NavbarComponent implements OnInit {
 
   getNavbarUrls() {
 
-    let username = localStorage.getItem("user");
-    if (username != null) {
+    let user = this.commonsService.getLoggedIn();
+    if (user != null) {
       this.navbarUiModel.isLoggedIn = true;
     } else {
       this.navbarUiModel.isLoggedIn = false;
@@ -31,7 +32,7 @@ export class NavbarComponent implements OnInit {
     if (this.navbarUiModel.isLoggedIn) {
       this.navbarUiModel.listOfLinks = [];
       this.navbarUiModel.listOfLinks.push(
-        { 'linkName': "Hello " + username, 'linkUri': "/home" },
+        { 'linkName': "Hello " + user.username + " | " + user.role, 'linkUri': "/home" },
         { 'linkName': "Dashboard", 'linkUri': "/app/dashboard" },
         { 'linkName': "Logs", 'linkUri': "/app/logs" },
         { 'linkName': "Logout", 'linkUri': "/logout" },

@@ -9,7 +9,6 @@ import { CommonsService } from 'src/app/services/commons.service';
 import { MatStepper } from '@angular/material/stepper';
 import { TicketService } from 'src/app/services/ticket.service';
 import { NavbarComponent } from 'src/app/common/navbar/navbar.component';
-import { TicketHistory } from 'src/app/models/backend/ticket.backend.model';
 
 @Component({
   selector: 'app-customer-detailed-view',
@@ -88,7 +87,7 @@ export class CustomerDetailedViewComponent implements OnInit {
   initiateTicket() {
     this.selectedCustomer.moreDetails = new CustomerExtraDetails();
     this.navbar.spinnerStart();
-    this.ticketService.initiateCustomer(this.selectedCustomer.accountNumber, this.commonsService.getLoggedIn()).subscribe(
+    this.ticketService.initiateCustomer(this.selectedCustomer.accountNumber, this.commonsService.getLoggedIn().username).subscribe(
       (data) => {
         this.selectedCustomer.moreDetails.ticketRaised = data;
       }, error => {
