@@ -25,10 +25,12 @@ import { NavbarComponent } from 'src/app/common/navbar/navbar.component';
 export class CustomerTableComponent implements OnInit {
 
   allCustomerList: CustomerUiBasicModel[] = [];
+  customerData: CustomerUiBasicModel;
   dataSource: MatTableDataSource<CustomerUiBasicModel> = new MatTableDataSource([]);
 
   @Input() externalFilter: String;
   filterForAccount: String;
+  
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -45,6 +47,17 @@ export class CustomerTableComponent implements OnInit {
     this.getAllCustomers();
   }
 
+  onToggleGroupChange() {
+    if(this.filterForAccount == "All"){
+      this.allCustomerList = [];
+      this.getAllCustomers();
+    }else{
+      this.allCustomerList = [];
+      this.getFilteredCustomersList();
+    }
+   } 
+  
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -56,6 +69,31 @@ export class CustomerTableComponent implements OnInit {
       .subscribe((data: CustomerBackendModel[]) => {
         for (let currCustomer of data) {
           this.allCustomerList.push(CustomerUiBasicModel.transformBackendCustomerToUI(currCustomer));
+        }
+        this.dataSource = new MatTableDataSource(this.allCustomerList);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+        error => {
+          this.commonsService.openSnackBar(error, "Failed to fetch Customers", null);
+        }).add(() => {
+          this.navbar.spinnerStop();
+        });
+  }
+
+  getFilteredCustomersList() {
+    this.navbar.spinnerStart();
+    this.customerService.fetchAllCustomers()
+      .subscribe((data: CustomerBackendModel[]) => {
+        for (let currCustomer of data) {
+          this.customerData = CustomerUiBasicModel.transformBackendCustomerToUI(currCustomer);
+          if( (this.filterForAccount=='Unassigned' && this.customerData.status == CustomerStatus.INACTIVE) || 
+          (this.filterForAccount=='Pending' && 
+                ([CustomerStatus.INITIATED,CustomerStatus.CUST_RESP,CustomerStatus.PENDING_APPROVAL,CustomerStatus.CUSTOMER_CONNECT].includes(this.customerData.status))) ||
+          (this.filterForAccount=='Closed' && ([CustomerStatus.MARKED_AS_ACTIVE,CustomerStatus.MARKED_AS_CLOSED].includes(this.customerData.status))))
+          {
+          this.allCustomerList.push(this.customerData );
+          }
         }
         this.dataSource = new MatTableDataSource(this.allCustomerList);
         this.dataSource.paginator = this.paginator;

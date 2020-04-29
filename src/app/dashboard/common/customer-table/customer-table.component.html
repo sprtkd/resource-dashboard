@@ -7,7 +7,7 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John">
   </mat-form-field>
   <div>
-    <mat-button-toggle-group [(ngModel)]="filterForAccount" *ngIf="!externalFilter">
+    <mat-button-toggle-group [(ngModel)]="filterForAccount" *ngIf="!externalFilter" (change)="onToggleGroupChange()">
       <mat-button-toggle value="All">All Dormant Accounts</mat-button-toggle>
       <mat-button-toggle value="Unassigned">Unassigned</mat-button-toggle>
       <mat-button-toggle value="Pending">Pending Items</mat-button-toggle>
