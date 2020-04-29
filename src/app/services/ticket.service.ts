@@ -13,6 +13,8 @@ export class TicketService {
 
   private ticketUrl: string = "https://resource-dashboard-a.herokuapp.com/api/tickets";
   private updateTicketUrl: string = "https://resource-dashboard-a.herokuapp.com/api/tickets/saveticket";
+  private approveTicketUrl: string = "https://resource-dashboard-a.herokuapp.com/api/tickets/approveticket";
+  private getTicketUrl: string = "https://resource-dashboard-a.herokuapp.com/api/tickets/getticket";
   constructor(private http: HttpClient, private errorHandlerService: ErrorHandlerService) { }
   initiateCustomer(accountNum: String, username: String): Observable<TicketBackendModel> {
     return this.http.post<TicketBackendModel>(this.ticketUrl + "/" + accountNum, this.getInitiatedTicketModel(username)).pipe(
@@ -39,6 +41,18 @@ export class TicketService {
 
   updateTicketByHistory(ticketId: string, username: string, status: string, description: string) {
     return this.http.put<TicketBackendModel>(this.updateTicketUrl + "/" + ticketId, this.getUpdateTicketHistoryModel(username, status, description)).pipe(
+      catchError(this.errorHandlerService.handleError)
+    );
+  }
+
+  approveTicket(ticketId: string, username: string, status: string, description: string) {
+    return this.http.put<TicketBackendModel>(this.approveTicketUrl + "/" + ticketId, this.getUpdateTicketHistoryModel(username, status, description)).pipe(
+      catchError(this.errorHandlerService.handleError)
+    );
+  }
+
+  getTicketById(ticketId: string): Observable<TicketBackendModel> {
+    return this.http.get<TicketBackendModel>(this.getTicketUrl + "/" + ticketId).pipe(
       catchError(this.errorHandlerService.handleError)
     );
   }

@@ -4,7 +4,7 @@
     Contact</span>
 <span class="rounded-label cust-resp" *ngIf="getFormattedStatus(statusInput)=='CUST_RESP'">Customer Responded</span>
 <span class="rounded-label pending" *ngIf="getFormattedStatus(statusInput)=='PENDING_APPROVAL'">Pending</span>
-<span class="rounded-label closed" *ngIf="getFormattedStatus(statusInput)=='READY_FOR_ACTIVATION'">Ready
+<span class="rounded-label activate" *ngIf="getFormattedStatus(statusInput)=='MARKED_AS_ACTIVE'">Ready
     to Activate</span>
-<span class="rounded-label closed" *ngIf="getFormattedStatus(statusInput)=='READY_TO_CLOSED'">Ready to
-    Close</span>
+<span class="rounded-label closed" *ngIf="getFormattedStatus(statusInput)=='MARKED_AS_CLOSED'">Ready for
+    Closure</span>

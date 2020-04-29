@@ -54,7 +54,7 @@ export class CustomerDetailedViewComponent implements OnInit {
       this.currentStage = 1;
     } else if (this.selectedCustomer.status == CustomerStatus.PENDING_APPROVAL) {
       this.currentStage = 2;
-    } else if (this.selectedCustomer.status == CustomerStatus.READY_FOR_ACTIVATION || this.selectedCustomer.status == CustomerStatus.READY_TO_CLOSED) {
+    } else if (this.selectedCustomer.status == CustomerStatus.MARKED_AS_ACTIVE || this.selectedCustomer.status == CustomerStatus.MARKED_AS_CLOSED) {
       this.currentStage = 3;
     }
   }
@@ -177,6 +177,20 @@ export class CustomerDetailedViewComponent implements OnInit {
         });
   }
 
+  approveTicket(status: string, description: string, onsuccess) {
+    this.navbar.spinnerStart();
+    this.ticketService.approveTicket(this.selectedCustomer.moreDetails.ticketNumber.toString(),
+      this.commonsService.getLoggedIn().username.toString(),
+      status, description).subscribe(
+        (data) => {
+          onsuccess()
+        }, error => {
+          this.commonsService.openSnackBar(error, "Try Again", null);
+        }).add(() => {
+          this.navbar.spinnerStop();
+        });
+  }
+
   onConnectFailed() {
     this.updateTicket("PENDING_APPROVAL", "Connect with customer failed.", () => {
       this.decideCurrentStage();
@@ -190,15 +204,53 @@ export class CustomerDetailedViewComponent implements OnInit {
   }
 
   approveActivation() {
-
+    this.approveTicket("MARKED_AS_ACTIVE", this.getDescriptionForApproval("MARKED_AS_ACTIVE"), () => {
+      this.decideCurrentStage();
+      this.initStepperValue();
+      this.myStepper.linear = false;
+      this.myStepper.next();
+      this.myStepper.linear = true;
+    })
   }
 
   approveClosure() {
+    this.approveTicket("MARKED_AS_CLOSED", this.getDescriptionForApproval("MARKED_AS_CLOSED"), () => {
+      this.decideCurrentStage();
+      this.initStepperValue();
+      this.myStepper.linear = false;
+      this.myStepper.next();
+      this.myStepper.linear = true;
+    })
+  }
 
+  getDescriptionForApproval(type: string): string {
+    let approvalDesc: string = "";
+    approvalDesc += "This ticket has been approved.\n"
+    if (type == "MARKED_AS_CLOSED") {
+      approvalDesc += "Account has been marked for closure.\n";
+    }
+    else {
+      approvalDesc += "Account has been marked for activation.\n";
+    }
+    approvalDesc += "Additional feedback: \n";
+    approvalDesc += this.pendingActionComment ? this.pendingActionComment : "None";
+    return approvalDesc;
   }
 
   rejectPendingRequest() {
 
+  }
+
+  refreshCurrentTicket() {
+    this.navbar.spinnerStart();
+    this.ticketService.getTicketById(this.selectedCustomer.moreDetails.ticketNumber.toString()).subscribe(
+      (data) => {
+        this.selectedCustomer.moreDetails.ticketRaised = data;
+      }, error => {
+        this.commonsService.openSnackBar(error, "Try Again", null);
+      }).add(() => {
+        this.navbar.spinnerStop();
+      });
   }
 
 }

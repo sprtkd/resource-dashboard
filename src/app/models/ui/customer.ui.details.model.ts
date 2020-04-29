@@ -6,9 +6,10 @@ export enum CustomerStatus {
     INITIATED = <any>"INI",
     CUST_RESP = <any>"CR",
     PENDING_APPROVAL = <any>"PA",
-    READY_FOR_ACTIVATION = <any>'A',
-    READY_TO_CLOSED = <any>'C',
-    CUSTOMER_CONNECT = <any>"CC"
+    MARKED_AS_ACTIVE = <any>'A',
+    MARKED_AS_CLOSED = <any>'C',
+    CUSTOMER_CONNECT = <any>"CC",
+    CLOSED = <any>"CL"
 }
 
 export class CustomerUiBasicModel {
@@ -34,6 +35,9 @@ export class CustomerUiBasicModel {
         if (currCustomerUiBasicModel.moreDetails.ticketNumber != null) {
             currCustomerUiBasicModel.moreDetails.ticketRaised = customerBackendModel.ticketid;
             currCustomerUiBasicModel.status = CustomerStatus[customerBackendModel.ticketid.ticketStatus];
+        }
+        if (currCustomerUiBasicModel.status == CustomerStatus.CLOSED) {
+            currCustomerUiBasicModel.status = CustomerStatus[customerBackendModel.accountStatus];
         }
         return currCustomerUiBasicModel;
     }

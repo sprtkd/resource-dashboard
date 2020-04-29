@@ -13,7 +13,7 @@
 }
 
 .rounded-label.closed {
-    background-color: rgb(255, 144, 144);
+    background-color: rgb(255, 202, 202);
     color: rgb(255, 0, 0);
 }
 
@@ -28,11 +28,16 @@
 }
 
 .rounded-label.pending {
-    background-color: rgb(255, 207, 104);
+    background-color: rgb(255, 223, 155);
     color: rgb(255, 0, 0);
 }
 
 .rounded-label.contacted {
     background-color: rgb(253, 255, 136);
     color: rgb(182, 133, 0);
+}
+
+.rounded-label.activate{
+    background-color: rgb(171, 253, 176);
+    color: rgb(11, 129, 0);
 }
