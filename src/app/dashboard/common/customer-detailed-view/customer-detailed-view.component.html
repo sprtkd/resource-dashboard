@@ -34,8 +34,11 @@
           <h2>
             {{stepperStage.stepName}}
           </h2>
-          <h3>
-            {{stepperStage.stepDescription}}
+          <h3 *ngIf="userRole=='BANKOPS'">
+            {{stepperStage.stepDescriptionsOps}}
+          </h3>
+          <h3 *ngIf="userRole=='REVIEWER'">
+            {{stepperStage.stepDescriptionReviewer}}
           </h3>
           <ng-container *ngTemplateOutlet="{'init': init, 'custResp': custResp, 
           'approve': approve, 'closed': closed}[stepperStage.stepViewName]"></ng-container>
@@ -52,8 +55,11 @@
           <h2>
             {{stepperStage.stepName}}
           </h2>
-          <h3>
-            {{stepperStage.stepDescription}}
+          <h3 *ngIf="userRole=='BANKOPS'">
+            {{stepperStage.stepDescriptionsOps}}
+          </h3>
+          <h3 *ngIf="userRole=='REVIEWER'">
+            {{stepperStage.stepDescriptionReviewer}}
           </h3>
           <ng-container *ngTemplateOutlet="{'init': init, 'custResp': custResp, 
      'approve': approve, 'closed': closed}[stepperStage.stepViewName]"></ng-container>
@@ -66,7 +72,7 @@
 
       <span>
         <ng-template #init>
-          <div>
+          <div *ngIf="userRole=='BANKOPS'">
             <h2>
               Please contact customer to record response:
             </h2>
@@ -106,7 +112,7 @@
           </div>
         </ng-template>
         <ng-template #custResp>
-          <div>
+          <div *ngIf="userRole=='BANKOPS'">
             <div>
               <h3>Record feedback:</h3>
               <mat-form-field>
@@ -145,12 +151,12 @@
           </div>
         </ng-template>
         <ng-template #approve>
-          <div>
+          <div *ngIf="userRole=='BANKOPS'">
             <button mat-raised-button color="warn" (click)="onSubmissionCancel()">Cancel Submission</button>
           </div>
         </ng-template>
         <ng-template #closed>
-          <div>
+          <div *ngIf="userRole=='BANKOPS'">
             <button mat-flat-button color="accent" matBadge="&#10004;" matBadgeColor="primary">
               Closed
             </button>
@@ -188,8 +194,15 @@
 
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="accent" *ngIf="!selectedCustomer.moreDetails.ticketRaised"
-      (click)="initiateTicket()">Assign To Me</button>
+    <div *ngIf="userRole=='BANKOPS'">
+      <button mat-raised-button color="accent" *ngIf="!selectedCustomer.moreDetails.ticketRaised"
+        (click)="initiateTicket()">Assign To Me</button>
+    </div>
+    <div *ngIf="userRole=='REVIEWER'">
+      <button mat-raised-button color="accent" *ngIf="!selectedCustomer.moreDetails.ticketRaised">Assign To
+        Representative</button>
+      <button mat-raised-button color="accent" *ngIf="selectedCustomer.moreDetails.ticketRaised">Reassign</button>
+    </div>
   </mat-card-actions>
 
 </mat-card>

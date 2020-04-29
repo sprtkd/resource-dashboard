@@ -21,6 +21,7 @@ export class CustomerDetailedViewComponent implements OnInit {
   listOfStages: CustomerUiDetailedStepperModel[] = [];
   currentStage = 0;
   responsetypeSelected: String;
+  userRole: String;
   @Input() selectedCustomer: CustomerUiBasicModel;
   @ViewChild('stepper') private myStepper: MatStepper;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -34,6 +35,10 @@ export class CustomerDetailedViewComponent implements OnInit {
   ngOnInit(): void {
     this.listOfStages = CustomerUiDetailedStepperModel.buildBasicStepper();
     this.initStepperValue();
+
+    if (this.commonsService.getLoggedIn()) {
+      this.userRole = this.commonsService.getLoggedIn().role;
+    }
   }
 
   initStepperValue() {
