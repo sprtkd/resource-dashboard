@@ -12,7 +12,7 @@ require('./server/model/ticket');
 //Configs
 require('./server/config/connection');
 
-  
+
 var indexRouter = require('./server/routes/index');
 var usersRouter = require('./server/routes/users');
 var customerRouter = require('./server/routes/customers');
@@ -33,9 +33,11 @@ app.use(express.json());
 
 app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, PATCH, DELETE");
+
   next();
 });
 app.use('/', indexRouter);
@@ -43,12 +45,12 @@ app.use('/api/users', usersRouter);
 app.use('/api/customers', customerRouter);
 app.use('/api/tickets', ticketRouter);
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
