@@ -1,0 +1,8 @@
+<span class="rounded-label inactive" *ngIf="getFormattedStatus(statusInput)=='INACTIVE'">Inactive</span>
+<span class="rounded-label initiated" *ngIf="getFormattedStatus(statusInput)=='INITIATED'">Initiated</span>
+<span class="rounded-label cust-resp" *ngIf="getFormattedStatus(statusInput)=='CUST_RESP'">Contacting</span>
+<span class="rounded-label pending" *ngIf="getFormattedStatus(statusInput)=='PENDING_APPROVAL'">Pending</span>
+<span class="rounded-label closed" *ngIf="getFormattedStatus(statusInput)=='READY_FOR_ACTIVATION'">Ready
+    to Activate</span>
+<span class="rounded-label closed" *ngIf="getFormattedStatus(statusInput)=='READY_TO_CLOSED'">Ready to
+    Close</span>

@@ -2,9 +2,7 @@
   <mat-card-header>
     <mat-icon mat-card-avatar>person</mat-icon>
     <mat-card-title>{{selectedCustomer.name}}
-      <span class="rounded-label active" *ngIf="getCurrentStatus()=='ACTIVE'">Active</span>
-      <span class="rounded-label inactive" *ngIf="getCurrentStatus()=='INACTIVE'">Inactive</span>
-      <span class="rounded-label closed" *ngIf="getCurrentStatus()=='CLOSED'">Closed</span>
+      <app-status-label [statusInput]="selectedCustomer.status"></app-status-label>
     </mat-card-title>
     <mat-card-subtitle>
       <div>
@@ -22,8 +20,8 @@
       <div>
         Last Transaction: {{selectedCustomer.lastTransactionDate | date:'medium'}}
       </div>
-      <div *ngIf="selectedCustomer.moreDetails.ticketRaised">
-        Ticket Raised: {{selectedCustomer.moreDetails.ticketRaised.ticketStatus}}
+      <div *ngIf="selectedCustomer.moreDetails.ticketNumber">
+        Ticket Raised: {{selectedCustomer.moreDetails.ticketNumber}}
       </div>
     </mat-card-subtitle>
   </mat-card-header>
@@ -167,22 +165,22 @@
         <br>
         <div class="ticket-history-div">
           <h2>Ticket History</h2>
-          <div *ngIf="oldTickets.length==0">
-            No previous Tickets
-          </div>
-          <mat-expansion-panel *ngFor="let olderTicket of oldTickets">
+          <mat-expansion-panel *ngIf="selectedCustomer.moreDetails.ticketRaised">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                Ticket 1
+                Ticket Timeline
               </mat-panel-title>
               <mat-panel-description>
-                Opener: {{olderTicket}}
+                Click to view Timeline
               </mat-panel-description>
             </mat-expansion-panel-header>
-
-            <p>This is the primary content of the panel.</p>
+            <app-ticket-history [olderTickets]="selectedCustomer.moreDetails.ticketRaised.ticketHistory">
+            </app-ticket-history>
 
           </mat-expansion-panel>
+          <div *ngIf="!selectedCustomer.moreDetails.ticketRaised">
+            No Ticket History
+          </div>
         </div>
 
       </ng-template>

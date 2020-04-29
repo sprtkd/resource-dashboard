@@ -3,8 +3,9 @@ export class TicketBackendModel {
     approvedBy: String;
     dateCreated: Date;
     dateClosed: Date
-    ticketStatus: String;
+    ticketStatus: string;
     ticketHistory: TicketHistory[];
+    ticketId: String;
 }
 
 export class TicketHistory {

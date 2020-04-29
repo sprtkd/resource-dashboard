@@ -22,12 +22,20 @@
     <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; let i = index">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> {{fieldsToDisplay[i]}} </th>
       <td mat-cell *matCellDef="let element" matRipple>
-        <span *ngIf="column!='lastTransactionDate'">
-          {{element[column]}}
-        </span>
-        <span *ngIf="column=='lastTransactionDate'">
+        <ng-template [ngIf]="column=='lastTransactionDate'" [ngIfElse]="second">
           {{element[column] | date:'short'}}
-        </span>
+        </ng-template>
+        <ng-template #second>
+          <ng-template [ngIf]="column=='status'" [ngIfElse]="third">
+            <span *ngIf="expandedElement==element">
+              Working On
+            </span>
+            <app-status-label [statusInput]="element[column]" *ngIf="expandedElement!=element"></app-status-label>
+          </ng-template>
+        </ng-template>
+        <ng-template #third>
+          {{element[column]}}
+        </ng-template>
       </td>
     </ng-container>
 

@@ -3,8 +3,11 @@ import { TicketBackendModel } from 'src/app/models/backend/ticket.backend.model'
 
 export enum CustomerStatus {
     INACTIVE = <any>'I',
+    INITIATED = <any>"INI",
+    CUST_RESP = <any>"CR",
+    PENDING_APPROVAL = <any>"PA",
     READY_FOR_ACTIVATION = <any>'A',
-    READY_TO_CLOSED = <any>'C',
+    READY_TO_CLOSED = <any>'C'
 }
 
 export class CustomerUiBasicModel {
@@ -14,6 +17,7 @@ export class CustomerUiBasicModel {
     status: CustomerStatus;
     lastTransactionDate: Date;
     moreDetails: CustomerExtraDetails;
+    
     static transformBackendCustomerToUI(customerBackendModel: CustomerBackendModel): CustomerUiBasicModel {
 
         var currCustomerUiBasicModel: CustomerUiBasicModel = new CustomerUiBasicModel();
@@ -25,19 +29,18 @@ export class CustomerUiBasicModel {
         currCustomerUiBasicModel.moreDetails = new CustomerExtraDetails();
         currCustomerUiBasicModel.moreDetails.address = customerBackendModel.address;
         currCustomerUiBasicModel.moreDetails.emailId = customerBackendModel.emailId;
-        if (customerBackendModel.ticketRaised == null) {
-            currCustomerUiBasicModel.moreDetails.ticketRaised = null;
-        } else {
-            currCustomerUiBasicModel.moreDetails.ticketRaised = new TicketBackendModel();
-            currCustomerUiBasicModel.moreDetails.ticketRaised.ticketStatus = "Initiated";
+        currCustomerUiBasicModel.moreDetails.ticketNumber = customerBackendModel.ticketRaised;
+        if (currCustomerUiBasicModel.moreDetails.ticketNumber != null) {
+            currCustomerUiBasicModel.moreDetails.ticketRaised = customerBackendModel.ticketid;
+            currCustomerUiBasicModel.status = CustomerStatus[customerBackendModel.ticketid.ticketStatus];
         }
-
         return currCustomerUiBasicModel;
     }
 }
 
 export class CustomerExtraDetails {
     emailId: String;
+    ticketNumber: String;
     ticketRaised: TicketBackendModel;
     address: String;
 }

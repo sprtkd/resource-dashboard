@@ -9,4 +9,5 @@ export class CustomerBackendModel {
     lastTranDate: Date;
     ticketRaised: String;
     address: String;
+    ticketid: TicketBackendModel;
 }

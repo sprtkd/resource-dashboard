@@ -20,7 +20,6 @@ export class CustomerDetailedViewComponent implements OnInit {
 
   listOfStages: CustomerUiDetailedStepperModel[] = [];
   currentStage = 0;
-  oldTickets = ["Ray", "Cross"];
   responsetypeSelected: String;
   @Input() selectedCustomer: CustomerUiBasicModel;
   @ViewChild('stepper') private myStepper: MatStepper;
@@ -35,10 +34,6 @@ export class CustomerDetailedViewComponent implements OnInit {
   ngOnInit(): void {
     this.listOfStages = CustomerUiDetailedStepperModel.buildBasicStepper();
     this.initStepperValue();
-  }
-
-  getCurrentStatus(): String {
-    return CustomerStatus[this.selectedCustomer.status];
   }
 
   initStepperValue() {

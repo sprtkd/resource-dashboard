@@ -1,0 +1,33 @@
+.rounded-label {
+    all: unset;
+    border: 0px;
+    border-radius: 15px;
+    font-size: 15px;
+    color: white;
+    padding: 5px 12px 5px 12px;
+}
+
+.rounded-label.initiated {
+    background-color: rgb(168, 255, 160);
+    color: rgb(4, 131, 0);
+}
+
+.rounded-label.closed {
+    background-color: rgb(255, 144, 144);
+    color: rgb(255, 0, 0);
+}
+
+.rounded-label.inactive {
+    background-color: rgb(255, 203, 126);
+    color: rgb(168, 81, 0);
+}
+
+.rounded-label.cust-resp {
+    background-color: rgb(161, 202, 255);
+    color: rgb(0, 44, 189);
+}
+
+.rounded-label.pending {
+    background-color: rgb(255, 207, 104);
+    color: rgb(255, 136, 0);
+}
