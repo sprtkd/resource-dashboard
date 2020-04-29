@@ -47,6 +47,36 @@ exports.saveCustResponse = function(req,res,next){
 }
 
 
+exports.getTicket = function(req,res,next){
+    console.log("in save cust");
+    var params = req.params || {};
+    var query = {
+        ticketId: params.ticketId
+    };
+    
+    if (!query) {
+        res.status(400).send('Bad Request');
+        return;
+    }
+
+    ticketService.getTicket(query,function (error, ticketResponse){
+        if (error) {
+            res.status(404).send(error);
+            return;
+        }
+        if (ticketResponse) {
+            res.status(200).send(ticketResponse);
+            return;
+        }
+        if (!ticketResponse) {
+            res.status(204).send('No Data Found');
+            return;
+        }
+    });
+
+}
+
+
 exports.approveTicket = function(req,res,next){
     console.log("Controller:in ticket approval");
         var customerStatus = req.body.status;

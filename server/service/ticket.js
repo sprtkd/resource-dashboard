@@ -60,3 +60,8 @@ exports.approveTicket = function(query,data,createdBy,dateCloure,status,callback
       }
     )
 }
+
+exports.getTicket = function (query, callback) {
+  ticket.findOne(query, callback);
+  console.log("Service:Fetched single ticket");
+}
