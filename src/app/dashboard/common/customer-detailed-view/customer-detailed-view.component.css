@@ -49,6 +49,28 @@ mat-icon.mat-card-avatar {
     margin-right: 8px;
 }
 
-.ticket-history-div{
-    max-width: 400px;
+.ticket-history-div {
+    max-width: 600px;
+}
+
+.horizontal-list-item {
+    display: inline-block;
+    padding: 10px;
+    content: "\2022";
+    color: rgb(97, 39, 0);
+}
+
+.horizontal-list-item::before {
+    content: "\2022";
+    color: rgb(255, 115, 0);
+    font-weight: bold;
+    font-size: 1em;
+    display: inline-block;
+    width: 1em;
+    margin-left: -0.5em;
+}
+
+.statistics-bar {
+    border: 1px solid orange;
+    border-radius: 5px;
 }

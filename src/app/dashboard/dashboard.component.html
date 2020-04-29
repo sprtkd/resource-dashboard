@@ -1,4 +1,5 @@
-<mat-card class="main-dashboard-card">
+<mat-card class="main-dashboard-card"
+    [ngClass]="(profileType.role=='BANKOPS')?'main-dashboard-card-ops':'main-dashboard-card-reviewer'">
     <mat-card-header>
         <mat-icon mat-card-avatar>dashboard</mat-icon>
         <mat-card-title>

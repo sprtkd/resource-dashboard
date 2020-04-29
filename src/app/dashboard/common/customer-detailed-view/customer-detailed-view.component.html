@@ -22,12 +22,30 @@
       </div>
       <div *ngIf="selectedCustomer.moreDetails.ticketNumber">
         Ticket Raised: {{selectedCustomer.moreDetails.ticketNumber}}
+        <br>
+        Last Action:
+        {{ selectedCustomer.moreDetails.ticketRaised.ticketHistory.slice(-1)[0].description.split('.')[0]}}
       </div>
     </mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
     <div *ngIf="selectedCustomer.moreDetails.ticketRaised">
+
+      <ul class="statistics-bar" *ngIf="userRole=='REVIEWER'">
+        <li class="horizontal-list-item">
+          Customer Connects: 6
+        </li>
+        <li class="horizontal-list-item">
+          Retries: 2
+        </li>
+        <li class="horizontal-list-item">
+          Ticket Created On: {{selectedCustomer.moreDetails.ticketRaised.dateCreated | date:'medium'}}
+        </li>
+        <li class="horizontal-list-item">
+          Ticket Assigned To: {{selectedCustomer.moreDetails.ticketRaised.assignedTo}}
+        </li>
+      </ul>
       <mat-horizontal-stepper [linear]="true" #stepper *ngIf="!(isHandset$ | async)" [selectedIndex]="currentStage">
         <mat-step [completed]="stepperStage.completed" *ngFor="let stepperStage of listOfStages" editable="false">
           <ng-template matStepLabel>{{stepperStage.stepName}}</ng-template>
@@ -79,12 +97,12 @@
             <mat-list>
               <mat-list-item>
                 <button mat-raised-button color="accent" style="background-color: rgb(11, 139, 11);"
-                  (click)="tryingToContact()">
+                  (click)="tryingToContactPhone()">
                   <mat-icon aria-hidden="false">phone</mat-icon>
                   Call: {{selectedCustomer.contactNumber}}
                 </button>
               </mat-list-item>
-              <mat-list-item> <button mat-raised-button color="accent" (click)="tryingToContact()">
+              <mat-list-item> <button mat-raised-button color="accent" (click)="tryingToContactMessage()">
                   <mat-icon aria-hidden="false">message</mat-icon>
                   Send Message: {{selectedCustomer.contactNumber}}
                 </button> </mat-list-item>
@@ -96,16 +114,27 @@
               <br>
               <mat-divider></mat-divider>
               <br>
+              <span *ngIf="selectedCustomer.moreDetails.ticketRaised.ticketStatus=='CUSTOMER_CONNECT'">
+                <mat-list-item>
+                  <h2>
+                    Able to Connect? Goto Next Step &nbsp;
+                  </h2>
 
-              <mat-list-item>
-                <h2>
-                  Able to Connect? Goto Next Step &nbsp;
-                </h2>
+                  <button mat-fab color="primary" (click)="connectedToCustomer()">
+                    <mat-icon aria-hidden="false">arrow_right_alt</mat-icon>
+                  </button>
+                </mat-list-item>
+                <br>
+                <mat-list-item>
+                  <h2>
+                    Repeatedly Failing to Connect? Inform Approver &nbsp;
+                  </h2>
 
-                <button mat-fab color="primary" (click)="connectedToCustomer()">
-                  <mat-icon aria-hidden="false">arrow_right_alt</mat-icon>
-                </button>
-              </mat-list-item>
+                  <button mat-fab color="warn" (click)="onConnectFailed()">
+                    <mat-icon aria-hidden="false">cancel_schedule_send</mat-icon>
+                  </button>
+                </mat-list-item>
+              </span>
             </mat-list>
 
 
@@ -119,13 +148,16 @@
                 <mat-label>Response</mat-label>
                 <mat-select [(ngModel)]="responsetypeSelected">
                   <mat-option value="agreeClose">
-                    Customer Agreed to Close
+                    Customer Agreed to Close Account
+                  </mat-option>
+                  <mat-option value="agreeActivate">
+                    Customer Agreed to Activate
                   </mat-option>
                   <mat-option value="requestDelay">
                     Customer Requested Delay
                   </mat-option>
-                  <mat-option value="connectFailed">
-                    Customer Not Reachable!
+                  <mat-option value="declinedToComment">
+                    Customer Declined To Comment!
                   </mat-option>
                   <mat-option value="comment">
                     Other
@@ -134,18 +166,20 @@
 
               </mat-form-field>
               &nbsp;
-              <mat-slide-toggle>Customer knew of dormant status</mat-slide-toggle>
+              <mat-slide-toggle [(ngModel)]="customerKnewDormant">Customer knew of dormant status</mat-slide-toggle>
               &nbsp;
-              <mat-slide-toggle>Customer agreed to do a transaction</mat-slide-toggle>
+              <mat-slide-toggle [(ngModel)]="customerAgreedTransaction">Customer agreed to do a transaction
+              </mat-slide-toggle>
               <br>
               <mat-form-field appearance="fill" *ngIf="responsetypeSelected=='comment'">
                 <mat-label>Other Comments</mat-label>
-                <textarea matInput></textarea>
+                <textarea matInput [(ngModel)]="otherComment"></textarea>
               </mat-form-field>
             </div>
             <div class="button-row">
-              <button mat-raised-button color="accent">Save</button>
-              <button mat-raised-button color="accent" (click)="onResponseSubmit()">Submit</button>
+              <button mat-raised-button color="accent" disabled>Save</button>
+              <button mat-raised-button color="accent" (click)="onResponseSubmit()"
+                [disabled]="responsetypeSelected==undefined">Submit</button>
             </div>
 
           </div>
@@ -153,6 +187,36 @@
         <ng-template #approve>
           <div *ngIf="userRole=='BANKOPS'">
             <button mat-raised-button color="warn" (click)="onSubmissionCancel()">Cancel Submission</button>
+          </div>
+          <div *ngIf="userRole=='REVIEWER'">
+            <div>
+              <h2>Customer Response:</h2>
+              <h3 style="white-space: pre-line;">
+
+                {{selectedCustomer.moreDetails.ticketRaised.ticketHistory.slice(-1)[0].description}}
+
+              </h3>
+              <hr>
+              <br>
+            </div>
+            <div>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Feedback from Reviewer</mat-label>
+                <textarea matInput [(ngModel)]="pendingActionComment"></textarea>
+              </mat-form-field>
+              <br>
+              <br>
+              <button mat-raised-button color="primary" style="background-color: green;" (click)="approveActivation()">
+                Approve for Activation</button>
+              &nbsp;
+              <button mat-raised-button color="accent" (click)="approveClosure()">Approve for Closure</button>
+              <br><br>
+              <button mat-raised-button color="warn" (click)="rejectPendingRequest()">Reject</button>
+
+
+            </div>
+
           </div>
         </ng-template>
         <ng-template #closed>

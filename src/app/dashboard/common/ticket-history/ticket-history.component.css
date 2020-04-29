@@ -63,8 +63,7 @@ ul.tl li .item-detail {
 ul.tl li .timestamp {
     color: #8D8D8D;
     position: absolute;
-    width: 100px;
-    left: -95%;
+    left: -100px;
     top: -3%;
     text-align: right;
     font-size: 12px;

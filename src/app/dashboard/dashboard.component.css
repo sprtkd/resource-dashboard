@@ -1,5 +1,10 @@
-.main-dashboard-card{
+.main-dashboard-card-ops {
     background: linear-gradient(to right, #b4daffbe, #fab6b2ad);
+    margin: 0px;
+}
+
+.main-dashboard-card-reviewer {
+    background: linear-gradient(to left, #8ae0f0, rgb(152, 255, 163));
     margin: 0px;
 }
 

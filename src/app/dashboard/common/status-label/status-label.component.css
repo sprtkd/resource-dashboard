@@ -29,5 +29,10 @@
 
 .rounded-label.pending {
     background-color: rgb(255, 207, 104);
-    color: rgb(255, 136, 0);
+    color: rgb(255, 0, 0);
+}
+
+.rounded-label.contacted {
+    background-color: rgb(253, 255, 136);
+    color: rgb(182, 133, 0);
 }

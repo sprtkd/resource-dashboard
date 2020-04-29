@@ -7,7 +7,8 @@ export enum CustomerStatus {
     CUST_RESP = <any>"CR",
     PENDING_APPROVAL = <any>"PA",
     READY_FOR_ACTIVATION = <any>'A',
-    READY_TO_CLOSED = <any>'C'
+    READY_TO_CLOSED = <any>'C',
+    CUSTOMER_CONNECT = <any>"CC"
 }
 
 export class CustomerUiBasicModel {
@@ -17,7 +18,7 @@ export class CustomerUiBasicModel {
     status: CustomerStatus;
     lastTransactionDate: Date;
     moreDetails: CustomerExtraDetails;
-    
+
     static transformBackendCustomerToUI(customerBackendModel: CustomerBackendModel): CustomerUiBasicModel {
 
         var currCustomerUiBasicModel: CustomerUiBasicModel = new CustomerUiBasicModel();

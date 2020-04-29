@@ -11,7 +11,8 @@ import { catchError } from 'rxjs/operators';
 })
 export class TicketService {
 
-  ticketUrl: string = "https://resource-dashboard-a.herokuapp.com/api/tickets";
+  private ticketUrl: string = "https://resource-dashboard-a.herokuapp.com/api/tickets";
+  private updateTicketUrl: string = "https://resource-dashboard-a.herokuapp.com/api/tickets/saveticket";
   constructor(private http: HttpClient, private errorHandlerService: ErrorHandlerService) { }
   initiateCustomer(accountNum: String, username: String): Observable<TicketBackendModel> {
     return this.http.post<TicketBackendModel>(this.ticketUrl + "/" + accountNum, this.getInitiatedTicketModel(username)).pipe(
@@ -19,7 +20,7 @@ export class TicketService {
     );
   }
 
-  getInitiatedTicketModel(username: String): TicketBackendModel {
+  private getInitiatedTicketModel(username: String): TicketBackendModel {
     let ticketBackendModel: TicketBackendModel = new TicketBackendModel();
     ticketBackendModel.approvedBy = null;
     ticketBackendModel.assignedTo = username;
@@ -34,5 +35,20 @@ export class TicketService {
     ticketBackendModel.ticketHistory = [];
     ticketBackendModel.ticketHistory.push(ticketHistory);
     return ticketBackendModel;
+  }
+
+  updateTicketByHistory(ticketId: string, username: string, status: string, description: string) {
+    return this.http.put<TicketBackendModel>(this.updateTicketUrl + "/" + ticketId, this.getUpdateTicketHistoryModel(username, status, description)).pipe(
+      catchError(this.errorHandlerService.handleError)
+    );
+  }
+
+  private getUpdateTicketHistoryModel(username: string, status: string, description: string): TicketHistory {
+    let ticketHistory: TicketHistory = new TicketHistory();
+    ticketHistory.createdBy = username;
+    ticketHistory.dateCreatedHist = new Date();
+    ticketHistory.description = description;
+    ticketHistory.status = status;
+    return ticketHistory;
   }
 }
