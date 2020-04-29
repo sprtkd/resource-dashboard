@@ -150,6 +150,7 @@ export class CustomerDetailedViewComponent implements OnInit {
     this.ticketService.initiateCustomer(this.selectedCustomer.accountNumber, this.commonsService.getLoggedIn().username).subscribe(
       (data) => {
         this.selectedCustomer.moreDetails.ticketRaised = data;
+        this.refreshCurrentTicket();
       }, error => {
         this.commonsService.openSnackBar(error, "Try Again", null);
       }).add(() => {
@@ -169,7 +170,10 @@ export class CustomerDetailedViewComponent implements OnInit {
       this.commonsService.getLoggedIn().username.toString(),
       status, description).subscribe(
         (data) => {
-          onsuccess()
+          if (onsuccess != null) {
+            onsuccess();
+          }
+          this.refreshCurrentTicket();
         }, error => {
           this.commonsService.openSnackBar(error, "Try Again", null);
         }).add(() => {
@@ -183,7 +187,11 @@ export class CustomerDetailedViewComponent implements OnInit {
       this.commonsService.getLoggedIn().username.toString(),
       status, description).subscribe(
         (data) => {
-          onsuccess()
+          if (onsuccess != null) {
+            onsuccess();
+          }
+
+          this.refreshCurrentTicket();
         }, error => {
           this.commonsService.openSnackBar(error, "Try Again", null);
         }).add(() => {
@@ -246,6 +254,10 @@ export class CustomerDetailedViewComponent implements OnInit {
     this.ticketService.getTicketById(this.selectedCustomer.moreDetails.ticketNumber.toString()).subscribe(
       (data) => {
         this.selectedCustomer.moreDetails.ticketRaised = data;
+        this.selectedCustomer.moreDetails.ticketNumber = data.ticketId;
+        this.selectedCustomer.status = CustomerStatus[data.ticketStatus];
+        this.decideCurrentStage();
+        this.initStepperValue();
       }, error => {
         this.commonsService.openSnackBar(error, "Try Again", null);
       }).add(() => {
