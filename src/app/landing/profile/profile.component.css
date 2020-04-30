@@ -1,22 +1,9 @@
 .profile-card {
-  max-width: 400px;
-  padding: 30px;
-  margin: auto;
-  text-align: center;
-  background: inherit;
   min-height: 400px;
-}
-
-@media only screen and (min-width: 600px) {
-  .profile-card {
-    padding: 30px;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .profile-card {
-    padding: 20px;
-  }
+  margin: 20px;
+  text-align: left;
+  background: inherit;
+  width: 350px !important;
 }
 
 .example-header-image {
@@ -25,6 +12,12 @@
 }
 
 .profile-widgets-div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.profile-details-div-wrap {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -47,25 +40,41 @@
   font-size: 2.5em;
 }
 
-.notification-div {
-  min-height: 500px;
-  padding: 20px;
-  text-align: left;
-  background-color: rgba(255, 255, 255, 0.233);
-  margin: 15px;
-  border-radius: 10px;
+.details-span {
+  color: rgb(66, 66, 66);
+  font-size: 18px;
 }
 
-.notification-span {
-  font-size: 1.25em;
-  color: rgb(0, 81, 95);
+.details-div {
+  text-align: left;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 10px;
+  height: 200px;
+  color: rgb(41, 41, 41);
 }
 
-.profile-details-div {
-  padding: 20px;
-  text-align: left;
-  background-color: rgba(255, 255, 255, 0.233);
-  margin: 15px;
-  border-radius: 10px;
-  height: 400px;
+mat-icon.mat-card-avatar {
+  width: 36px;
+  height: 36px;
+  font-size: 36px;
+}
+
+.rounded-label {
+  all: unset;
+  border: 0px;
+  border-radius: 15px;
+  font-size: 25px;
+  color: white;
+  padding: 5px 12px 5px 12px;
+  background-color: rgba(0, 0, 0, 0.534);
+  line-height: 200%;
+}
+
+.rounded-label.retain {
+  background-color: rgba(4, 209, 31, 0.658);
+}
+
+.rounded-label.close {
+  background-color: rgba(184, 41, 16, 0.644);
 }

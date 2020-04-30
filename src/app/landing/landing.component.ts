@@ -33,7 +33,7 @@ export class LandingComponent implements OnInit {
   }
 
   getAllNotificationList(): String[] {
-    return ["12 new dormant customers are unassigned.", "Your ticket has been approved.", "You have closed 30 tickets in this week!"];
+    return ["12 new dormant customers unassigned.", "Your ticket has been approved.", "You have closed 30 tickets in this week!"];
   }
 
   getAllAchievements(): UserAchievement {
