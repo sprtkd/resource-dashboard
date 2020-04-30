@@ -32,6 +32,7 @@ export class CustomerUiBasicModel {
         currCustomerUiBasicModel.moreDetails.address = customerBackendModel.address;
         currCustomerUiBasicModel.moreDetails.emailId = customerBackendModel.emailId;
         currCustomerUiBasicModel.moreDetails.ticketNumber = customerBackendModel.ticketRaised;
+        currCustomerUiBasicModel.moreDetails.ticketClosureDate = null;
         if (currCustomerUiBasicModel.moreDetails.ticketNumber != null) {
             currCustomerUiBasicModel.moreDetails.ticketRaised = customerBackendModel.ticketid;
             currCustomerUiBasicModel.status = CustomerStatus[customerBackendModel.ticketid.ticketStatus];

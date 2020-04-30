@@ -27,6 +27,10 @@
         Last Action:
         {{ selectedCustomer.moreDetails.ticketRaised.ticketHistory.slice(-1)[0].description.split('.')[0]}}
       </div>
+      <div *ngIf="selectedCustomer.moreDetails.ticketClosureDate">
+        Ticket Closure Date:
+        {{selectedCustomer.moreDetails.ticketClosureDate | date:'medium'}}
+      </div>
     </mat-card-subtitle>
   </mat-card-header>
 

@@ -5,6 +5,9 @@
             <mat-option value="all">
                 All
             </mat-option>
+            <mat-option value="allClosed">
+                Closed Tickets
+            </mat-option>
             <mat-option value="MARKED_AS_CLOSED">
                 Ready for Closure
             </mat-option>
@@ -13,24 +16,28 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
-    <mat-slide-toggle [(ngModel)]="fileUiExportModel.fromDateValid" class="margin-field">
-        <mat-form-field>
-            <mat-label>Choose a From Date</mat-label>
-            <input matInput [matDatepicker]="fromPicker" [(ngModel)]="fileUiExportModel.fromDateValue"
-                [disabled]="!fileUiExportModel.fromDateValid">
-            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
-            <mat-datepicker #fromPicker></mat-datepicker>
-        </mat-form-field>
-    </mat-slide-toggle>
-    <mat-slide-toggle [(ngModel)]="fileUiExportModel.toDateValid" class="margin-field">
-        <mat-form-field>
-            <mat-label>Choose a To Date</mat-label>
-            <input matInput [matDatepicker]="ToPicker" [(ngModel)]="fileUiExportModel.toDateValue"
-                [disabled]="!fileUiExportModel.toDateValid">
-            <mat-datepicker-toggle matSuffix [for]="ToPicker"></mat-datepicker-toggle>
-            <mat-datepicker #ToPicker></mat-datepicker>
-        </mat-form-field>
-    </mat-slide-toggle>
+    <span *ngIf="fileUiExportModel.customerFilter && fileUiExportModel.customerFilter!='all'">
+        <mat-slide-toggle [(ngModel)]="fileUiExportModel.fromDateValid" class="margin-field"
+            (dateChange)="resetCustomerList()">
+            <mat-form-field>
+                <mat-label>Choose a From Date</mat-label>
+                <input matInput [matDatepicker]="fromPicker" [(ngModel)]="fileUiExportModel.fromDateValue"
+                    [disabled]="!fileUiExportModel.fromDateValid" (dateChange)="resetCustomerList()">
+                <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                <mat-datepicker #fromPicker></mat-datepicker>
+            </mat-form-field>
+        </mat-slide-toggle>
+        <mat-slide-toggle [(ngModel)]="fileUiExportModel.toDateValid" class="margin-field"
+            (dateChange)="resetCustomerList()">
+            <mat-form-field>
+                <mat-label>Choose a To Date</mat-label>
+                <input matInput [matDatepicker]="ToPicker" [(ngModel)]="fileUiExportModel.toDateValue"
+                    [disabled]="!fileUiExportModel.toDateValid" (dateChange)="resetCustomerList()">
+                <mat-datepicker-toggle matSuffix [for]="ToPicker"></mat-datepicker-toggle>
+                <mat-datepicker #ToPicker></mat-datepicker>
+            </mat-form-field>
+        </mat-slide-toggle>
+    </span>
 </div>
 <div>
     <mat-form-field class="margin-field margin-right">

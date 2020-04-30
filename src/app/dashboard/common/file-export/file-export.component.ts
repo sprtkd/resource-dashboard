@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FileUiExportModel } from 'src/app/models/ui/file.ui.export.model';
 import * as XLSX from 'xlsx';
 import { MatTableDataSource } from '@angular/material/table';
@@ -7,6 +7,7 @@ import { CommonsService } from 'src/app/services/commons.service';
 import { NavbarComponent } from 'src/app/common/navbar/navbar.component';
 import { CustomerBackendModel } from 'src/app/models/backend/customer.backend.model';
 import { CustomerUiBasicModel, CustomerStatus } from 'src/app/models/ui/customer.ui.details.model';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-file-export',
@@ -16,12 +17,13 @@ import { CustomerUiBasicModel, CustomerStatus } from 'src/app/models/ui/customer
 })
 export class FileExportComponent implements OnInit {
   fileUiExportModel: FileUiExportModel;
-  customerData: CustomerUiBasicModel;
   constructor(private customerService: CustomerService, private commonsService: CommonsService, private navbar: NavbarComponent) { }
 
   ngOnInit(): void {
     this.fileExportModelReset()
   }
+  @Output()
+  dateChange: EventEmitter<MatDatepickerInputEvent<any>>;
 
   fileExportModelReset() {
     this.fileUiExportModel = new FileUiExportModel();
@@ -42,7 +44,11 @@ export class FileExportComponent implements OnInit {
     this.fileUiExportModel.listOfCustomers = null;
   }
 
-  resetCustomerList(){
+  resetCustomerList() {
+    if (this.fileUiExportModel.customerFilter == 'all') {
+      this.fileUiExportModel.fromDateValid = false;
+      this.fileUiExportModel.toDateValid = false;
+    }
     this.fileUiExportModel.listOfCustomers = null;
   }
   checkInputsValid(): Boolean {
@@ -75,6 +81,10 @@ export class FileExportComponent implements OnInit {
       }
     }
     this.fileUiExportModel.errMessage = null;
+    if (this.fileUiExportModel.listOfCustomers == null) {
+      this.getAllCustomers();
+    }
+
     return true;
 
   }
@@ -99,31 +109,13 @@ export class FileExportComponent implements OnInit {
     this.navbar.spinnerStart();
     this.fileUiExportModel.listOfCustomers = [];
     this.fileUiExportModel.exportedDatasource = null;
-   
+
     this.customerService.fetchAllCustomers()
       .subscribe((data: CustomerBackendModel[]) => {
         for (let currCustomer of data) {
-          this.customerData = CustomerUiBasicModel.transformBackendCustomerToUI(currCustomer);
-          if((this.fileUiExportModel.customerFilter == 'all' && [CustomerStatus.MARKED_AS_ACTIVE,CustomerStatus.MARKED_AS_CLOSED].includes(this.customerData.status)) ||
-          (this.fileUiExportModel.customerFilter == 'MARKED_AS_CLOSED' && CustomerStatus.MARKED_AS_CLOSED == this.customerData.status) ||
-          (this.fileUiExportModel.customerFilter == 'MARKED_AS_ACTIVE' && CustomerStatus.MARKED_AS_ACTIVE == this.customerData.status))
-          { 
-            if(this.fileUiExportModel.fromDateValid  && this.fileUiExportModel.toDateValid &&
-             (this.fileUiExportModel.fromDateValue.toISOString() <= this.customerData.moreDetails.ticketClosureDate.toString()) &&
-             (this.customerData.moreDetails.ticketClosureDate.toString() <= this.fileUiExportModel.toDateValue.toISOString()))
-             {
-               this.fileUiExportModel.listOfCustomers.push(this.customerData);
-             }
-             else if(this.fileUiExportModel.fromDateValid && 
-              (this.fileUiExportModel.fromDateValue.toISOString() <= this.customerData.moreDetails.ticketClosureDate.toString())){
-                this.fileUiExportModel.listOfCustomers.push(this.customerData);
-             }else if(this.fileUiExportModel.toDateValid && 
-              (this.customerData.moreDetails.ticketClosureDate.toString() <= this.fileUiExportModel.toDateValue.toISOString())){
-                this.fileUiExportModel.listOfCustomers.push(this.customerData);
-             }
-             else {
-              this.fileUiExportModel.listOfCustomers.push(this.customerData);
-             }            
+          let customerData: CustomerUiBasicModel = CustomerUiBasicModel.transformBackendCustomerToUI(currCustomer);
+          if (this.isCustomerValidForFilter(customerData)) {
+            this.fileUiExportModel.listOfCustomers.push(customerData);
           }
         }
         this.fileUiExportModel.exportedDatasource = new MatTableDataSource(this.fileUiExportModel.listOfCustomers);
@@ -134,6 +126,34 @@ export class FileExportComponent implements OnInit {
           this.navbar.spinnerStop();
         });
   }
+
+  isCustomerValidForFilter(custData: CustomerUiBasicModel) {
+
+    if (this.fileUiExportModel.customerFilter == 'allClosed'
+      && CustomerStatus.MARKED_AS_CLOSED != custData.status &&
+      CustomerStatus.MARKED_AS_ACTIVE != custData.status) {
+      return false;
+    }
+
+    if ((this.fileUiExportModel.customerFilter == 'MARKED_AS_CLOSED' && CustomerStatus.MARKED_AS_CLOSED != custData.status) ||
+      (this.fileUiExportModel.customerFilter == 'MARKED_AS_ACTIVE' && CustomerStatus.MARKED_AS_ACTIVE != custData.status)) {
+      return false;
+    }
+    if (CustomerStatus.MARKED_AS_CLOSED == custData.status || CustomerStatus.MARKED_AS_ACTIVE == custData.status) {
+
+      if (this.fileUiExportModel.fromDateValid &&
+        (this.fileUiExportModel.fromDateValue.toISOString() > custData.moreDetails.ticketClosureDate.toString())) {
+        return false;
+      }
+
+      if (this.fileUiExportModel.toDateValid &&
+        (custData.moreDetails.ticketClosureDate.toString() > this.fileUiExportModel.toDateValue.toISOString())) {
+        return false;
+      }
+    }
+    return true;
+  }
+
 
 }
 
