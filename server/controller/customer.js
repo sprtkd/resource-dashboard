@@ -22,7 +22,7 @@ exports.create = function (req, res, next) {
 exports.find = function (req, res) {
     var params = req.params || {};
     var query = {
-        customerName: params.customerName
+        accountNum: params.accountNum
     };
     //console.log(query);
     //console.log(req);

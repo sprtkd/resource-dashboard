@@ -112,13 +112,32 @@ exports.approveTicket = function(req,res,next){
                 if (!custResponse) {
                     res.status(204).send('No Data Found');
                 }
+                if(custResponse){
+                    var query = {
+                        ticketRaised: ticketId
+                    };
+                    customerService.findCustomer(query, function (error, response) {
+                        if (error) {
+                             res.status(404).send(error);
+                             return;
+                         }
+                         if (response) {
+                             res.status(200).send(response);
+                             return;
+                         }
+                         if (!response) {
+                             res.status(204).send('No Data Found');
+                             return;
+                         }
+                     });
+                }
              });
         }
-        if (response) {
+       /* if (response) {
             res.status(201).send(response);
         } else if (error) {
             res.status(400).send(error);
-        }
+        }*/
 
     });
 

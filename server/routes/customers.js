@@ -16,7 +16,7 @@ router.get('/customerlist', customer.getCustomerList);
 /**
  * TO get the single customer by their customerName 
  */
-router.get('/customer/:customerName', customer.find);
+router.get('/customer/:accountNum', customer.find);
 
 /**
  * To delete the customer by condition
