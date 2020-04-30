@@ -2,7 +2,7 @@ export class TicketBackendModel {
     assignedTo: String;
     approvedBy: String;
     dateCreated: Date;
-    dateClosed: Date
+    dateClosed: Date;
     ticketStatus: string;
     ticketHistory: TicketHistory[];
     ticketId: String;

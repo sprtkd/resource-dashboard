@@ -38,6 +38,7 @@ export class CustomerUiBasicModel {
         }
         if (currCustomerUiBasicModel.status == CustomerStatus.CLOSED) {
             currCustomerUiBasicModel.status = CustomerStatus[customerBackendModel.accountStatus];
+            currCustomerUiBasicModel.moreDetails.ticketClosureDate = customerBackendModel.ticketid.dateClosed;
         }
         return currCustomerUiBasicModel;
     }
@@ -47,6 +48,7 @@ export class CustomerExtraDetails {
     emailId: String;
     ticketNumber: String;
     ticketRaised: TicketBackendModel;
+    ticketClosureDate: Date;
     address: String;
 }
 

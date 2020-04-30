@@ -6,7 +6,7 @@ import { CustomerService } from 'src/app/services/customer.service';
 import { CommonsService } from 'src/app/services/commons.service';
 import { NavbarComponent } from 'src/app/common/navbar/navbar.component';
 import { CustomerBackendModel } from 'src/app/models/backend/customer.backend.model';
-import { CustomerUiBasicModel } from 'src/app/models/ui/customer.ui.details.model';
+import { CustomerUiBasicModel, CustomerStatus } from 'src/app/models/ui/customer.ui.details.model';
 
 @Component({
   selector: 'app-file-export',
@@ -16,6 +16,7 @@ import { CustomerUiBasicModel } from 'src/app/models/ui/customer.ui.details.mode
 })
 export class FileExportComponent implements OnInit {
   fileUiExportModel: FileUiExportModel;
+  customerData: CustomerUiBasicModel;
   constructor(private customerService: CustomerService, private commonsService: CommonsService, private navbar: NavbarComponent) { }
 
   ngOnInit(): void {
@@ -41,6 +42,9 @@ export class FileExportComponent implements OnInit {
     this.fileUiExportModel.listOfCustomers = null;
   }
 
+  resetCustomerList(){
+    this.fileUiExportModel.listOfCustomers = null;
+  }
   checkInputsValid(): Boolean {
     if (this.fileUiExportModel.typeSelected == null) {
       this.fileUiExportModel.errMessage = "Please select File Type";
@@ -71,10 +75,6 @@ export class FileExportComponent implements OnInit {
       }
     }
     this.fileUiExportModel.errMessage = null;
-    if (this.fileUiExportModel.listOfCustomers == null) {
-      this.getAllCustomers();
-    }
-
     return true;
 
   }
@@ -86,6 +86,9 @@ export class FileExportComponent implements OnInit {
   }
 
   exportExcel() {
+    if (this.fileUiExportModel.listOfCustomers == null) {
+      this.getAllCustomers();
+    }
     const workSheet = XLSX.utils.json_to_sheet(this.fileUiExportModel.exportedDatasource.data);
     const workBook: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
@@ -96,13 +99,32 @@ export class FileExportComponent implements OnInit {
     this.navbar.spinnerStart();
     this.fileUiExportModel.listOfCustomers = [];
     this.fileUiExportModel.exportedDatasource = null;
+   
     this.customerService.fetchAllCustomers()
       .subscribe((data: CustomerBackendModel[]) => {
         for (let currCustomer of data) {
-
-          this.fileUiExportModel.listOfCustomers.push(
-            CustomerUiBasicModel.transformBackendCustomerToUI(currCustomer));
-
+          this.customerData = CustomerUiBasicModel.transformBackendCustomerToUI(currCustomer);
+          if((this.fileUiExportModel.customerFilter == 'all' && [CustomerStatus.MARKED_AS_ACTIVE,CustomerStatus.MARKED_AS_CLOSED].includes(this.customerData.status)) ||
+          (this.fileUiExportModel.customerFilter == 'MARKED_AS_CLOSED' && CustomerStatus.MARKED_AS_CLOSED == this.customerData.status) ||
+          (this.fileUiExportModel.customerFilter == 'MARKED_AS_ACTIVE' && CustomerStatus.MARKED_AS_ACTIVE == this.customerData.status))
+          { 
+            if(this.fileUiExportModel.fromDateValid  && this.fileUiExportModel.toDateValid &&
+             (this.fileUiExportModel.fromDateValue.toISOString() <= this.customerData.moreDetails.ticketClosureDate.toString()) &&
+             (this.customerData.moreDetails.ticketClosureDate.toString() <= this.fileUiExportModel.toDateValue.toISOString()))
+             {
+               this.fileUiExportModel.listOfCustomers.push(this.customerData);
+             }
+             else if(this.fileUiExportModel.fromDateValid && 
+              (this.fileUiExportModel.fromDateValue.toISOString() <= this.customerData.moreDetails.ticketClosureDate.toString())){
+                this.fileUiExportModel.listOfCustomers.push(this.customerData);
+             }else if(this.fileUiExportModel.toDateValid && 
+              (this.customerData.moreDetails.ticketClosureDate.toString() <= this.fileUiExportModel.toDateValue.toISOString())){
+                this.fileUiExportModel.listOfCustomers.push(this.customerData);
+             }
+             else {
+              this.fileUiExportModel.listOfCustomers.push(this.customerData);
+             }            
+          }
         }
         this.fileUiExportModel.exportedDatasource = new MatTableDataSource(this.fileUiExportModel.listOfCustomers);
       },

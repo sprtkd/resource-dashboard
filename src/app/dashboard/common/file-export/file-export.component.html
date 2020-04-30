@@ -1,12 +1,15 @@
 <div>
     <mat-form-field class="margin-field margin-right">
         <mat-label>Filter for Customers </mat-label>
-        <mat-select [(ngModel)]="fileUiExportModel.customerFilter">
+        <mat-select [(ngModel)]="fileUiExportModel.customerFilter" (selectionChange)="resetCustomerList()">
             <mat-option value="all">
                 All
             </mat-option>
-            <mat-option value="closed">
-                Closed
+            <mat-option value="MARKED_AS_CLOSED">
+                Ready for Closure
+            </mat-option>
+            <mat-option value="MARKED_AS_ACTIVE">
+                Ready to Activate
             </mat-option>
         </mat-select>
     </mat-form-field>
