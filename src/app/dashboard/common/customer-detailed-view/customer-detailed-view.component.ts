@@ -9,12 +9,13 @@ import { CommonsService } from 'src/app/services/commons.service';
 import { MatStepper } from '@angular/material/stepper';
 import { TicketService } from 'src/app/services/ticket.service';
 import { NavbarComponent } from 'src/app/common/navbar/navbar.component';
+import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
   selector: 'app-customer-detailed-view',
   templateUrl: './customer-detailed-view.component.html',
   styleUrls: ['./customer-detailed-view.component.css'],
-  providers: [TicketService]
+  providers: [TicketService, CustomerService]
 })
 export class CustomerDetailedViewComponent implements OnInit {
 
@@ -33,7 +34,8 @@ export class CustomerDetailedViewComponent implements OnInit {
       map(result => result.matches),
       shareReplay()
     );
-  constructor(private breakpointObserver: BreakpointObserver, private _formBuilder: FormBuilder,
+  constructor(private breakpointObserver: BreakpointObserver,
+    private _formBuilder: FormBuilder, private customerService: CustomerService,
     private ticketService: TicketService, private commonsService: CommonsService, private navbar: NavbarComponent) { }
 
   ngOnInit(): void {
@@ -149,8 +151,8 @@ export class CustomerDetailedViewComponent implements OnInit {
     this.navbar.spinnerStart();
     this.ticketService.initiateCustomer(this.selectedCustomer.accountNumber, this.commonsService.getLoggedIn().username).subscribe(
       (data) => {
-        this.selectedCustomer.moreDetails.ticketRaised = data;
-        this.refreshCurrentTicket();
+        this.selectedCustomer.moreDetails.ticketNumber = data.ticketId;
+        this.refreshCustomer();
       }, error => {
         this.commonsService.openSnackBar(error, "Try Again", null);
       }).add(() => {
@@ -191,7 +193,7 @@ export class CustomerDetailedViewComponent implements OnInit {
             onsuccess();
           }
 
-          this.refreshCurrentTicket();
+          this.refreshCustomer();
         }, error => {
           this.commonsService.openSnackBar(error, "Try Again", null);
         }).add(() => {
@@ -264,5 +266,20 @@ export class CustomerDetailedViewComponent implements OnInit {
         this.navbar.spinnerStop();
       });
   }
+
+  refreshCustomer() {
+    this.navbar.spinnerStart();
+    this.customerService.fetchSingleCustomer(this.selectedCustomer.accountNumber.toString()).subscribe(
+      (data) => {
+        this.selectedCustomer = CustomerUiBasicModel.transformBackendCustomerToUI(data);
+        this.decideCurrentStage();
+        this.initStepperValue();
+      }, error => {
+        this.commonsService.openSnackBar(error, "Try Again", null);
+      }).add(() => {
+        this.navbar.spinnerStop();
+      });
+  }
+
 
 }
