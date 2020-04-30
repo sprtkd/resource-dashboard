@@ -30,7 +30,7 @@ export class CustomerTableComponent implements OnInit {
 
   @Input() externalFilter: String;
   filterForAccount: String;
-  
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -42,21 +42,25 @@ export class CustomerTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.expandedElement = null;
-    this.filterForAccount = "All";
-    this.allCustomerList = [];
-    this.getAllCustomers();
+    if (this.externalFilter != null) {
+      this.filterForAccount = this.externalFilter;
+    }
+    else {
+      this.filterForAccount = "All";
+    }
+    this.onToggleGroupChange();
   }
 
   onToggleGroupChange() {
-    if(this.filterForAccount == "All"){
+    if (this.filterForAccount == "All") {
       this.allCustomerList = [];
       this.getAllCustomers();
-    }else{
+    } else {
       this.allCustomerList = [];
       this.getFilteredCustomersList();
     }
-   } 
-  
+  }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -83,16 +87,18 @@ export class CustomerTableComponent implements OnInit {
 
   getFilteredCustomersList() {
     this.navbar.spinnerStart();
+    let user = this.commonsService.getLoggedIn();
     this.customerService.fetchAllCustomers()
       .subscribe((data: CustomerBackendModel[]) => {
         for (let currCustomer of data) {
           this.customerData = CustomerUiBasicModel.transformBackendCustomerToUI(currCustomer);
-          if( (this.filterForAccount=='Unassigned' && this.customerData.status == CustomerStatus.INACTIVE) || 
-          (this.filterForAccount=='Pending' && 
-                ([CustomerStatus.INITIATED,CustomerStatus.CUST_RESP,CustomerStatus.PENDING_APPROVAL,CustomerStatus.CUSTOMER_CONNECT].includes(this.customerData.status))) ||
-          (this.filterForAccount=='Closed' && ([CustomerStatus.MARKED_AS_ACTIVE,CustomerStatus.MARKED_AS_CLOSED].includes(this.customerData.status))))
-          {
-          this.allCustomerList.push(this.customerData );
+          if ((this.filterForAccount == 'Unassigned' && this.customerData.status == CustomerStatus.INACTIVE) ||
+            (this.filterForAccount == 'Pending' && user.role == "BANKOPS" &&
+              ([CustomerStatus.INITIATED, CustomerStatus.CUST_RESP, CustomerStatus.CUSTOMER_CONNECT].includes(this.customerData.status))) ||
+            (this.filterForAccount == 'Pending' && user.role == "REVIEWER" &&
+              ([CustomerStatus.PENDING_APPROVAL].includes(this.customerData.status))) ||
+            (this.filterForAccount == 'Closed' && ([CustomerStatus.MARKED_AS_ACTIVE, CustomerStatus.MARKED_AS_CLOSED].includes(this.customerData.status)))) {
+            this.allCustomerList.push(this.customerData);
           }
         }
         this.dataSource = new MatTableDataSource(this.allCustomerList);

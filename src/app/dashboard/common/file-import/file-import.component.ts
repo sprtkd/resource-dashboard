@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FileUiImportModel, FileStatus } from 'src/app/models/ui/file.ui.import.model';
 import { interval } from 'rxjs';
+import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
   selector: 'app-file-import',
@@ -11,7 +12,7 @@ export class FileImportComponent implements OnInit {
 
   fileImportObject: FileUiImportModel;
   viewDetails: Boolean;
-  constructor() { }
+  constructor(public custService: CustomerService) { }
 
   ngOnInit(): void {
     this.resetFileImport()
@@ -24,8 +25,7 @@ export class FileImportComponent implements OnInit {
   }
 
   onFileSelected(fileInputEvent: any) {
-    this.fileImportObject.fileToUpload = fileInputEvent.target.files[0];
-    this.fileImportObject.fileSelected();
+    this.fileImportObject.fileSelected(fileInputEvent, this.custService);
   }
 
 }

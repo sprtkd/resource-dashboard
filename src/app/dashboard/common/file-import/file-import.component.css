@@ -6,3 +6,17 @@
     font-size: smaller;
     color: rgb(255, 102, 0);
 }
+
+table.import-table {
+    border: 1px solid black;
+    border-radius: 8px;
+    width: 100%;
+}
+
+table.import-table td {
+    border-width: 1px;
+    padding: 10px;
+    border-style: inset;
+    border-color: rgba(128, 128, 128, 0.397);
+    border-radius: 5px;
+}

@@ -11,3 +11,7 @@ export class CustomerBackendModel {
     address: String;
     ticketid: TicketBackendModel;
 }
+
+export class CustomerMultiUpload {
+    accountList: CustomerBackendModel[];
+}

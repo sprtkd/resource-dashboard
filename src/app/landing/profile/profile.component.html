@@ -72,28 +72,33 @@
   <mat-card-content>
     <mat-tab-group>
       <mat-tab label="Your Details">
-        <mat-list>
-          <mat-list-item> Name: {{profileModel.userDetails.username}}</mat-list-item>
-          <mat-list-item> Role: {{profileModel.userDetails.role}}</mat-list-item>
+        <div class="profile-details-div">
+          <h1>Profile Details</h1>
+          <hr>
+          <mat-list>
+            <mat-list-item> Name: {{profileModel.userDetails.username}}</mat-list-item>
+            <mat-list-item> Role: {{profileModel.userDetails.role}}</mat-list-item>
 
-        </mat-list>
+          </mat-list>
+        </div>
+
       </mat-tab>
       <mat-tab label="Your Updates">
         <div class="notification-div">
           <h1>All Notifications</h1>
-          <div>
-            <mat-list>
+          <hr>
+          <mat-list>
+
+            <span *ngFor="let notification of profileModel.notificationList">
+              <mat-list-item>
+                <span class="notification-span">
+                  {{notification}}
+                </span>
+              </mat-list-item>
               <hr>
-              <span *ngFor="let notification of profileModel.notificationList">
-                <mat-list-item>
-                  <span class="notification-span">
-                    {{notification}}
-                  </span>
-                </mat-list-item>
-                <hr>
-              </span>
-            </mat-list>
-          </div>
+            </span>
+          </mat-list>
+
         </div>
 
       </mat-tab>

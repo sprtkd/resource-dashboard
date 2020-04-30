@@ -22,7 +22,8 @@
       </div>
       <div *ngIf="selectedCustomer.moreDetails.ticketNumber">
         Ticket Raised: {{selectedCustomer.moreDetails.ticketNumber}}
-        <br>
+      </div>
+      <div *ngIf="selectedCustomer.moreDetails.ticketRaised">
         Last Action:
         {{ selectedCustomer.moreDetails.ticketRaised.ticketHistory.slice(-1)[0].description.split('.')[0]}}
       </div>
@@ -47,13 +48,14 @@
         </li>
       </ul>
       <mat-horizontal-stepper [linear]="true" #stepper *ngIf="!(isHandset$ | async)" [selectedIndex]="currentStage">
-        <mat-step [completed]="stepperStage.completed" *ngFor="let stepperStage of listOfStages" editable="false">
+        <mat-step [completed]="stepperStage.completed" *ngFor="let stepperStage of listOfStages"
+          [editable]="isStepperEditable">
           <ng-template matStepLabel>{{stepperStage.stepName}}</ng-template>
           <h2>
             {{stepperStage.stepName}}
           </h2>
           <h3 *ngIf="userRole=='BANKOPS'">
-            {{stepperStage.stepDescriptionsOps}}
+            {{stepperStage.stepDescriptionOps}}
           </h3>
           <h3 *ngIf="userRole=='REVIEWER'">
             {{stepperStage.stepDescriptionReviewer}}
@@ -68,13 +70,14 @@
       </mat-horizontal-stepper>
 
       <mat-vertical-stepper [linear]="true" #stepper *ngIf="isHandset$ | async" [selectedIndex]="currentStage">
-        <mat-step [completed]="stepperStage.completed" *ngFor="let stepperStage of listOfStages" editable="false">
+        <mat-step [completed]="stepperStage.completed" *ngFor="let stepperStage of listOfStages"
+          [editable]="isStepperEditable">
           <ng-template matStepLabel>{{stepperStage.stepName}}</ng-template>
           <h2>
             {{stepperStage.stepName}}
           </h2>
           <h3 *ngIf="userRole=='BANKOPS'">
-            {{stepperStage.stepDescriptionsOps}}
+            {{stepperStage.stepDescriptionOps}}
           </h3>
           <h3 *ngIf="userRole=='REVIEWER'">
             {{stepperStage.stepDescriptionReviewer}}
@@ -90,7 +93,12 @@
 
       <span>
         <ng-template #init>
+          <div *ngIf="getIfMultipleInitiation()!=null" style="white-space: pre-line; color: rgb(255, 94, 0);">
+            {{getIfMultipleInitiation()}}
+            <br><br>
+          </div>
           <div *ngIf="userRole=='BANKOPS'">
+
             <h2>
               Please contact customer to record response:
             </h2>
@@ -191,7 +199,7 @@
           <div *ngIf="userRole=='REVIEWER'">
             <div>
               <h2>Customer Response:</h2>
-              <h3 style="white-space: pre-line;">
+              <h3 style="white-space: pre-line;" *ngIf="selectedCustomer.moreDetails.ticketRaised">
 
                 {{selectedCustomer.moreDetails.ticketRaised.ticketHistory.slice(-1)[0].description}}
 
@@ -220,13 +228,27 @@
           </div>
         </ng-template>
         <ng-template #closed>
-          <div *ngIf="userRole=='BANKOPS'">
-            <button mat-flat-button color="accent" matBadge="&#10004;" matBadgeColor="primary">
-              Closed
+          <div>
+            <button mat-flat-button color="accent" matBadge="&#10004;" matBadgeColor="primary"
+              style="background-color: rgb(253, 209, 180); color: rgb(255, 94, 0);">
+              Ticket Closed
             </button>
             <br>
             <br>
-            <button mat-stroked-button>Status: Marked for Activation</button>
+            Account Status: <app-status-label [statusInput]="selectedCustomer.status">
+            </app-status-label>
+
+            <div *ngIf="userRole=='BANKOPS'">
+              <br>
+              <h3>
+                Comment From Reviewer:
+              </h3>
+              <hr>
+              <h4 style="white-space: pre-line;" *ngIf="selectedCustomer.moreDetails.ticketRaised">
+                {{selectedCustomer.moreDetails.ticketRaised.ticketHistory.slice(-1)[0].description}}
+              </h4>
+
+            </div>
           </div>
         </ng-template>
       </span>

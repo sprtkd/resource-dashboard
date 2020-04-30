@@ -55,7 +55,6 @@ import { SpinnerComponent } from './common/spinner/spinner.component';
 import { FileExportComponent } from './dashboard/common/file-export/file-export.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { ExportTableComponent } from './dashboard/common/file-export/export-table/export-table.component';
 import { CustomerTableCommonviewComponent } from './dashboard/common/customer-table-commonview/customer-table-commonview.component';
 import { AuditReportExportComponent } from './dashboard/common/audit-report-export/audit-report-export.component';
 import { StatusLabelComponent } from './dashboard/common/status-label/status-label.component';
@@ -83,7 +82,6 @@ import { TicketHistoryComponent } from './dashboard/common/ticket-history/ticket
     CustomerDetailedViewComponent,
     SpinnerComponent,
     FileExportComponent,
-    ExportTableComponent,
     CustomerTableCommonviewComponent,
     AuditReportExportComponent,
     StatusLabelComponent,

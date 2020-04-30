@@ -9,12 +9,13 @@ import { CommonsService } from 'src/app/services/commons.service';
 import { MatStepper } from '@angular/material/stepper';
 import { TicketService } from 'src/app/services/ticket.service';
 import { NavbarComponent } from 'src/app/common/navbar/navbar.component';
+import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
   selector: 'app-customer-detailed-view',
   templateUrl: './customer-detailed-view.component.html',
   styleUrls: ['./customer-detailed-view.component.css'],
-  providers: [TicketService]
+  providers: [TicketService, CustomerService]
 })
 export class CustomerDetailedViewComponent implements OnInit {
 
@@ -26,6 +27,7 @@ export class CustomerDetailedViewComponent implements OnInit {
   pendingActionComment: String;
   customerKnewDormant: Boolean;
   customerAgreedTransaction: Boolean;
+  isStepperEditable: boolean = true;
   @Input() selectedCustomer: CustomerUiBasicModel;
   @ViewChild('stepper') private myStepper: MatStepper;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -33,14 +35,15 @@ export class CustomerDetailedViewComponent implements OnInit {
       map(result => result.matches),
       shareReplay()
     );
-  constructor(private breakpointObserver: BreakpointObserver, private _formBuilder: FormBuilder,
+  constructor(private breakpointObserver: BreakpointObserver,
+    private _formBuilder: FormBuilder, private customerService: CustomerService,
     private ticketService: TicketService, private commonsService: CommonsService, private navbar: NavbarComponent) { }
 
   ngOnInit(): void {
     this.listOfStages = CustomerUiDetailedStepperModel.buildBasicStepper();
     this.decideCurrentStage();
     this.initStepperValue();
-
+    this.isStepperEditable = false;
     if (this.commonsService.getLoggedIn()) {
       this.userRole = this.commonsService.getLoggedIn().role;
     }
@@ -149,8 +152,8 @@ export class CustomerDetailedViewComponent implements OnInit {
     this.navbar.spinnerStart();
     this.ticketService.initiateCustomer(this.selectedCustomer.accountNumber, this.commonsService.getLoggedIn().username).subscribe(
       (data) => {
-        this.selectedCustomer.moreDetails.ticketRaised = data;
-        this.refreshCurrentTicket();
+        this.selectedCustomer.moreDetails.ticketNumber = data.ticketId;
+        this.refreshCustomer();
       }, error => {
         this.commonsService.openSnackBar(error, "Try Again", null);
       }).add(() => {
@@ -191,7 +194,7 @@ export class CustomerDetailedViewComponent implements OnInit {
             onsuccess();
           }
 
-          this.refreshCurrentTicket();
+          this.refreshCustomer();
         }, error => {
           this.commonsService.openSnackBar(error, "Try Again", null);
         }).add(() => {
@@ -200,7 +203,7 @@ export class CustomerDetailedViewComponent implements OnInit {
   }
 
   onConnectFailed() {
-    this.updateTicket("PENDING_APPROVAL", "Connect with customer failed.", () => {
+    this.updateTicket("PENDING_APPROVAL", "Connect with customer failed after repeated tries.", () => {
       this.decideCurrentStage();
       this.initStepperValue();
       this.myStepper.linear = false;
@@ -246,7 +249,26 @@ export class CustomerDetailedViewComponent implements OnInit {
   }
 
   rejectPendingRequest() {
+    this.updateTicket("INITIATED", this.getRejectionDescription(), () => {
+      this.refreshCustomer();
+      this.decideCurrentStage();
+      this.initStepperValue();
+      this.isStepperEditable = true;
+      this.myStepper.linear = false;
+      this.myStepper.previous();
+      this.myStepper.previous();
+      this.myStepper.linear = true;
+      setTimeout(() => { this.isStepperEditable = false; }, 600);
 
+    });
+  }
+
+  getRejectionDescription(): string {
+    let resjectionDesc: string = "";
+    resjectionDesc += "This ticket has been rejected.\n";
+    resjectionDesc += "Additional feedback: \n";
+    resjectionDesc += this.pendingActionComment ? this.pendingActionComment : "None";
+    return resjectionDesc;
   }
 
   refreshCurrentTicket() {
@@ -264,5 +286,45 @@ export class CustomerDetailedViewComponent implements OnInit {
         this.navbar.spinnerStop();
       });
   }
+
+  refreshCustomer() {
+    this.navbar.spinnerStart();
+    this.customerService.fetchSingleCustomer(this.selectedCustomer.accountNumber.toString()).subscribe(
+      (data) => {
+        this.selectedCustomer = CustomerUiBasicModel.transformBackendCustomerToUI(data);
+        this.decideCurrentStage();
+        this.initStepperValue();
+      }, error => {
+        this.commonsService.openSnackBar(error, "Try Again", null);
+      }).add(() => {
+        this.navbar.spinnerStop();
+      });
+  }
+
+  getIfMultipleInitiation(): String {
+    if (this.selectedCustomer.moreDetails && this.selectedCustomer.moreDetails.ticketRaised
+      && this.selectedCustomer.status == CustomerStatus.INITIATED) {
+      let count = 0;
+      for (let hist of this.selectedCustomer.moreDetails.ticketRaised.ticketHistory) {
+        if (hist.status == "INITIATED") {
+          count++;
+        }
+        if (count > 1) {
+          if (this.userRole == "BANKOPS") {
+            return "This Ticket has been Reassigned/Reinitiated.\n Please see comment:\n\n" +
+              this.selectedCustomer.moreDetails.ticketRaised.ticketHistory.slice(-1)[0].description;
+          } else {
+            return "You have rejected previous request.\n Ticket reinitiated/reassigned.\nPlease see comment:\n\n" +
+              this.selectedCustomer.moreDetails.ticketRaised.ticketHistory.slice(-1)[0].description;
+          }
+
+        }
+      }
+    } else {
+      return null;
+    }
+
+  }
+
 
 }
