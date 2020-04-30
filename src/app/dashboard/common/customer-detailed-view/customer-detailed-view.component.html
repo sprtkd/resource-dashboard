@@ -48,13 +48,14 @@
         </li>
       </ul>
       <mat-horizontal-stepper [linear]="true" #stepper *ngIf="!(isHandset$ | async)" [selectedIndex]="currentStage">
-        <mat-step [completed]="stepperStage.completed" *ngFor="let stepperStage of listOfStages" editable="false">
+        <mat-step [completed]="stepperStage.completed" *ngFor="let stepperStage of listOfStages"
+          [editable]="isStepperEditable">
           <ng-template matStepLabel>{{stepperStage.stepName}}</ng-template>
           <h2>
             {{stepperStage.stepName}}
           </h2>
           <h3 *ngIf="userRole=='BANKOPS'">
-            {{stepperStage.stepDescriptionsOps}}
+            {{stepperStage.stepDescriptionOps}}
           </h3>
           <h3 *ngIf="userRole=='REVIEWER'">
             {{stepperStage.stepDescriptionReviewer}}
@@ -69,13 +70,14 @@
       </mat-horizontal-stepper>
 
       <mat-vertical-stepper [linear]="true" #stepper *ngIf="isHandset$ | async" [selectedIndex]="currentStage">
-        <mat-step [completed]="stepperStage.completed" *ngFor="let stepperStage of listOfStages" editable="false">
+        <mat-step [completed]="stepperStage.completed" *ngFor="let stepperStage of listOfStages"
+          [editable]="isStepperEditable">
           <ng-template matStepLabel>{{stepperStage.stepName}}</ng-template>
           <h2>
             {{stepperStage.stepName}}
           </h2>
           <h3 *ngIf="userRole=='BANKOPS'">
-            {{stepperStage.stepDescriptionsOps}}
+            {{stepperStage.stepDescriptionOps}}
           </h3>
           <h3 *ngIf="userRole=='REVIEWER'">
             {{stepperStage.stepDescriptionReviewer}}
@@ -91,7 +93,12 @@
 
       <span>
         <ng-template #init>
+          <div *ngIf="getIfMultipleInitiation()!=null" style="white-space: pre-line; color: rgb(255, 94, 0);">
+            {{getIfMultipleInitiation()}}
+            <br><br>
+          </div>
           <div *ngIf="userRole=='BANKOPS'">
+
             <h2>
               Please contact customer to record response:
             </h2>

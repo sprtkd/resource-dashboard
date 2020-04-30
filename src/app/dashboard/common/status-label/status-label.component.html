@@ -1,9 +1,9 @@
 <span class="rounded-label inactive" *ngIf="getFormattedStatus(statusInput)=='INACTIVE'">Inactive | Unassigned</span>
-<span class="rounded-label initiated" *ngIf="getFormattedStatus(statusInput)=='INITIATED'">Initiated</span>
+<span class="rounded-label initiated" *ngIf="getFormattedStatus(statusInput)=='INITIATED'">Ticket Initiated</span>
 <span class="rounded-label contacted" *ngIf="getFormattedStatus(statusInput)=='CUSTOMER_CONNECT'">Attempted
     Contact</span>
 <span class="rounded-label cust-resp" *ngIf="getFormattedStatus(statusInput)=='CUST_RESP'">Customer Responded</span>
-<span class="rounded-label pending" *ngIf="getFormattedStatus(statusInput)=='PENDING_APPROVAL'">Pending</span>
+<span class="rounded-label pending" *ngIf="getFormattedStatus(statusInput)=='PENDING_APPROVAL'">Approval Pending</span>
 <span class="rounded-label activate" *ngIf="getFormattedStatus(statusInput)=='MARKED_AS_ACTIVE'">Ready
     to Activate</span>
 <span class="rounded-label closed" *ngIf="getFormattedStatus(statusInput)=='MARKED_AS_CLOSED'">Ready for

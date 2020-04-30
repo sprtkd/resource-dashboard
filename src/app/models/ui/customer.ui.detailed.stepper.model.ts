@@ -12,12 +12,12 @@ export class CustomerUiDetailedStepperModel {
         let stepDescriptionsOps: String[] = [
             "Dormant Account Closure Ticket has been assigned to you for this customer. An initiation mail has been sent to customer.",
             "Please record Customer Response. If customer connect failed, you can retry now or later.",
-            "Thanks. Response has been recorded. Its pending for Reviewer: Mr Roy to approve.",
-            "This ticket has been closed."
+            "Thanks. Response has been recorded. Its pending for Reviewer to approve.",
+            "This ticket has been closed by Reviewer."
         ];
         let stepDescriptionsReviewer: String[] = [
             "A Support Representative has been assigned to this customer. An initiation mail has been sent to customer.",
-            "Support Representative is trying to contact.",
+            "Support Representative has contacted customer.",
             "Customer Response has been recorded. Please take action against the ticket. Its pending for you.",
             "You have closed this ticket."
         ];
