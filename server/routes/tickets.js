@@ -12,6 +12,7 @@ router.put('/saveticket/:ticketId', ticket.saveCustResponse);
 router.put('/approveticket/:ticketId', ticket.approveTicket);
 
 router.get('/getticket/:ticketId', ticket.getTicket);
+router.get('/usertickets', ticket.getusertickets);
 
 
 module.exports = router;

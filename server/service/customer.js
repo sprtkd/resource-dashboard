@@ -47,8 +47,8 @@ exports.updateCustomer = function (query,ticketId, callback) {
 * Update customer with ticket id
 */
 exports.updateCustomerWithStatus = function (query,ticketStatus, callback) {
-   // console.log("service query" + JSON.stringify(query));
-    customer.updateOne(query,{accountStatus:ticketStatus},callback);
+
+      customer.updateOne(query,{accountStatus:ticketStatus},callback);
 }
 
 exports.importDormantAccounts = function (data, callback) {
@@ -58,3 +58,8 @@ exports.importDormantAccounts = function (data, callback) {
         callback(error, null);
     });
 };
+
+exports.findCustomersReadyForActivation = function (query,callback) {
+    //console.log("query "+JSON.stringify(query));
+    customer.find(query).countDocuments().then(callback);
+}

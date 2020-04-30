@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var ticket = mongoose.model('Ticket');
+var user = mongoose.model('User');
+
 //var ticketHistory = mongoose.model('TicketHistory');
 /**
  * Function to execute the create query to create the tickets.
@@ -64,4 +66,16 @@ exports.approveTicket = function(query,data,createdBy,dateCloure,status,callback
 exports.getTicket = function (query, callback) {
   ticket.findOne(query, callback);
   console.log("Service:Fetched single ticket");
+}
+
+exports.getusertickets = function(username,callback){
+  ticket.find({assignedTo:username}).then(callback);
+}
+
+exports.getuserticketscounts = function(username,callback){
+  ticket.find({assignedTo:username}).countDocuments().then(callback);
+}
+
+exports.getuserticketclosedcounts = function(username,callback){
+  ticket.find({$and:[{assignedTo:username},{ticketStatus:"CLOSED"}]}).countDocuments().then(callback);
 }

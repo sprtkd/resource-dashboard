@@ -25,3 +25,8 @@ exports.findUser = function (query, callback) {
 exports.deleteUser = function (query, callback) {
     user.deleteOne(query, callback);
 }
+
+exports.getBankOpsUserList = function (callback) {
+    //console.log("in user service");
+    user.find({role:"BANKOPS"},callback);
+}

@@ -1,5 +1,6 @@
 var ticketService = require('../service/ticket');
 var customerService = require('../service/customer');
+var userService = require('../service/user');
 
 /**
  * Function to create the ticket in ticket collection.
@@ -15,15 +16,15 @@ exports.create = function (req, res, next) {
 
     ticketService.createTicket(body, function (error, response) {
         if (response) {
-             customerService.updateCustomer(query,response.ticketId,function (error, custResponse){
+            customerService.updateCustomer(query, response.ticketId, function (error, custResponse) {
                 if (error) {
                     res.status(404).send(error);
                 }
                 if (!custResponse) {
                     res.status(204).send('No Data Found');
                 }
-             });
-        }   
+            });
+        }
         if (response) {
             res.status(201).send(response);
         } else if (error) {
@@ -32,10 +33,10 @@ exports.create = function (req, res, next) {
     });
 }
 
-exports.saveCustResponse = function(req,res,next){
+exports.saveCustResponse = function (req, res, next) {
     console.log("in save cust");
     var params = req.params || {};
-    ticketService.saveCustResponse(params.ticketId,req.body,req.body.status,function (error, custResponse){
+    ticketService.saveCustResponse(params.ticketId, req.body, req.body.status, function (error, custResponse) {
         if (custResponse) {
             res.status(201).send(custResponse);
         } else if (error) {
@@ -133,12 +134,110 @@ exports.approveTicket = function(req,res,next){
                 }
              });
         }
-       /* if (response) {
-            res.status(201).send(response);
-        } else if (error) {
-            res.status(400).send(error);
-        }*/
 
     });
 
+}
+
+
+function getUserClosedTicketCount(res,username, log) {
+    console.log("in tickets closed");
+    ticketService.getuserticketclosedcounts(username, (closedticketresponse, error) => {
+        if (error) {
+            console.log("error " + error);
+        }
+       
+        if (closedticketresponse) {
+            log.closedTickets = closedticketresponse;
+            // console.log("closed" + log.closedTickets);
+            console.log("in tickets closed");
+            log.inprogressTickets = (log.totalTickets - log.closedTickets);
+             //console.log("Log : " + JSON.stringify(log));
+            //adding to logs array
+            // logs.push(log);
+            res.send(log);
+            return log;
+        }
+    });
+    return log;
+}
+
+function getUsersAllTickets(res,username, log, callback) {
+    
+    ticketService.getuserticketscounts(username, (ticketcountresponse, error) => {
+        if (error) {
+            console.log("error " + error);
+        }
+       
+        if (ticketcountresponse) {
+            log.totalTickets = ticketcountresponse;
+            if (typeof callback == typeof (Function)) {
+               // console.log("Trying to call close..");
+                log = getUserClosedTicketCount(res,username, log);
+           } else {
+                //console.log("in tickets all" +responseData);
+                log = getUserClosedTicketCount(res,username, log);
+           }
+
+        }
+    });
+    return log;
+}
+
+function getUsersTicketLists(res,username, log,callback) {
+    console.log("in tickets");
+    ticketService.getusertickets(username, (ticketsResponse, ticketserror) => {
+        if (ticketserror) {
+            console.log("error " + ticketserror);
+        }
+        // var ticketsResponse=await ticketsResponse;
+        if (ticketsResponse) {
+            log.tickets = ticketsResponse;
+            //console.log("feched all tickets ");
+           
+           // console.log("in tickets");
+            if (typeof callback == typeof (Function)) {
+                log = getUsersAllTickets(res,username, log,getUserClosedTicketCount(res,username,log));
+            }
+        }
+    });
+    return log;
+}
+
+
+
+exports.getusertickets = function (req, res) {
+
+    var username, totalTickets, closedTickets, inprogressTickets, tickets, readyForActiveCount;
+    var logs = [];
+    var log = {
+        username: username,
+        totalTickets: totalTickets,
+        closedTickets: closedTickets,
+        inprogressTickets: inprogressTickets,
+        tickets: [tickets]
+    };
+   
+    //getting all BANKOPS user list
+    userService.getBankOpsUserList((opserror, opsresponse) => {
+        if (opserror) {
+            console.log("error " + opserror);
+        }
+        var count = Object.keys(opsresponse).length;
+    
+        if (opsresponse) {
+            //console.log("Users"+opsresponse);
+            //iterate user list and get the username
+            userdata = opsresponse[0];
+           // opsresponse.forEach(function (userdata) {
+                log.username = userdata.username;
+                var username = log.username;
+                console.log("username " + username);
+                //getting list of tickets done by use
+                log = getUsersTicketLists(res, username, log, getUsersAllTickets(res,username, log));
+               // log.readyForActiveCount = 1;
+                // });
+        }
+    });
+   
 }
