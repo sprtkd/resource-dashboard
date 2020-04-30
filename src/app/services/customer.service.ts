@@ -11,7 +11,7 @@ import { catchError } from 'rxjs/operators';
 export class CustomerService {
   getCustomerListUrl: string = "https://resource-dashboard-a.herokuapp.com/api/customers/customerlist";
   getSingleCustomerUrl: string = "https://resource-dashboard-a.herokuapp.com/api/customers/customer";
-  uploadCustomersUrl: string = "https://resource-dashboard-a.herokuapp.com/api/customers";
+  uploadCustomersUrl: string = "https://resource-dashboard-a.herokuapp.com/api/customers/importdata";
   httpOptions = {};
   constructor(private http: HttpClient, private errorHandlerService: ErrorHandlerService) { }
 

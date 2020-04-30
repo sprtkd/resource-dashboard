@@ -19,6 +19,31 @@
                 </button>
             </div>
         </div>
+        <br>
+        <br>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Data to Import
+                </mat-panel-title>
+                <mat-panel-description>
+                    Click to view Data
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <table *ngIf="fileImportObject.fileData" class="import-table">
+                <tr *ngFor="let dataRow of fileImportObject.fileData">
+                    <td *ngFor="let currDataItem of dataRow">
+                        {{currDataItem}}
+                    </td>
+                </tr>
+            </table>
+            <div *ngIf="!fileImportObject.fileData">
+                No Data Found
+            </div>
+
+        </mat-expansion-panel>
+        <br>
+        <br>
         <mat-slide-toggle [(ngModel)]="viewDetails">View Details</mat-slide-toggle>
         <mat-list *ngIf="viewDetails">
             <mat-list-item *ngFor="let msg of fileImportObject.successMessageList"

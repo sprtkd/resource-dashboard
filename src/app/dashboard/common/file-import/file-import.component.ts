@@ -12,7 +12,7 @@ export class FileImportComponent implements OnInit {
 
   fileImportObject: FileUiImportModel;
   viewDetails: Boolean;
-  constructor(private custService: CustomerService) { }
+  constructor(public custService: CustomerService) { }
 
   ngOnInit(): void {
     this.resetFileImport()
@@ -25,7 +25,7 @@ export class FileImportComponent implements OnInit {
   }
 
   onFileSelected(fileInputEvent: any) {
-    this.fileImportObject.fileSelected(fileInputEvent);
+    this.fileImportObject.fileSelected(fileInputEvent, this.custService);
   }
 
 }

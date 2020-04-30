@@ -1,5 +1,7 @@
 import { interval } from 'rxjs';
 import * as XLSX from 'xlsx';
+import { CustomerBackendModel } from '../backend/customer.backend.model';
+import { CustomerService } from 'src/app/services/customer.service';
 
 export enum FileStatus {
     NONE,
@@ -25,8 +27,12 @@ export class FileUiImportModel {
     message: String;
     fileSize: number;
     successMessageList: String[];
-    fileData: any;
-
+    fileData: AOA;
+    uploadCustomerList: CustomerBackendModel[];
+    custService: CustomerService;
+    //do not edit order
+    private headerItemList: string[] =
+        ["accountNum", "customerName", "emailId", "contact", "accountStatus", "lastTranDate", "address"];
     getFileStatus(): String {
         return FileStatus[this.status];
     }
@@ -50,16 +56,17 @@ export class FileUiImportModel {
         this.fileSize = 0;
         this.message = null;
         this.successMessageList = [];
+        this.fileData = null;
+        this.uploadCustomerList = null;
+        this.custService = null;
     }
 
     validateAndUploadExcel() {
         this.validateExcel();
-        console.log(this.fileData);
-        this.dataToModelListExtract();
-        this.uploadExcel();
     }
 
-    fileSelected(fileInputEvent: any) {
+    fileSelected(fileInputEvent: any, customerService: CustomerService) {
+        this.custService = customerService;
         /* wire up file reader */
         const target: DataTransfer = <DataTransfer>(fileInputEvent.target);
         if (target.files.length !== 1) throw new Error('Cannot use multiple files');
@@ -101,6 +108,7 @@ export class FileUiImportModel {
             return;
         }
         this.successMessageList.push("File Validated.");
+        this.dataToModelListExtract();
     }
 
     private dataToModelListExtract() {
@@ -108,20 +116,66 @@ export class FileUiImportModel {
         this.status = FileStatus.EXTRACTING
         this.uploadPercentage = 0;
         this.message = "Extracting Data from file";
+        if (this.fileData.length < 2) {
+            this.status = FileStatus.EXTRACT_FAILED;
+            this.message = "Excel dimensions wrong";
+            return;
+        }
+        let headers: string[] = this.fileData[0];
+        for (let item of this.headerItemList) {
+            if (!headers.includes(item)) {
+                this.status = FileStatus.EXTRACT_FAILED;
+                this.message = "Excel headers wrong. Missing: " + item;
+                return;
+            }
+        }
+        this.uploadCustomerList = [];
+        for (let indexOfArrayList: number = 1; indexOfArrayList < this.fileData.length; indexOfArrayList++) {
+            this.uploadCustomerList.push(this.transformDataItemToCustModel(this.fileData[indexOfArrayList], headers));
+        }
 
         this.successMessageList.push("File Extracted.");
+        this.uploadExcel();
+    }
+
+    private transformDataItemToCustModel(dataItem, header: string[]): CustomerBackendModel {
+        let customerBackendModel: CustomerBackendModel = new CustomerBackendModel();
+        customerBackendModel.accountNum = dataItem[header.indexOf(this.headerItemList[0])];
+        customerBackendModel.customerName = dataItem[header.indexOf(this.headerItemList[1])];
+        customerBackendModel.emailId = dataItem[header.indexOf(this.headerItemList[2])];
+        customerBackendModel.contact = dataItem[header.indexOf(this.headerItemList[3])];
+        customerBackendModel.accountStatus = dataItem[header.indexOf(this.headerItemList[4])];
+        customerBackendModel.lastTranDate = this.getDate(dataItem[header.indexOf(this.headerItemList[5])]);
+        customerBackendModel.address = dataItem[header.indexOf(this.headerItemList[6])];
+        customerBackendModel.ticketRaised = null;
+        customerBackendModel.ticketid = null;
+        return customerBackendModel;
+    }
+
+    private getDate(inputDate: string): Date {
+        let dateArr: string[] = inputDate.split('/');
+        let date = new Date(+dateArr[2], +dateArr[0], +dateArr[1]);
+        return date;
     }
 
 
     private uploadExcel() {
-        this.progressBarType = "determinate";
+        this.progressBarType = "indeterminate";
         this.status = FileStatus.UPLOADING;
         this.uploadPercentage = 0;
         this.message = "Uploading File to Server";
         //actual upload
-        this.successMessageList.push("File Uploaded.");
-        this.status = FileStatus.SAVED_TO_DB
-        this.successMessageList.push("Success. Data added from Excel to DB.");
-        this.message = "Success. Data added from Excel";
+        this.custService.addCustomerList(this.uploadCustomerList)
+            .subscribe((data) => {
+                this.successMessageList.push("File Uploaded.");
+                this.status = FileStatus.SAVED_TO_DB
+                this.successMessageList.push("Success. Data added from Excel to DB.");
+                this.message = "Success. Data added from Excel";
+            },
+                error => {
+                    this.status = FileStatus.UPLOAD_FAILED;
+                    this.message = "Upload failed. Error: " + error;
+                    return;
+                });
     }
 }
