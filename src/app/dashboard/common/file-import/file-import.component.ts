@@ -25,7 +25,7 @@ export class FileImportComponent implements OnInit {
   }
 
   onFileSelected(fileInputEvent: any) {
-    this.fileImportObject.fileSelected(fileInputEvent, this.custService);
+    this.fileImportObject.fileSelected(fileInputEvent);
   }
 
 }
