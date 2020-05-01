@@ -23,8 +23,10 @@ export class AuditReportExportComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  columnsToDisplay = ['name', 'ticketsClosed', 'customersAddressed', 'contactsMade', 'lastWorkedTicket'];
-  headersToDisplay = ['Name', 'Tickets Closed', 'Customers Fulfilled', 'Contacts Made', 'Last Worked Ticket'];
+  columnsToDisplay = ['name', 'totalTickets', 'ticketsClosed', 'inprogressTickets',
+    'customersAddressed', 'contactsMade', 'customerRetries', 'lastWorkedTicket'];
+  headersToDisplay = ['Name', 'Total Tickets', 'Tickets Closed', 'Tickets In Progress',
+    'Customers Retained', 'Contacts Made', 'Retries', 'Last Worked Ticket'];
   expandedElement: RepresentativeUiAuditProfile;
 
   constructor() { }
@@ -39,19 +41,25 @@ export class AuditReportExportComponent implements OnInit {
     //dummy
     let representativeUiAuditProfile: RepresentativeUiAuditProfile = new RepresentativeUiAuditProfile();
     representativeUiAuditProfile.name = "John";
+    representativeUiAuditProfile.totalTickets = 20;
+    representativeUiAuditProfile.ticketsClosed = 5;
+    representativeUiAuditProfile.inprogressTickets = 7;
+    representativeUiAuditProfile.customersAddressed = 2;
+    representativeUiAuditProfile.contactsMade = 20;
+    representativeUiAuditProfile.customerRetries = 3;
     representativeUiAuditProfile.lastWorkedTicket = "Mr. Smith";
     representativeUiAuditProfile.tickets = [];
-    representativeUiAuditProfile.ticketsClosed = 5;
-    representativeUiAuditProfile.contactsMade = 20;
-    representativeUiAuditProfile.customersAddressed = 2;
     this.auditProfileList.push(representativeUiAuditProfile);
     representativeUiAuditProfile = new RepresentativeUiAuditProfile();
     representativeUiAuditProfile.name = "Kyle";
+    representativeUiAuditProfile.totalTickets = 30;
+    representativeUiAuditProfile.ticketsClosed = 15;
+    representativeUiAuditProfile.inprogressTickets = 14;
+    representativeUiAuditProfile.customersAddressed = 6;
+    representativeUiAuditProfile.contactsMade = 40;
+    representativeUiAuditProfile.customerRetries = 5;
     representativeUiAuditProfile.lastWorkedTicket = "Mr. Mario";
     representativeUiAuditProfile.tickets = [];
-    representativeUiAuditProfile.ticketsClosed = 10;
-    representativeUiAuditProfile.contactsMade = 25;
-    representativeUiAuditProfile.customersAddressed = 4;
     this.auditProfileList.push(representativeUiAuditProfile);
     //dummy
     this.dataSource = new MatTableDataSource(this.auditProfileList);

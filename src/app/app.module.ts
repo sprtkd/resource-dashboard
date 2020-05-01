@@ -59,6 +59,7 @@ import { CustomerTableCommonviewComponent } from './dashboard/common/customer-ta
 import { AuditReportExportComponent } from './dashboard/common/audit-report-export/audit-report-export.component';
 import { StatusLabelComponent } from './dashboard/common/status-label/status-label.component';
 import { TicketHistoryComponent } from './dashboard/common/ticket-history/ticket-history.component';
+import { DetailedAuditViewComponent } from './dashboard/common/detailed-audit-view/detailed-audit-view.component';
 
 
 @NgModule({
@@ -85,7 +86,8 @@ import { TicketHistoryComponent } from './dashboard/common/ticket-history/ticket
     CustomerTableCommonviewComponent,
     AuditReportExportComponent,
     StatusLabelComponent,
-    TicketHistoryComponent
+    TicketHistoryComponent,
+    DetailedAuditViewComponent
   ],
   imports: [
     BrowserModule,
