@@ -1,3 +1,25 @@
 <div class="register-container">
-    Registration Permission is not available to you!
-</div>
+    <form [formGroup]="userForm" class="text-center border border-light p-5" (ngSubmit)="onSubmit()">
+    <div><hr width="70%">
+        <p class="h4 mb-4">Sign up</p>
+    <hr width="70%"></div>
+        <div class="form-row mb-4">
+            <div class="col">
+               Enter User Name: <input type="text" id="userName" formControlName="UserName" class="form-control" placeholder="User Name" required>
+            </div>
+            <div class="col">
+               Enter Password: <input type="password" id="password" formControlName="Password" class="form-control" placeholder="Password" required>
+            </div>
+        </div>
+        Enter Contact:
+        <input type="text" id="contact" formControlName="Contact"  class="form-control mb-4" placeholder="Contact">
+        <br>
+        <input type="radio" checked>Role: BANKOPS
+        <br><br>
+        <button class="btn btn-info my-4 btn-block" type="submit">Register</button>
+    
+        <hr width="70%">
+    
+        <span> {{message}} </span>
+    </form>
+    </div>>
