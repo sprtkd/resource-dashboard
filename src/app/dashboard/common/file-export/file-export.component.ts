@@ -8,6 +8,9 @@ import { NavbarComponent } from 'src/app/common/navbar/navbar.component';
 import { CustomerBackendModel } from 'src/app/models/backend/customer.backend.model';
 import { CustomerUiBasicModel, CustomerStatus } from 'src/app/models/ui/customer.ui.details.model';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { CustomerUiExportModel } from 'src/app/models/ui/customer.ui.export.model';
+import * as saveAs from 'file-saver';
+import * as html2pdf from 'html2pdf.js';
 
 @Component({
   selector: 'app-file-export',
@@ -27,21 +30,7 @@ export class FileExportComponent implements OnInit {
 
   fileExportModelReset() {
     this.fileUiExportModel = new FileUiExportModel();
-    this.fileUiExportModel.typeAllowed = [
-      { value: '.xlsx', viewValue: 'Excel Sheet' },
-      { value: '.pdf', viewValue: 'PDF' },
-      { value: '.csv', viewValue: 'CSV File' }
-    ];
-    this.fileUiExportModel.exportedDatasource = new MatTableDataSource();
-    this.fileUiExportModel.exportedFile = null;
-    this.fileUiExportModel.fromDateValid = false;
-    this.fileUiExportModel.toDateValid = false;
-    this.fileUiExportModel.customerFilter = null;
-    this.fileUiExportModel.typeSelected = null;
-    this.fileUiExportModel.fromDateValue = null;
-    this.fileUiExportModel.toDateValue = null;
-    this.fileUiExportModel.errMessage = null;
-    this.fileUiExportModel.listOfCustomers = null;
+    this.fileUiExportModel.resetModel();
   }
 
   resetCustomerList() {
@@ -100,9 +89,24 @@ export class FileExportComponent implements OnInit {
       this.getAllCustomers();
     }
     const workSheet = XLSX.utils.json_to_sheet(this.fileUiExportModel.exportedDatasource.data);
-    const workBook: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
-    XLSX.writeFile(workBook, 'filename.xlsx');
+    if (this.fileUiExportModel.typeSelected == ".xlsx") {
+      const workBook: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
+      XLSX.writeFile(workBook, '_export_' + new Date().toISOString() + '.xlsx');
+    } else if (this.fileUiExportModel.typeSelected == ".csv") {
+      const csvOutput: string = XLSX.utils.sheet_to_csv(workSheet);
+      saveAs.saveAs(new Blob([csvOutput]), '_export_' + new Date().toISOString() + '.csv');
+    } else {
+      const htmlOut: string = XLSX.utils.sheet_to_html(workSheet);
+      var optHtmlPDFSave = {
+        margin: 0.5,
+        filename: '_export_' + new Date().toISOString() + '.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 1 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+      html2pdf(htmlOut, optHtmlPDFSave);
+    }
   }
 
   getAllCustomers() {
@@ -115,7 +119,7 @@ export class FileExportComponent implements OnInit {
         for (let currCustomer of data) {
           let customerData: CustomerUiBasicModel = CustomerUiBasicModel.transformBackendCustomerToUI(currCustomer);
           if (this.isCustomerValidForFilter(customerData)) {
-            this.fileUiExportModel.listOfCustomers.push(customerData);
+            this.fileUiExportModel.listOfCustomers.push(CustomerUiExportModel.getExportFromBasicModel(customerData));
           }
         }
         this.fileUiExportModel.exportedDatasource = new MatTableDataSource(this.fileUiExportModel.listOfCustomers);

@@ -10,8 +10,8 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./customer-table-commonview.component.css']
 })
 export class CustomerTableCommonviewComponent implements OnInit {
-  displayedColumns: string[] = ['accountNumber', 'name', 'status'];
-  @Input() selectedDatasource: MatTableDataSource<CustomerUiBasicModel>;
+  @Input() displayedColumns: string[];
+  @Input() selectedDatasource: MatTableDataSource<any>;
   constructor() { }
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
