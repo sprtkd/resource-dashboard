@@ -51,4 +51,18 @@ export class ChartUiBasicModel {
         multiChartUiBasicModel.chartType = 'line';
         return multiChartUiBasicModel;
     }
+
+    static getBasicMultiBarChart(dataset: ChartDataSets[], yLabels: string[]) {
+        let multiChartUiBasicModel: ChartUiBasicModel = new ChartUiBasicModel();
+        multiChartUiBasicModel.chartData = dataset;
+        multiChartUiBasicModel.chartLabels = yLabels;
+        multiChartUiBasicModel.chartOptions = {
+            responsive: true
+        };
+        multiChartUiBasicModel.chartColors = [];
+        multiChartUiBasicModel.chartLegend = true;
+        multiChartUiBasicModel.chartPlugins = [];
+        multiChartUiBasicModel.chartType = 'bar';
+        return multiChartUiBasicModel;
+    }
 }

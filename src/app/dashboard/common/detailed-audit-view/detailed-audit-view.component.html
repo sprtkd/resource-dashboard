@@ -21,11 +21,16 @@
 </div>
 <hr>
 <div class="chart-div-row">
+    <mat-slide-toggle [checked]="isTimelineBar" (change)="toggleTimeline($event)">Show Timeline as Bar Graph
+    </mat-slide-toggle>
     <div class="timeline-chart-wrapper">
-        <canvas baseChart [datasets]="timelineChartUiBasicModel.chartData"
+        <canvas baseChart height="100" [datasets]="timelineChartUiBasicModel.chartData"
             [labels]="timelineChartUiBasicModel.chartLabels" [options]="timelineChartUiBasicModel.chartOptions"
             [colors]="timelineChartUiBasicModel.chartColors" [legend]="timelineChartUiBasicModel.chartLegend"
             [chartType]="timelineChartUiBasicModel.chartType" [plugins]="timelineChartUiBasicModel.chartPlugins">
         </canvas>
+        <h2>
+            Operations Timeline
+        </h2>
     </div>
 </div>
