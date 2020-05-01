@@ -104,7 +104,7 @@
                             Selected Data:
                         </h2>
                         <app-customer-table-commonview [selectedDatasource]="fileUiExportModel.exportedDatasource"
-                            *ngIf="fileUiExportModel.exportedDatasource">
+                            [displayedColumns]="fileUiExportModel.headers" *ngIf="fileUiExportModel.exportedDatasource">
                         </app-customer-table-commonview>
                     </div>
                 </div>
