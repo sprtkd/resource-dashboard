@@ -60,7 +60,7 @@ import { AuditReportExportComponent } from './dashboard/common/audit-report-expo
 import { StatusLabelComponent } from './dashboard/common/status-label/status-label.component';
 import { TicketHistoryComponent } from './dashboard/common/ticket-history/ticket-history.component';
 import { DetailedAuditViewComponent } from './dashboard/common/detailed-audit-view/detailed-audit-view.component';
-
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -90,6 +90,7 @@ import { DetailedAuditViewComponent } from './dashboard/common/detailed-audit-vi
     DetailedAuditViewComponent
   ],
   imports: [
+    ChartsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

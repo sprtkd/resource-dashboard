@@ -1,0 +1,22 @@
+.pie-chart-wrapper {
+    height: 500px;
+    width: 500px;
+    text-align: center;
+}
+
+.skills-chart-wrapper {
+    height: 500px;
+    width: 500px;
+}
+
+.chart-div-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    justify-content: center;
+}
+
+.timeline-chart-wrapper{
+    height: 600px;
+    width: 100%;
+}

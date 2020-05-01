@@ -1,1 +1,31 @@
-<p>detailed-audit-view works!</p>
+<hr>
+<div class="chart-div-row">
+    <div class="pie-chart-wrapper">
+        <canvas baseChart [datasets]="ticketChartUiBasicModel.chartData" [labels]="ticketChartUiBasicModel.chartLabels"
+            [options]="ticketChartUiBasicModel.chartOptions" [colors]="ticketChartUiBasicModel.chartColors"
+            [legend]="ticketChartUiBasicModel.chartLegend" [chartType]="ticketChartUiBasicModel.chartType"
+            [plugins]="ticketChartUiBasicModel.chartPlugins">
+        </canvas>
+        <h4>
+            Tickets Worked On
+        </h4>
+    </div>
+
+    <div class="skills-chart-wrapper">
+        <canvas baseChart [datasets]="skillsChartUiBasicModel.chartData" [labels]="skillsChartUiBasicModel.chartLabels"
+            [options]="skillsChartUiBasicModel.chartOptions" [colors]="skillsChartUiBasicModel.chartColors"
+            [legend]="skillsChartUiBasicModel.chartLegend" [chartType]="skillsChartUiBasicModel.chartType"
+            [plugins]="skillsChartUiBasicModel.chartPlugins">
+        </canvas>
+    </div>
+</div>
+<hr>
+<div class="chart-div-row">
+    <div class="timeline-chart-wrapper">
+        <canvas baseChart [datasets]="timelineChartUiBasicModel.chartData"
+            [labels]="timelineChartUiBasicModel.chartLabels" [options]="timelineChartUiBasicModel.chartOptions"
+            [colors]="timelineChartUiBasicModel.chartColors" [legend]="timelineChartUiBasicModel.chartLegend"
+            [chartType]="timelineChartUiBasicModel.chartType" [plugins]="timelineChartUiBasicModel.chartPlugins">
+        </canvas>
+    </div>
+</div>
