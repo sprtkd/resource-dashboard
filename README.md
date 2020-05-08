@@ -1,2 +1,2 @@
-# resource-dashboard for Team A + B
+# resource-dashboard demo video for Team A
 Resource Dashboard in Angular to monitor resources and export/log data
